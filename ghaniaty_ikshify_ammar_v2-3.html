@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>غنيتي — اكتشفي عمار ❤️</title>
+<style>
+:root{
+  --pink:#ef5d93;--pink2:#c83f79;--rose:#ffb6cf;--soft:#fff0f6;
+  --purple:#7b4b8f;--ink:#2d2230;--muted:#806d7a;--white:#fff;
+}
+*{box-sizing:border-box}
+html,body{min-height:100%;margin:0}
+body{
+  font-family:system-ui,-apple-system,"Segoe UI",Tahoma,Arial,sans-serif;
+  color:var(--ink);
+  background:
+    radial-gradient(circle at 10% 10%,rgba(255,177,209,.75) 0 90px,transparent 92px),
+    radial-gradient(circle at 92% 8%,rgba(220,185,255,.6) 0 110px,transparent 112px),
+    radial-gradient(circle at 10% 90%,rgba(255,229,141,.55) 0 100px,transparent 102px),
+    linear-gradient(135deg,#fff8fb,#fff1f7 45%,#f9f4ff);
+  display:flex;justify-content:center;padding:18px;
+  overflow-x:hidden;
+}
+body:before,body:after{
+  content:"❤";position:fixed;font-size:28px;opacity:.15;z-index:0;pointer-events:none;
+}
+body:before{left:7%;top:33%;transform:rotate(-18deg)}
+body:after{right:6%;bottom:26%;transform:rotate(17deg)}
+.wrap{width:min(720px,100%);margin:auto;position:relative;z-index:1}
+.card{
+  position:relative;overflow:hidden;
+  background:rgba(255,255,255,.92);backdrop-filter:blur(12px);
+  border:2px solid rgba(239,93,147,.18);border-radius:32px;
+  padding:22px;box-shadow:0 24px 70px rgba(108,50,88,.14);
+}
+.card:before{
+  content:"✦  ♥  ✦  ♥  ✦";position:absolute;top:10px;left:50%;
+  transform:translateX(-50%);color:#f4a4bf;font-size:16px;letter-spacing:10px;white-space:nowrap;
+}
+.decor{font-size:50px;text-align:center;margin-top:15px;animation:float 2.8s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-4px) rotate(2deg)}}
+h1,h2{text-align:center;margin:8px 0 12px}
+h1{font-size:34px;color:var(--pink2)}
+h2{font-size:23px;line-height:1.55}
+.intro{text-align:center;color:var(--muted);line-height:1.9}
+.badges{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:14px 0}
+.badge{background:#fff1f6;border:1px solid #ffc7da;color:#af3e70;border-radius:999px;padding:7px 12px;font-size:13px;font-weight:700}
+button{
+  width:100%;border:0;border-radius:18px;padding:15px 17px;margin-top:10px;
+  background:linear-gradient(135deg,var(--pink),var(--pink2));color:#fff;
+  font-size:17px;font-weight:800;cursor:pointer;
+  box-shadow:0 10px 24px rgba(200,63,121,.22);transition:.18s;
+}
+button:hover{transform:translateY(-1px)}
+.option{
+  background:linear-gradient(135deg,#fff,#fff6fa);color:var(--ink);
+  border:1px solid #f4c4d7;box-shadow:none;text-align:right;font-weight:700;
+}
+.option:hover{background:#fff0f6;border-color:#ef8fb0;color:#a53368}
+.progress{height:10px;background:#f5dce6;border-radius:99px;overflow:hidden;margin:7px 0 18px}
+.bar{height:100%;width:0;background:linear-gradient(90deg,#ff8db4,#a95ad0);transition:.3s}
+.meta{text-align:center;color:var(--muted);font-size:14px;font-weight:700}
+.note{
+  background:linear-gradient(135deg,#fff3f8,#f7efff);
+  border:1px solid #efd4e6;border-radius:20px;padding:12px 14px;text-align:center;
+  margin:14px 0;color:#70586b;font-size:14px;
+}
+.score{font-size:58px;font-weight:950;text-align:center;color:var(--pink2);margin:8px}
+.message{
+  position:relative;background:linear-gradient(145deg,#fff0f6,#fff8fb 55%,#f5edff);
+  border:1px solid #f5bfd4;border-radius:24px;padding:18px 16px;margin-top:14px;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.7);
+}
+.message:after{content:"♥";position:absolute;left:14px;top:10px;color:#f28bb0;font-size:22px;opacity:.8}
+.final{font-size:17px;line-height:2}
+.center{text-align:center}
+.small{text-align:center;color:var(--muted);font-size:12px;margin-top:12px}
+.highlight{color:var(--pink2);font-weight:900}
+.hidden{display:none}
+</style>
+</head>
+<body>
+<div class="wrap"><div class="card" id="app">
+  <div class="decor">💗✨</div>
+  <h1>غنيتي…</h1>
+  <p class="intro">لعبة صغيرة إلك 😌<br>نشوف قديش بتعرفي عمار… وقديش لسا في شغلات فيه بدها اكتشاف ❤️</p>
+  <div class="badges"><span class="badge">10 أسئلة</span><span class="badge">شوية فخاخ 😂</span><span class="badge">والنهاية فيها شي إلك 💌</span></div>
+  <button onclick="start()">يلا غنيتي، بلّشنا ❤️</button>
+  <p class="small">جاوبي بسرعة… أول جواب بيخطر ببالك غالباً هو الصح 😏</p>
+</div></div>
+
+<script>
+const qs=[
+ {q:"إذا في كلمة عمار بينزعج منها كأنها شتيمة رسمية 😂… شو هي؟",a:["مستحيل","بكرا","يمكن","اهدأ"],c:0},
+ {q:"عمار إذا حط براسه شغلة جد… شو بيصير؟",a:["بيتحمس يومين وبعدين بينسى","بيجرب، وإذا صعبت بيعتبرها إشارة كونية للانسحاب 😂","بيضل يقاتل ليوصل، حتى لو الطريق طويل","بينطر حدا يحمّسه"],c:2},
+ {q:"إذا بدنا نعمل لعمار «قائمة الممنوعين من الاقتراب» 😂… مين أول اسمين فيها؟",a:["الكذاب والغبي","الهادئ والخجول","اللي بيحب القهوة زيادة","اللي بيتأخر خمس دقايق"],c:0},
+ {q:"تخيّلي حدا وقف قدام عمار وقال له: «انسَها… ما رح تقدر تعملها، مستحيلة» 😂 شو صار هلق؟",a:["بيقول معك حق وبيفوت ينام","بيزعل شوي وبعدين بينسى","بتصير «مستحيل» عنده مثل زر تشغيل، وبيبلّش يفتش على ألف طريقة ليعملها","بيقول خلص ما بدي"],c:2},
+ {q:"لما يكون عمار معصّب من شخص بيحبه… شو المشكلة الحقيقية غالباً؟ 😅",a:["إنه ما عنده مشاعر","إنه لسانه أسرع من ترتيب أفكاره","إنه صار يحب الهدوء فجأة","إنه بيكره النقاش"],c:1},
+ {q:"إذا صار مع عمار مبلغ كبير فجأة 💸، شو الشي الأهم؟",a:["يشتري أغلى شي ويعمل ستوري","يحطه تحت المخدة 😂","يستخدمه كوسيلة ليبني الشي اللي بده يوصله ويكبر حياته","يصرفه كله بيوم واحد"],c:2},
+ {q:"شو أقرب وصف لعمار؟",a:["بياخد الدنيا ببساطة وما عنده طموح كبير","مقاتل، طموح، وبيحب يعمل شي مختلف ويترك بصمته","بخاف من الفشل لدرجة ما بيجرب","المهم عنده الراحة وبس"],c:1},
+ {q:"سؤال غش 😂: إذا سألنا عمار «شو أهم: المصاري ولا الحب؟» شو الجواب اللي ما لازم نغلط فيه؟",a:["المصاري طبعاً","الحب طبعاً والمصاري ما إلها أي قيمة","المصاري مهمة كطموح ومسؤولية، بس الحب الحقيقي ما بينحط معه بنفس الميزان أصلاً","الاتنين نفس الشي"],c:2},
+ {q:"إذا كان عمار ما عنده حماس اليوم… شو الشي اللي ممكن يفوّقه؟",a:["خلّيه ينام 5 ساعات زيادة 😂","ذكره ليش لازم يعمل الشغلة، وشو رح يخسر إذا ظل مأجل","قله: ولا يهمك بكرا","خبّي عنه الموبايل"],c:1},
+ {q:"والسؤال الأصعب 😏: شو الشي اللي لازم تعرفيه عن عمار حتى لو كل العالم ما عرفته؟",a:["إنه ما بيتأثر بأي شي أبداً","إنه ما بيحب حدا يعرف عنه شي","إنه مهما كان قوي وعنيد وطموح، الشخص اللي بيحبه ما بينحط بأي مقارنة مع أي إنجاز أو مال","إنه أهم شي عنده يربح بأي نقاش"],c:2}
+];
+
+let n=0,score=0;
+function start(){n=0;score=0;render()}
+function render(){
+ const q=qs[n],pct=(n/qs.length)*100;
+ document.getElementById("app").innerHTML=`
+  <div class="decor">💗</div>
+  <div class="meta">السؤال ${n+1} من ${qs.length}</div>
+  <div class="progress"><div class="bar" style="width:${pct}%"></div></div>
+  <h2>${q.q}</h2>
+  <div>${q.a.map((x,j)=>`<button class="option" onclick="ans(${j})">${x}</button>`).join("")}</div>
+  <div class="note">جاوبي على حسب «عمار اللي بتعرفيه»… مو حسب المنطق 😂❤️</div>
+ `;
+}
+function ans(j){
+ if(j===qs[n].c)score++;
+ n++;
+ n<qs.length?render():finish();
+}
+function finish(){
+ const p=Math.round(score/qs.length*100);
+ let head=p>=90?"غنيتي… إنتِ حافظتيني أكتر مما لازم 😂❤️":p>=70?"غنيتي، ممتاز… بس لسا في شغلات عن عمار ما انكشفت 😏":"هي مو مسابقة أصلاً 😌… يمكن حان وقت تكتشفي عمار أكتر ❤️";
+ document.getElementById("app").innerHTML=`
+  <div class="decor">💖✨💖</div>
+  <h1>${head}</h1>
+  <div class="score">${p}%</div>
+  <div class="message final">
+    <strong>بس هلق الأهم… انسَي النتيجة كلها.</strong>
+    <br><br>
+    يمكن اليوم اختلفنا، ويمكن أنا عبّرت عن فكرتي بطريقة عصبية وخليتك تفهميني غلط.
+    وأنا بعترف إن طريقتي بالتعبير ما كانت أحسن شي.
+    <br><br>
+    بس إذا في شغلة بدي تكون واضحة عندك، فهي إنك بالنسبة إلي مو جزء من حساباتي…
+    <strong>إنتِ الشي اللي ما بينحسب أصلاً. ❤️</strong>
+    <br><br>
+    المصاري بالنسبة إلي طموح، مسؤولية، وأداة أبني فيها الحياة اللي بدي ياها.
+    بس ما بدي يوم من الأيام يصير عندي كل شي بالدنيا وأخسر الشخص اللي بحبه.
+    <br><br>
+    <div class="center">
+      <strong class="highlight">كل أموال الدنيا ما بتساوي عندي لحظة وحدة وأنا حاسس إنك معي. ❤️</strong>
+      <br><br>
+      <strong>وبالنسبة إلي… هالشخص إنتِ. ❤️</strong>
+    </div>
+  </div>
+  <button onclick="start()">منعيدها يا غنيتي؟ 😏❤️</button>
+  <p class="small">مصمّمة خصيصاً لغنيتي… من عمار ❤️</p>
+ `;
+}
+</script>
+</body>
+</html>
