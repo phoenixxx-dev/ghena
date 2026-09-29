@@ -1,0 +1,1081 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>فينيق FENIQ</title>
+<meta name="description" content="فينيق: منصة رقمية تربط الصيدليات بمستودعات الأدوية في سوريا. اطلب بلمسة، تابع التوصيل، واحصل على حسم حقيقي على كل طلب.">
+<meta name="theme-color" content="#001333">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=Readex+Pro:wght@500;600;700&display=swap">
+<style>
+/* Layout: mobile-first single column; from 960px the hero splits (copy | 3D phoenix),
+   "how it works" pins a 3D phone beside three steps, and audience sections become 2-column.
+   Palette is taken only from the FENIQ logo: deep navy ground, silver wing, fire-orange body. */
+:root{
+  --navy-950:#001333;   /* logo background */
+  --navy-900:#0B1F3A;   /* brand navy */
+  --silver:#E8E9EC;     /* the wing */
+  --orange:#F26A1B;     /* the body */
+  --flame:#FB7C15;
+  --gold:#FFB547;       /* glow only */
+
+  --bg:var(--navy-950);
+  --bg-2:#06193D;
+  --surface:#0E2547;
+  --surface-2:#15305A;
+  --line:rgba(232,233,236,.10);
+  --line-2:rgba(232,233,236,.18);
+  --text:var(--silver);
+  --muted:#A3B2C9;
+  --accent:var(--orange);
+  --accent-ink:#FF8A45;       /* orange used as small text on dark */
+  --on-accent:var(--navy-950);
+  --glow:rgba(242,106,27,.28);
+  --shadow:0 30px 80px -30px rgba(0,0,0,.6);
+
+  --f-display:"Readex Pro","IBM Plex Sans Arabic",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans Arabic","Readex Pro",system-ui,"Segoe UI",Tahoma,sans-serif;
+
+  --t-xs:.8125rem; --t-sm:.9375rem; --t-md:1.0625rem; --t-lg:1.25rem;
+  --t-xl:clamp(1.6rem,1.2rem + 1.6vw,2.25rem);
+  --t-2xl:clamp(2.1rem,1.4rem + 3.4vw,3.9rem);
+  --r-sm:10px; --r-md:16px; --r-lg:24px; --r-xl:32px;
+  --gutter:clamp(16px,4vw,40px);
+  color-scheme:dark;
+}
+:root[data-theme="light"]{
+  --bg:#F3F5F9; --bg-2:#FFFFFF; --surface:#FFFFFF; --surface-2:#EAEFF6;
+  --line:rgba(11,31,58,.10); --line-2:rgba(11,31,58,.18);
+  --text:var(--navy-900); --muted:#4D5D77;
+  --accent:#EA6214; --accent-ink:#B64A08; --on-accent:var(--navy-950);
+  --glow:rgba(242,106,27,.18); --shadow:0 30px 70px -34px rgba(11,31,58,.35);
+  color-scheme:light;
+}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--f-body);font-size:var(--t-md);line-height:1.75;overflow-x:hidden;direction:rtl}
+html[dir="ltr"] body{direction:ltr}
+img,svg{max-width:100%;display:block}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:1.3;margin:0;text-wrap:balance}
+p{margin:0}
+.wrap{width:100%;max-width:1200px;margin-inline:auto;padding-inline:var(--gutter)}
+.muted{color:var(--muted)}
+.ico{width:22px;height:22px;flex:none;stroke:currentColor;fill:none;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;inset-inline-start:12px;top:-60px;z-index:50;background:var(--accent);color:var(--on-accent);padding:8px 14px;border-radius:8px;text-decoration:none}
+.skip:focus{top:12px}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:12px 22px;border-radius:999px;border:1px solid var(--line-2);background:transparent;text-decoration:none;font-weight:600;font-size:var(--t-sm);transition:transform .2s ease,background-color .2s ease,border-color .2s ease,box-shadow .2s ease}
+.btn:hover{border-color:var(--accent)}
+.btn:active{transform:scale(.98)}
+.btn-primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent);box-shadow:0 10px 30px -10px var(--glow)}
+.btn-primary:hover{background:var(--flame);border-color:var(--flame);box-shadow:0 14px 40px -10px var(--glow)}
+.btn .ico{width:20px;height:20px}
+
+/* ---------- nav ---------- */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:color-mix(in srgb,var(--bg) 78%,transparent);backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;gap:12px;min-height:64px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;margin-inline-end:auto}
+.brand img{height:36px;width:auto}
+.brand .word{height:30px;width:auto}
+.logo-navy{display:none}
+:root[data-theme="light"] .logo-navy{display:block}
+:root[data-theme="light"] .logo-silver{display:none}
+.nav-links{display:none;gap:4px;list-style:none;margin:0;padding:0}
+.nav-links a{display:block;padding:8px 12px;border-radius:999px;text-decoration:none;color:var(--muted);font-size:var(--t-sm);transition:color .2s,background-color .2s}
+.nav-links a:hover{color:var(--text);background:var(--line)}
+.icon-btn{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:999px;border:1px solid var(--line);background:transparent;transition:border-color .2s,background-color .2s}
+.icon-btn:hover{border-color:var(--line-2);background:var(--line)}
+.lang-btn{width:auto;padding-inline:14px;font-weight:600;font-size:var(--t-xs);letter-spacing:.04em}
+.nav .btn{display:none}
+.theme-sun{display:none}
+:root[data-theme="light"] .theme-sun{display:block}
+:root[data-theme="light"] .theme-moon{display:none}
+@media (min-width:960px){.nav-links{display:flex}.nav .btn{display:inline-flex;min-height:44px;padding-block:8px}}
+
+/* ---------- hero ---------- */
+.hero{position:relative;isolation:isolate;overflow:hidden}
+.hero::before{content:"";position:absolute;z-index:-2;inset:-10% -20% auto;height:120%;background:radial-gradient(50% 45% at 30% 45%,var(--glow),transparent 70%),radial-gradient(40% 40% at 80% 10%,rgba(232,233,236,.05),transparent 70%)}
+:root[dir="ltr"] .hero::before{transform:scaleX(-1)}
+.hero .wrap{display:grid;gap:clamp(24px,4vw,48px);padding-block:clamp(28px,6vw,72px) clamp(48px,7vw,96px)}
+.hero-copy{display:grid;gap:22px;align-content:center;min-width:0}
+.hero h1{font-size:var(--t-2xl);font-weight:700;line-height:1.2;letter-spacing:-.01em}
+html[lang="en"] .hero h1{letter-spacing:-.025em;line-height:1.08}
+.hero .lead{font-size:var(--t-lg);color:var(--muted);max-width:40ch;line-height:1.8}
+.ctas{display:flex;flex-wrap:wrap;gap:12px}
+.facts{display:flex;flex-wrap:wrap;gap:8px 18px;list-style:none;margin:0;padding:0;font-size:var(--t-sm);color:var(--muted)}
+.facts li{display:flex;align-items:center;gap:8px}
+.facts .ico{width:18px;height:18px;color:var(--accent-ink)}
+.stage{position:relative;aspect-ratio:1/1;max-width:100%;width:min(100%,560px);justify-self:center}
+.stage canvas{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity 1.2s ease}
+.stage.live canvas{opacity:1}
+.stage .still{position:absolute;inset:14%;width:72%;height:auto;object-fit:contain;filter:drop-shadow(0 20px 60px var(--glow));transition:opacity .8s ease}
+.stage.live .still{opacity:0}
+.stage .halo{position:absolute;inset:10%;border-radius:50%;background:radial-gradient(circle,var(--glow),transparent 65%);filter:blur(10px);z-index:-1}
+@media (max-width:959px){.stage{width:min(72%,340px)}}
+@media (min-width:960px){.hero .wrap{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);align-items:center;min-height:min(760px,calc(100dvh - 64px))}}
+
+/* ---------- sections ---------- */
+section{scroll-margin-top:72px}
+.sec{padding-block:clamp(64px,10vw,128px)}
+.sec-alt{background:var(--bg-2);border-block:1px solid var(--line)}
+.sec-head{display:grid;gap:14px;max-width:62ch;margin-bottom:clamp(32px,5vw,56px)}
+.sec-head h2{font-size:var(--t-xl)}
+.sec-head p{color:var(--muted);font-size:var(--t-md)}
+.pill{justify-self:start;display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;border:1px solid var(--line-2);font-size:var(--t-xs);font-weight:600;color:var(--accent-ink)}
+.pill .ico{width:16px;height:16px}
+
+/* problem vs solution */
+.compare{display:grid;gap:16px}
+.col{border-radius:var(--r-lg);padding:clamp(20px,3vw,32px);display:grid;gap:18px;align-content:start;border:1px solid var(--line)}
+.col h3{font-size:var(--t-lg);display:flex;align-items:center;gap:10px}
+.col.old{background:transparent}
+.col.old h3{color:var(--muted)}
+.col.new{background:var(--surface);border-color:color-mix(in srgb,var(--accent) 40%,transparent);box-shadow:var(--shadow)}
+.col ul{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.col li{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start}
+.col li b{display:block;font-weight:600}
+.col li span{color:var(--muted);font-size:var(--t-sm)}
+.col.old .ico{color:var(--muted);margin-top:4px}
+.col.new .ico{color:var(--accent);margin-top:4px}
+.col.new .brandmark{height:26px;width:auto}
+@media (min-width:860px){.compare{grid-template-columns:1fr 1fr;gap:24px}}
+
+/* how it works + 3D phone */
+.how{display:grid;gap:40px}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:12px;counter-reset:s}
+.step{position:relative;display:grid;grid-template-columns:auto 1fr;gap:16px;padding:20px;border-radius:var(--r-lg);border:1px solid transparent;cursor:pointer;transition:background-color .3s,border-color .3s;text-align:start;background:transparent;width:100%}
+.step::before{counter-increment:s;content:counter(s);display:grid;place-items:center;width:44px;height:44px;border-radius:50%;border:1px solid var(--line-2);font-family:var(--f-display);font-weight:600;color:var(--muted);transition:all .3s}
+:root[lang="ar"] .step::before{content:counter(s,arabic-indic)}
+.step .st{display:block;font-family:var(--f-display);font-weight:600;font-size:var(--t-lg);margin-bottom:4px}
+.step .sd{display:block;color:var(--muted);font-size:var(--t-sm)}
+.step[aria-current="true"]{background:var(--surface);border-color:var(--line)}
+.step[aria-current="true"]::before{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.phone-col{display:grid;place-items:center;perspective:1400px;min-width:0}
+@media (min-width:960px){
+  .how{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:start}
+  .phone-col{position:sticky;top:110px}
+  .steps{padding-block:40px}
+  .step{padding:28px}
+}
+
+.phone{--rx:8deg;--ry:-16deg;position:relative;width:min(300px,78vw);aspect-ratio:9/19.2;transform-style:preserve-3d;transform:rotateX(var(--rx)) rotateY(var(--ry));transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+:root[dir="ltr"] .phone{--ry:16deg}
+.phone .body{position:absolute;inset:0;border-radius:46px;background:linear-gradient(145deg,#2b3a55,#0b1629 40%,#1d2a42);box-shadow:inset 0 0 0 2px rgba(232,233,236,.12),0 50px 90px -30px rgba(0,0,0,.7),0 0 0 1px rgba(0,0,0,.4)}
+.phone .edge{position:absolute;inset:0;border-radius:46px;transform:translateZ(-14px);background:#08101f;box-shadow:0 0 0 1px rgba(232,233,236,.08)}
+.phone .edge.e2{transform:translateZ(-7px);background:#111c30}
+.phone .screen{position:absolute;inset:10px;border-radius:37px;overflow:hidden;background:#F6F7FA;color:#0B1F3A;transform:translateZ(1px);font-size:12px;line-height:1.5}
+.phone .notch{position:absolute;top:10px;left:50%;translate:-50% 0;width:34%;height:24px;border-radius:999px;background:#05080f;z-index:3}
+.phone .glare{position:absolute;inset:10px;border-radius:37px;background:linear-gradient(115deg,rgba(255,255,255,.18),transparent 35%);pointer-events:none;transform:translateZ(2px)}
+.phone-shadow{width:60%;height:30px;margin-top:-10px;border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.45),transparent);filter:blur(6px)}
+:root[data-theme="light"] .phone-shadow{background:radial-gradient(closest-side,rgba(11,31,58,.25),transparent)}
+
+/* app screens (always light, like the real app) */
+.app{position:absolute;inset:0;padding:46px 14px 14px;display:grid;grid-template-rows:auto 1fr auto;gap:10px;opacity:0;transform:translateX(12px);transition:opacity .45s ease,transform .45s ease;pointer-events:none;direction:rtl}
+.app.on{opacity:1;transform:none;pointer-events:auto}
+.app-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.app-top b{font-family:var(--f-display);font-size:15px}
+.app-top img{height:22px;width:auto}
+.app-list{display:grid;gap:8px;align-content:start;min-height:0;overflow:hidden}
+.app-card{background:#fff;border-radius:14px;padding:10px 12px;display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;box-shadow:0 1px 0 rgba(11,31,58,.06),0 6px 16px -10px rgba(11,31,58,.25)}
+.app-card .av{width:34px;height:34px;border-radius:10px;background:#0B1F3A;color:#fff;display:grid;place-items:center}
+.app-card .av svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.75}
+.app-card .av.o{background:#FFF1E8;color:#E2600F}
+.app-card > div{min-width:0}
+.app-card small{display:block;color:#5B6B85;font-size:10.5px}
+.app-card.sel{outline:2px solid #F26A1B}
+.chip{font-size:10px;font-weight:600;padding:2px 8px;border-radius:999px;background:#FFF1E8;color:#B64A08;white-space:nowrap}
+.qty{display:flex;align-items:center;gap:6px;font-weight:600}
+.qty i{width:20px;height:20px;border-radius:6px;background:#EEF1F6;display:grid;place-items:center;font-style:normal}
+.app-cta{background:#F26A1B;color:#001333;border-radius:14px;padding:11px;text-align:center;font-weight:700;font-size:13px}
+.app-note{background:#0B1F3A;color:#E8E9EC;border-radius:14px;padding:10px 12px;display:flex;justify-content:space-between;gap:8px;font-size:11px}
+.app-note b{color:#FFB547}
+.track{list-style:none;margin:0;padding:6px 4px;display:grid;gap:0}
+.track li{position:relative;padding-inline-start:26px;padding-bottom:14px}
+.track li::before{content:"";position:absolute;inset-inline-start:5px;top:5px;width:10px;height:10px;border-radius:50%;background:#CBD3E0}
+.track li::after{content:"";position:absolute;inset-inline-start:9.5px;top:17px;bottom:-2px;width:1px;background:#CBD3E0}
+.track li:last-child::after{display:none}
+.track li.done::before{background:#0B1F3A}
+.track li.now::before{background:#F26A1B;box-shadow:0 0 0 5px rgba(242,106,27,.2)}
+.track small{display:block;color:#5B6B85;font-size:10.5px}
+.minimap{height:92px;border-radius:14px;background:#E9EEF5;position:relative;overflow:hidden}
+.minimap svg{position:absolute;inset:0;width:100%;height:100%}
+.demo-tag{position:absolute;bottom:8px;left:50%;translate:-50% 0;font-size:9px;color:#8391A8;white-space:nowrap}
+
+/* audience sections */
+.aud{display:grid;gap:32px;align-items:center}
+.feats{display:grid;gap:12px;list-style:none;margin:0;padding:0}
+.feat{display:grid;grid-template-columns:auto 1fr;gap:16px;padding:18px;border-radius:var(--r-md);border:1px solid var(--line);background:color-mix(in srgb,var(--surface) 50%,transparent)}
+.feat .ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:color-mix(in srgb,var(--accent) 14%,transparent);color:var(--accent-ink)}
+.feat h3{font-size:var(--t-md);font-weight:600;margin-bottom:2px}
+.feat p{color:var(--muted);font-size:var(--t-sm)}
+@media (min-width:640px){.feats{grid-template-columns:1fr 1fr}}
+@media (min-width:1024px){.aud{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:56px}.aud.flip > :first-child{order:2}}
+
+.panel{border-radius:var(--r-xl);background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);padding:clamp(20px,3vw,32px);display:grid;gap:18px;min-width:0}
+.panel-head{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.panel-head b{font-family:var(--f-display);font-weight:600}
+.savings svg{width:100%;height:auto;overflow:visible}
+.savings .area{fill:url(#sv-grad)}
+.savings .ln{fill:none;stroke:var(--accent);stroke-width:2.5;stroke-linecap:round}
+.savings .grid line{stroke:var(--line);stroke-width:1}
+.savings .end{fill:var(--accent);stroke:var(--surface);stroke-width:3}
+.savings text{fill:var(--muted);font-size:11px;font-family:var(--f-body)}
+.legend{display:flex;flex-wrap:wrap;gap:8px}
+.tagline{font-size:var(--t-xs);color:var(--muted)}
+
+.dash{display:grid;gap:12px}
+.dash-row{display:grid;grid-template-columns:1fr auto auto;gap:12px;align-items:center;padding:12px 14px;border-radius:12px;background:var(--surface-2);font-size:var(--t-sm)}
+.dash-row small{display:block;color:var(--muted);font-size:var(--t-xs)}
+.state{font-size:var(--t-xs);font-weight:600;padding:3px 10px;border-radius:999px;border:1px solid var(--line-2);white-space:nowrap}
+.state.new{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.xl{display:flex;align-items:center;gap:14px;padding:14px;border-radius:14px;border:1px dashed var(--line-2)}
+.xl .ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:var(--surface-2);color:var(--accent-ink)}
+.xl-bar{height:6px;border-radius:99px;background:var(--surface-2);overflow:hidden;margin-top:8px}
+.xl-bar i{display:block;height:100%;width:100%;background:linear-gradient(to left,var(--gold),var(--accent));transform-origin:right;animation:fill 3.2s ease-in-out infinite}
+:root[dir="ltr"] .xl-bar i{transform-origin:left}
+@keyframes fill{0%{transform:scaleX(.08)}60%,100%{transform:scaleX(1)}}
+
+/* trust */
+.trust{position:relative;overflow:hidden;isolation:isolate}
+.trust::before{content:"";position:absolute;inset:auto -10% -40% -10%;height:80%;z-index:-1;background:radial-gradient(50% 60% at 50% 100%,var(--glow),transparent 70%)}
+.vault{display:grid;gap:16px}
+.vault article{border-radius:var(--r-lg);border:1px solid var(--line-2);padding:clamp(22px,3vw,32px);display:grid;gap:12px;align-content:start;background:color-mix(in srgb,var(--bg) 60%,transparent);backdrop-filter:blur(6px)}
+.vault .ic{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;background:var(--accent);color:var(--on-accent)}
+.vault .ic .ico{width:26px;height:26px}
+.vault h3{font-size:var(--t-lg)}
+.vault p{color:var(--muted);font-size:var(--t-sm)}
+@media (min-width:860px){.vault{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.iso{margin-top:32px;border-radius:var(--r-xl);border:1px solid var(--line);padding:clamp(18px,3vw,28px);display:grid;gap:16px}
+.iso-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.cell{border-radius:14px;padding:14px 12px;background:var(--surface);border:1px solid var(--line);display:grid;gap:6px;justify-items:start;font-size:var(--t-sm);min-width:0}
+.cell .ico{color:var(--muted);width:18px;height:18px}
+.cell.me{border-color:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 15%,transparent)}
+.cell.me .ico{color:var(--accent-ink)}
+.cell .blur{filter:blur(4px);user-select:none;color:var(--muted)}
+@media (max-width:520px){.iso-grid{grid-template-columns:1fr}}
+
+/* network map */
+.net{display:grid;gap:32px;align-items:center}
+@media (min-width:960px){.net{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)}}
+.map{position:relative;border-radius:var(--r-xl);border:1px solid var(--line);background:radial-gradient(80% 70% at 10% 40%,color-mix(in srgb,var(--accent) 10%,transparent),transparent 60%),var(--bg-2);padding:clamp(10px,2vw,20px);min-width:0}
+.map svg{width:100%;height:auto}
+.map .land{fill:var(--surface);stroke:var(--line-2);stroke-width:1.5}
+.map .link{fill:none;stroke:var(--accent);stroke-width:1.4;stroke-linecap:round;opacity:.55}
+.map .link.later{stroke:var(--muted);stroke-dasharray:3 6;opacity:.45}
+.map .pulse{fill:none;stroke:var(--gold);stroke-width:2.2;stroke-linecap:round;stroke-dasharray:14 400;animation:run 3.6s linear infinite}
+@keyframes run{from{stroke-dashoffset:414}to{stroke-dashoffset:0}}
+.map .ph{fill:var(--silver)}
+:root[data-theme="light"] .map .ph{fill:var(--navy-900)}
+.map .city{fill:var(--muted)}
+.map .home{fill:var(--accent)}
+.map .ring{fill:none;stroke:var(--accent);stroke-width:1.5;transform-box:fill-box;transform-origin:center;animation:ring 2.6s ease-out infinite}
+@keyframes ring{from{transform:scale(1);opacity:.9}to{transform:scale(3.4);opacity:0}}
+.map text{font-family:var(--f-body);font-size:13px;fill:var(--muted)}
+.map text.home-t{fill:var(--text);font-weight:600;font-size:15px}
+.keys{display:flex;flex-wrap:wrap;gap:10px 20px;list-style:none;margin:0;padding:0;font-size:var(--t-sm);color:var(--muted)}
+.keys li{display:flex;align-items:center;gap:8px}
+.keys i{width:18px;height:2px;background:var(--accent);display:block}
+.keys i.d{background:repeating-linear-gradient(to left,var(--muted) 0 3px,transparent 3px 7px)}
+.keys i.dot{width:8px;height:8px;border-radius:50%;background:var(--silver)}
+:root[data-theme="light"] .keys i.dot{background:var(--navy-900)}
+
+/* vision */
+.eco{display:grid;gap:14px}
+@media (min-width:720px){.eco{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.eco article{position:relative;border-radius:var(--r-lg);padding:26px;border:1px dashed var(--line-2);display:grid;gap:10px;align-content:start}
+.eco .ic{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;border:1px solid var(--line-2);color:var(--accent-ink)}
+.eco h3{font-size:var(--t-lg);font-family:var(--f-display)}
+.eco p{color:var(--muted);font-size:var(--t-sm)}
+.soon{position:absolute;top:22px;inset-inline-end:22px;font-size:var(--t-xs);font-weight:600;padding:3px 10px;border-radius:999px;background:var(--surface-2);color:var(--muted)}
+.eco-now{border-style:solid!important;border-color:color-mix(in srgb,var(--accent) 45%,transparent)!important;background:var(--surface)}
+.eco-now .soon{background:var(--accent);color:var(--on-accent)}
+
+/* faq */
+.faq{display:grid;gap:10px;max-width:860px}
+.faq details{border-radius:var(--r-md);border:1px solid var(--line);background:var(--surface);transition:border-color .2s}
+.faq details[open]{border-color:var(--line-2)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 20px;font-weight:600;min-height:56px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .ico{transition:transform .25s;color:var(--muted)}
+.faq details[open] summary .ico{transform:rotate(180deg)}
+.faq .a{padding:0 20px 20px;color:var(--muted);max-width:68ch}
+
+/* contact */
+.contact{display:grid;gap:32px}
+@media (min-width:960px){.contact{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);align-items:start}}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:6px;border-radius:999px;background:var(--surface-2);border:1px solid var(--line)}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg label{display:flex;align-items:center;justify-content:center;gap:8px;min-height:44px;border-radius:999px;cursor:pointer;font-weight:600;font-size:var(--t-sm);color:var(--muted);transition:background-color .25s,color .25s}
+.seg input:checked + label{background:var(--accent);color:var(--on-accent)}
+.seg input:focus-visible + label{outline:2px solid var(--accent);outline-offset:2px}
+.form{display:grid;gap:14px}
+.row2{display:grid;gap:14px}
+@media (min-width:640px){.row2{grid-template-columns:1fr 1fr}}
+.field{display:grid;gap:6px}
+.field label{font-size:var(--t-sm);font-weight:500}
+.field input,.field textarea,.field select{width:100%;min-height:48px;padding:12px 14px;border-radius:12px;border:1px solid var(--line-2);background:var(--bg);color:var(--text);font:inherit;font-size:16px;transition:border-color .2s,box-shadow .2s}
+.field textarea{min-height:110px;resize:vertical}
+.field input:focus,.field textarea:focus,.field select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 18%,transparent)}
+.field .err{font-size:var(--t-xs);color:var(--accent-ink)}
+.field input[aria-invalid="true"]{border-color:var(--accent)}
+.hint{font-size:var(--t-xs);color:var(--muted)}
+.form-done{border-radius:var(--r-md);padding:16px 18px;background:var(--surface-2);border:1px solid var(--line-2);display:flex;gap:12px;align-items:flex-start}
+.form-done .ico{color:var(--accent-ink);margin-top:3px}
+.channels{display:grid;gap:10px}
+.channel{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:var(--r-md);border:1px solid var(--line);text-decoration:none;background:var(--surface);transition:border-color .2s,transform .2s}
+.channel:hover{border-color:var(--accent);transform:translateY(-2px)}
+.channel .ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:var(--surface-2);color:var(--accent-ink)}
+.channel small{display:block;color:var(--muted);font-size:var(--t-xs)}
+
+/* final + footer */
+.final{text-align:center}
+.final .wrap{display:grid;justify-items:center;gap:22px;padding-block:clamp(64px,10vw,120px)}
+.final img{width:72px;height:auto;filter:drop-shadow(0 12px 30px var(--glow))}
+.final h2{font-size:var(--t-2xl);max-width:18ch}
+.final p{max-width:48ch;color:var(--muted)}
+footer{border-top:1px solid var(--line);background:var(--bg-2)}
+.foot{display:grid;gap:28px;padding-block:44px 28px}
+@media (min-width:860px){.foot{grid-template-columns:1.4fr repeat(3,1fr)}}
+.foot h4{margin:0 0 10px;font-size:var(--t-sm);font-family:var(--f-display)}
+.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:6px;font-size:var(--t-sm)}
+.foot a{text-decoration:none;color:var(--muted)}
+.foot a:hover{color:var(--text)}
+.foot .word{height:44px;width:auto;margin-bottom:12px}
+.legal{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;padding-block:18px;border-top:1px solid var(--line);font-size:var(--t-xs);color:var(--muted)}
+
+/* scroll reveal: content is visible at rest; JS only adds a gentle rise when it enters */
+@media (prefers-reduced-motion:no-preference){
+  .rv.in{animation:rise .8s cubic-bezier(.2,.7,.2,1) both}
+  @keyframes rise{from{transform:translateY(18px);opacity:.4}to{transform:none;opacity:1}}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+}
+</style>
+<link rel="icon" href="assets/mark-silver.webp">
+</head>
+<body>
+
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="i-phone-call" viewBox="0 0 24 24"><svg class="lucide lucide-phone-call" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" /> <path d="M14.05 2a9 9 0 0 1 8 7.94" /> <path d="M14.05 6A5 5 0 0 1 18 10" /></symbol><symbol id="i-clock" viewBox="0 0 24 24"><svg class="lucide lucide-clock" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="10" /> <polyline points="12 6 12 12 16 14" /></symbol><symbol id="i-triangle-alert" viewBox="0 0 24 24"><svg class="lucide lucide-triangle-alert" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /> <path d="M12 9v4" /> <path d="M12 17h.01" /></symbol><symbol id="i-hand-coins" viewBox="0 0 24 24"><svg class="lucide lucide-hand-coins" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M11 15h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 17" /> <path d="m7 21 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9" /> <path d="m2 16 6 6" /> <circle cx="16" cy="9" r="2.9" /> <circle cx="6" cy="5" r="3" /></symbol><symbol id="i-zap" viewBox="0 0 24 24"><svg class="lucide lucide-zap" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z" /></symbol><symbol id="i-eye" viewBox="0 0 24 24"><svg class="lucide lucide-eye" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" /> <circle cx="12" cy="12" r="3" /></symbol><symbol id="i-truck" viewBox="0 0 24 24"><svg class="lucide lucide-truck" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2" /> <path d="M15 18H9" /> <path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14" /> <circle cx="17" cy="18" r="2" /> <circle cx="7" cy="18" r="2" /></symbol><symbol id="i-tag" viewBox="0 0 24 24"><svg class="lucide lucide-tag" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z" /> <circle cx="7.5" cy="7.5" r=".5" fill="currentColor" /></symbol><symbol id="i-undo-2" viewBox="0 0 24 24"><svg class="lucide lucide-undo-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M9 14 4 9l5-5" /> <path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5a5.5 5.5 0 0 1-5.5 5.5H11" /></symbol><symbol id="i-piggy-bank" viewBox="0 0 24 24"><svg class="lucide lucide-piggy-bank" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M19 5c-1.5 0-2.8 1.4-3 2-3.5-1.5-11-.3-11 5 0 1.8 0 3 2 4.5V20h4v-2h3v2h4v-4c1-.5 1.7-1 2-2h2v-4h-2c0-1-.5-1.5-1-2V5z" /> <path d="M2 9v1c0 1.1.9 2 2 2h1" /> <path d="M16 11h.01" /></symbol><symbol id="i-trending-up" viewBox="0 0 24 24"><svg class="lucide lucide-trending-up" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" /> <polyline points="16 7 22 7 22 13" /></symbol><symbol id="i-layout-dashboard" viewBox="0 0 24 24"><svg class="lucide lucide-layout-dashboard" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="7" height="9" x="3" y="3" rx="1" /> <rect width="7" height="5" x="14" y="3" rx="1" /> <rect width="7" height="9" x="14" y="12" rx="1" /> <rect width="7" height="5" x="3" y="16" rx="1" /></symbol><symbol id="i-file-spreadsheet" viewBox="0 0 24 24"><svg class="lucide lucide-file-spreadsheet" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" /> <path d="M14 2v4a2 2 0 0 0 2 2h4" /> <path d="M8 13h2" /> <path d="M14 13h2" /> <path d="M8 17h2" /> <path d="M14 17h2" /></symbol><symbol id="i-shield-check" viewBox="0 0 24 24"><svg class="lucide lucide-shield-check" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" /> <path d="m9 12 2 2 4-4" /></symbol><symbol id="i-lock" viewBox="0 0 24 24"><svg class="lucide lucide-lock" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="18" height="11" x="3" y="11" rx="2" ry="2" /> <path d="M7 11V7a5 5 0 0 1 10 0v4" /></symbol><symbol id="i-eye-off" viewBox="0 0 24 24"><svg class="lucide lucide-eye-off" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49" /> <path d="M14.084 14.158a3 3 0 0 1-4.242-4.242" /> <path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143" /> <path d="m2 2 20 20" /></symbol><symbol id="i-sliders-horizontal" viewBox="0 0 24 24"><svg class="lucide lucide-sliders-horizontal" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <line x1="21" x2="14" y1="4" y2="4" /> <line x1="10" x2="3" y1="4" y2="4" /> <line x1="21" x2="12" y1="12" y2="12" /> <line x1="8" x2="3" y1="12" y2="12" /> <line x1="21" x2="16" y1="20" y2="20" /> <line x1="12" x2="3" y1="20" y2="20" /> <line x1="14" x2="14" y1="2" y2="6" /> <line x1="8" x2="8" y1="10" y2="14" /> <line x1="16" x2="16" y1="18" y2="22" /></symbol><symbol id="i-monitor-x" viewBox="0 0 24 24"><svg class="lucide lucide-monitor-x" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m14.5 12.5-5-5" /> <path d="m9.5 12.5 5-5" /> <rect width="20" height="14" x="2" y="3" rx="2" /> <path d="M12 17v4" /> <path d="M8 21h8" /></symbol><symbol id="i-brain-circuit" viewBox="0 0 24 24"><svg class="lucide lucide-brain-circuit" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z" /> <path d="M9 13a4.5 4.5 0 0 0 3-4" /> <path d="M6.003 5.125A3 3 0 0 0 6.401 6.5" /> <path d="M3.477 10.896a4 4 0 0 1 .585-.396" /> <path d="M6 18a4 4 0 0 1-1.967-.516" /> <path d="M12 13h4" /> <path d="M12 18h6a2 2 0 0 1 2 2v1" /> <path d="M12 8h8" /> <path d="M16 8V5a2 2 0 0 1 2-2" /> <circle cx="16" cy="13" r=".5" /> <circle cx="18" cy="3" r=".5" /> <circle cx="20" cy="21" r=".5" /> <circle cx="20" cy="8" r=".5" /></symbol><symbol id="i-house" viewBox="0 0 24 24"><svg class="lucide lucide-house" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" /> <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></symbol><symbol id="i-heart-pulse" viewBox="0 0 24 24"><svg class="lucide lucide-heart-pulse" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" /> <path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27" /></symbol><symbol id="i-message-circle" viewBox="0 0 24 24"><svg class="lucide lucide-message-circle" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" /></symbol><symbol id="i-instagram" viewBox="0 0 24 24"><svg class="lucide lucide-instagram" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="20" height="20" x="2" y="2" rx="5" ry="5" /> <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /> <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" /></symbol><symbol id="i-facebook" viewBox="0 0 24 24"><svg class="lucide lucide-facebook" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" /></symbol><symbol id="i-chevron-down" viewBox="0 0 24 24"><svg class="lucide lucide-chevron-down" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m6 9 6 6 6-6" /></symbol><symbol id="i-sun" viewBox="0 0 24 24"><svg class="lucide lucide-sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="4" /> <path d="M12 2v2" /> <path d="M12 20v2" /> <path d="m4.93 4.93 1.41 1.41" /> <path d="m17.66 17.66 1.41 1.41" /> <path d="M2 12h2" /> <path d="M20 12h2" /> <path d="m6.34 17.66-1.41 1.41" /> <path d="m19.07 4.93-1.41 1.41" /></symbol><symbol id="i-moon" viewBox="0 0 24 24"><svg class="lucide lucide-moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" /></symbol><symbol id="i-languages" viewBox="0 0 24 24"><svg class="lucide lucide-languages" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m5 8 6 6" /> <path d="m4 14 6-6 2-3" /> <path d="M2 5h12" /> <path d="M7 2h1" /> <path d="m22 22-5-10-5 10" /> <path d="M14 18h6" /></symbol><symbol id="i-warehouse" viewBox="0 0 24 24"><svg class="lucide lucide-warehouse" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M22 8.35V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8.35A2 2 0 0 1 3.26 6.5l8-3.2a2 2 0 0 1 1.48 0l8 3.2A2 2 0 0 1 22 8.35Z" /> <path d="M6 18h12" /> <path d="M6 14h12" /> <rect width="12" height="12" x="6" y="10" /></symbol><symbol id="i-pill" viewBox="0 0 24 24"><svg class="lucide lucide-pill" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z" /> <path d="m8.5 8.5 7 7" /></symbol><symbol id="i-store" viewBox="0 0 24 24"><svg class="lucide lucide-store" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7" /> <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" /> <path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4" /> <path d="M2 7h20" /> <path d="M22 7v3a2 2 0 0 1-2 2a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 16 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 12 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 8 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 4 12a2 2 0 0 1-2-2V7" /></symbol><symbol id="i-package-check" viewBox="0 0 24 24"><svg class="lucide lucide-package-check" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m16 16 2 2 4-4" /> <path d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l2-1.14" /> <path d="m7.5 4.27 9 5.15" /> <polyline points="3.29 7 12 12 20.71 7" /> <line x1="12" x2="12" y1="22" y2="12" /></symbol><symbol id="i-map-pin" viewBox="0 0 24 24"><svg class="lucide lucide-map-pin" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /></symbol><symbol id="i-check" viewBox="0 0 24 24"><svg class="lucide lucide-check" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 6 9 17l-5-5" /></symbol><symbol id="i-x" viewBox="0 0 24 24"><svg class="lucide lucide-x" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M18 6 6 18" /> <path d="m6 6 12 12" /></symbol><symbol id="i-smartphone" viewBox="0 0 24 24"><svg class="lucide lucide-smartphone" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="14" height="20" x="5" y="2" rx="2" ry="2" /> <path d="M12 18h.01" /></symbol><symbol id="i-download" viewBox="0 0 24 24"><svg class="lucide lucide-download" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /> <polyline points="7 10 12 15 17 10" /> <line x1="12" x2="12" y1="15" y2="3" /></symbol><symbol id="i-camera" viewBox="0 0 24 24"><svg class="lucide lucide-camera" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" /> <circle cx="12" cy="13" r="3" /></symbol><symbol id="i-list-checks" viewBox="0 0 24 24"><svg class="lucide lucide-list-checks" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m3 17 2 2 4-4" /> <path d="m3 7 2 2 4-4" /> <path d="M13 6h8" /> <path d="M13 12h8" /> <path d="M13 18h8" /></symbol></svg>
+
+<a class="skip" href="#main" data-i18n="skip">تخطَّ إلى المحتوى</a>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="فينيق FENIQ">
+      <img class="logo-silver" src="assets/mark-silver.webp" alt="" width="392" height="483">
+      <img class="logo-navy" src="assets/mark-navy.webp" alt="" width="392" height="483">
+      <img class="word logo-silver" src="assets/word-silver.webp" alt="" width="436" height="245">
+      <img class="word logo-navy" src="assets/word-navy.webp" alt="" width="436" height="245">
+    </a>
+    <nav aria-label="الأقسام" data-i18n-aria="navLabel">
+      <ul class="nav-links">
+        <li><a href="#pharmacies" data-i18n="nav1">للصيادلة</a></li>
+        <li><a href="#warehouses" data-i18n="nav2">للمستودعات</a></li>
+        <li><a href="#trust" data-i18n="nav3">الخصوصية</a></li>
+        <li><a href="#faq" data-i18n="nav4">الأسئلة</a></li>
+      </ul>
+    </nav>
+    <button class="icon-btn lang-btn" id="langBtn" type="button" aria-label="Switch to English">EN</button>
+    <button class="icon-btn" id="themeBtn" type="button" aria-label="تبديل الوضع الفاتح والداكن" data-i18n-aria="themeLabel">
+      <svg class="ico theme-moon"><use href="#i-sun"/></svg>
+      <svg class="ico theme-sun"><use href="#i-moon"/></svg>
+    </button>
+    <a class="btn btn-primary" href="#contact" data-i18n="navCta">حمّل التطبيق</a>
+  </div>
+</header>
+
+<main id="main">
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div class="wrap">
+      <div class="hero-copy">
+        <h1 data-i18n="h1">اطلب أدوية صيدليتك بلمسة، ووفّر ما كنت تدفعه للوسيط.</h1>
+        <p class="lead" data-i18n="lead">فينيق تطبيق يربط الصيدليات بمستودعات الأدوية في سوريا. تختار المستودع، وترسل طلبك، وتتابع التوصيل لحظة بلحظة. وعمولة المندوب تصلك حسماً حقيقياً على كل طلب.</p>
+        <div class="ctas">
+          <a class="btn btn-primary" href="#contact" data-role="pharmacy"><svg class="ico"><use href="#i-download"/></svg><span data-i18n="cta1">حمّل التطبيق</span></a>
+          <a class="btn" href="#contact" data-role="warehouse"><svg class="ico"><use href="#i-warehouse"/></svg><span data-i18n="cta2">انضم كمستودع</span></a>
+        </div>
+        <ul class="facts">
+          <li><svg class="ico"><use href="#i-map-pin"/></svg><span data-i18n="fact1">انطلاقتنا من اللاذقية</span></li>
+          <li><svg class="ico"><use href="#i-hand-coins"/></svg><span data-i18n="fact2">الدفع عند الاستلام</span></li>
+          <li><svg class="ico"><use href="#i-lock"/></svg><span data-i18n="fact3">بيانات كل مستودع معزولة</span></li>
+        </ul>
+      </div>
+      <div class="stage" id="stage" aria-hidden="true">
+        <div class="halo"></div>
+        <img class="still logo-silver" src="assets/mark-silver.webp" alt="" width="392" height="483" fetchpriority="high">
+        <img class="still logo-navy" src="assets/mark-navy.webp" alt="" width="392" height="483">
+        <canvas id="phoenix"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM / SOLUTION -->
+  <section class="sec sec-alt" id="why">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <h2 data-i18n="whyH">الطلب التقليدي يأخذ من وقتك ومن ربحك.</h2>
+        <p data-i18n="whyP">اتصالات متكررة، وانتظار، وأخطاء في الطلبيات، وعمولة تدفعها للمندوب في كل مرة. فينيق يختصر كل ذلك في تطبيق واحد.</p>
+      </div>
+      <div class="compare">
+        <div class="col old rv">
+          <h3><svg class="ico"><use href="#i-phone-call"/></svg><span data-i18n="oldH">الطريقة التقليدية</span></h3>
+          <ul>
+            <li><svg class="ico"><use href="#i-phone-call"/></svg><div><b data-i18n="o1">اتصالات لا تنتهي</b><span data-i18n="o1d">تتصل بأكثر من مستودع لتعرف المتوفر.</span></div></li>
+            <li><svg class="ico"><use href="#i-clock"/></svg><div><b data-i18n="o2">انتظار بلا موعد</b><span data-i18n="o2d">لا تعرف متى يصل طلبك.</span></div></li>
+            <li><svg class="ico"><use href="#i-triangle-alert"/></svg><div><b data-i18n="o3">أخطاء في الطلبية</b><span data-i18n="o3d">طلب شفهي يعني أصنافاً ناقصة أو خاطئة.</span></div></li>
+            <li><svg class="ico"><use href="#i-hand-coins"/></svg><div><b data-i18n="o4">عمولة للمندوب</b><span data-i18n="o4d">جزء من ربحك يذهب للوسيط.</span></div></li>
+          </ul>
+        </div>
+        <div class="col new rv">
+          <h3><img class="brandmark logo-silver" src="assets/mark-silver.webp" alt="" width="392" height="483"><img class="brandmark logo-navy" src="assets/mark-navy.webp" alt="" width="392" height="483"><span data-i18n="newH">مع فينيق</span></h3>
+          <ul>
+            <li><svg class="ico"><use href="#i-zap"/></svg><div><b data-i18n="n1">سرعة</b><span data-i18n="n1d">تتصفح الأصناف وترسل طلبك خلال دقائق.</span></div></li>
+            <li><svg class="ico"><use href="#i-eye"/></svg><div><b data-i18n="n2">وضوح</b><span data-i18n="n2d">ترى المتوفر والسعر قبل أن تطلب.</span></div></li>
+            <li><svg class="ico"><use href="#i-truck"/></svg><div><b data-i18n="n3">تتبّع</b><span data-i18n="n3d">تعرف حالة طلبك من التجهيز حتى الباب.</span></div></li>
+            <li><svg class="ico"><use href="#i-tag"/></svg><div><b data-i18n="n4">حسم حقيقي</b><span data-i18n="n4d">عمولة المندوب تتحول إلى حسم يصل صيدليتك.</span></div></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="sec" id="how">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <h2 data-i18n="howH">ثلاث خطوات، وطلبك في الطريق.</h2>
+        <p data-i18n="howP">صممنا التطبيق للصيدلاني المشغول: لا تدريب، ولا إعدادات معقدة.</p>
+      </div>
+      <div class="how">
+        <ol class="steps" id="steps">
+          <li><button class="step" type="button" data-screen="0" aria-current="true"><span><strong class="st" data-i18n="s1">اختر المستودع</strong><span class="sd" data-i18n="s1d">قائمة بالمستودعات المتاحة في مدينتك، مع الأصناف المتوفرة لدى كل منها.</span></span></button></li>
+          <li><button class="step" type="button" data-screen="1"><span><strong class="st" data-i18n="s2">أرسل الطلب</strong><span class="sd" data-i18n="s2d">أضف الأصناف والكميات، وشاهد الحسم على طلبك قبل الإرسال.</span></span></button></li>
+          <li><button class="step" type="button" data-screen="2"><span><strong class="st" data-i18n="s3">تابع التوصيل</strong><span class="sd" data-i18n="s3d">إشعار عند كل مرحلة: الاستلام، والتجهيز، والطريق، والتسليم.</span></span></button></li>
+        </ol>
+        <div class="phone-col">
+          <div class="phone" id="phone" role="img" aria-label="شاشات تطبيق فينيق" data-i18n-aria="phoneLabel">
+            <div class="edge"></div><div class="edge e2"></div>
+            <div class="body"></div>
+            <div class="screen">
+              <div class="notch"></div>
+              <!-- screen 1: warehouses -->
+              <div class="app on" data-app="0">
+                <div class="app-top"><b>اختر المستودع</b><img src="assets/mark-navy.webp" alt="" width="392" height="483"></div>
+                <div class="app-list">
+                  <div class="app-card sel"><span class="av"><svg><use href="#i-warehouse"/></svg></span><div><b>مستودع الساحل</b><small>اللاذقية · توصيل اليوم</small></div><span class="chip">حسم حقيقي</span></div>
+                  <div class="app-card"><span class="av"><svg><use href="#i-warehouse"/></svg></span><div><b>مستودع الشفاء</b><small>اللاذقية · توصيل اليوم</small></div><span></span></div>
+                  <div class="app-card"><span class="av"><svg><use href="#i-warehouse"/></svg></span><div><b>مستودع النور</b><small>جبلة · توصيل غداً</small></div><span></span></div>
+                  <div class="app-card"><span class="av"><svg><use href="#i-warehouse"/></svg></span><div><b>مستودع الميناء</b><small>اللاذقية · توصيل اليوم</small></div><span></span></div>
+                </div>
+                <div class="app-cta">متابعة</div>
+                <span class="demo-tag">بيانات توضيحية</span>
+              </div>
+              <!-- screen 2: order -->
+              <div class="app" data-app="1">
+                <div class="app-top"><b>طلبك</b><img src="assets/mark-navy.webp" alt="" width="392" height="483"></div>
+                <div class="app-list">
+                  <div class="app-card"><span class="av o"><svg><use href="#i-pill"/></svg></span><div><b>باراسيتامول ٥٠٠ ملغ</b><small>علبة ٢٠ مضغوطة</small></div><span class="qty"><i>−</i>٤<i>+</i></span></div>
+                  <div class="app-card"><span class="av o"><svg><use href="#i-pill"/></svg></span><div><b>أموكسيسيلين ٥٠٠ ملغ</b><small>علبة ١٦ كبسولة</small></div><span class="qty"><i>−</i>٢<i>+</i></span></div>
+                  <div class="app-card"><span class="av o"><svg><use href="#i-pill"/></svg></span><div><b>أوميبرازول ٢٠ ملغ</b><small>علبة ١٤ كبسولة</small></div><span class="qty"><i>−</i>٣<i>+</i></span></div>
+                  <div class="app-note"><span>الحسم على هذا الطلب</span><b>مُطبّق تلقائياً</b></div>
+                </div>
+                <div class="app-cta">إرسال الطلب</div>
+                <span class="demo-tag">بيانات توضيحية</span>
+              </div>
+              <!-- screen 3: tracking -->
+              <div class="app" data-app="2">
+                <div class="app-top"><b>تتبّع الطلب</b><img src="assets/mark-navy.webp" alt="" width="392" height="483"></div>
+                <div class="app-list">
+                  <div class="minimap"><svg viewBox="0 0 240 92" preserveAspectRatio="none"><path d="M20 70 C 70 70, 80 25, 130 30 S 200 60, 222 22" fill="none" stroke="#CBD3E0" stroke-width="3" stroke-linecap="round"/><path d="M20 70 C 70 70, 80 25, 130 30" fill="none" stroke="#F26A1B" stroke-width="3" stroke-linecap="round"/><circle cx="130" cy="30" r="6" fill="#F26A1B"/><circle cx="222" cy="22" r="5" fill="#0B1F3A"/></svg></div>
+                  <ol class="track">
+                    <li class="done"><b>استلم المستودع طلبك</b><small>١٠:١٢ ص</small></li>
+                    <li class="done"><b>قيد التجهيز</b><small>١٠:٢٠ ص</small></li>
+                    <li class="now"><b>في الطريق إليك</b><small>السائق يقترب</small></li>
+                    <li><b>تم التسليم</b><small>الدفع عند الاستلام</small></li>
+                  </ol>
+                </div>
+                <div class="app-cta">تواصل مع المستودع</div>
+                <span class="demo-tag">بيانات توضيحية</span>
+              </div>
+            </div>
+            <div class="glare"></div>
+          </div>
+          <div class="phone-shadow"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHARMACIES -->
+  <section class="sec sec-alt" id="pharmacies">
+    <div class="wrap aud">
+      <div>
+        <div class="sec-head rv">
+          <span class="pill"><svg class="ico"><use href="#i-pill"/></svg><span data-i18n="phPill">للصيادلة</span></span>
+          <h2 data-i18n="phH">وقتك للمرضى، والطلبية علينا.</h2>
+          <p data-i18n="phP">كل ما تحتاجه لتطلب بثقة من هاتفك، وترى ما وفّرته مع كل طلب.</p>
+        </div>
+        <ul class="feats">
+          <li class="feat rv"><span class="ic"><svg class="ico"><use href="#i-tag"/></svg></span><div><h3 data-i18n="pf1">حسم حقيقي على كل طلب</h3><p data-i18n="pf1d">العمولة التي كانت تذهب للمندوب تصلك أنت.</p></div></li>
+          <li class="feat rv"><span class="ic"><svg class="ico"><use href="#i-zap"/></svg></span><div><h3 data-i18n="pf2">طلب في دقائق</h3><p data-i18n="pf2d">ابحث عن الصنف، حدّد الكمية، وأرسل.</p></div></li>
+          <li class="feat rv"><span class="ic"><svg class="ico"><use href="#i-truck"/></svg></span><div><h3 data-i18n="pf3">تتبّع التوصيل</h3><p data-i18n="pf3d">تعرف أين طلبك في كل لحظة.</p></div></li>
+          <li class="feat rv"><span class="ic"><svg class="ico"><use href="#i-camera"/></svg></span><div><h3 data-i18n="pf4">مرتجعات بالصورة</h3><p data-i18n="pf4d">صوّر الصنف، أضف ملاحظة، وأرسل طلب الإرجاع.</p></div></li>
+        </ul>
+      </div>
+      <div class="panel savings rv" aria-labelledby="svT">
+        <div class="panel-head"><b id="svT" data-i18n="svT">توفيرك التراكمي</b><span class="state" data-i18n="svTag">مثال توضيحي</span></div>
+        <svg viewBox="0 0 400 200" role="img" aria-label="منحنى يوضح ازدياد التوفير مع كل طلب" data-i18n-aria="svAria">
+          <defs><linearGradient id="sv-grad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--accent)" stop-opacity=".35"/><stop offset="1" stop-color="var(--accent)" stop-opacity="0"/></linearGradient></defs>
+          <g class="grid"><line x1="0" y1="40" x2="400" y2="40"/><line x1="0" y1="95" x2="400" y2="95"/><line x1="0" y1="150" x2="400" y2="150"/></g>
+          <path id="svArea" class="area" d=""/>
+          <path id="svLine" class="ln" d=""/>
+          <circle id="svEnd" class="end" r="6" cx="0" cy="0"/>
+          <text id="svLabelA" x="0" y="190" data-i18n="svA">أول طلب</text>
+          <text id="svLabelB" x="400" y="190" data-i18n="svB">هذا الشهر</text>
+        </svg>
+        <p class="tagline" data-i18n="svNote">يعرض التطبيق مجموع ما وفّرته من كل طلباتك. قيمة الحسم تختلف حسب الشركة والصنف.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WAREHOUSES -->
+  <section class="sec" id="warehouses">
+    <div class="wrap aud flip">
+      <div>
+        <div class="sec-head rv">
+          <span class="pill"><svg class="ico"><use href="#i-warehouse"/></svg><span data-i18n="whPill">للمستودعات</span></span>
+          <h2 data-i18n="whH">طلبات أكثر، وتنظيم أعلى، بلا تكلفة إضافية.</h2>
+          <p data-i18n="whP">تصلك الطلبات مكتوبة وواضحة من صيدليات جديدة، وتديرها من لوحة واحدة.</p>
+        </div>
+        <ul class="feats">
+          <li class="feat rv"><span class="ic"><svg class="ico"><use href="#i-trending-up"/></svg></span><div><h3 data-i18n="wf1">طلبات أكثر وأسرع</h3><p data-i18n="wf1d">صيدليات تصل إليك مباشرة، دون مندوب.</p></div></li>
+          <li class="feat rv"><span class="ic"><svg class="ico"><use href="#i-list-checks"/></svg></span><div><h3 data-i18n="wf2">طلبيات بلا أخطاء</h3><p data-i18n="wf2d">كل طلب مكتوب بالصنف والكمية.</p></div></li>
+          <li class="feat rv"><span class="ic"><svg class="ico"><use href="#i-layout-dashboard"/></svg></span><div><h3 data-i18n="wf3">لوحة تحكم واضحة</h3><p data-i18n="wf3d">الطلبات، والتوصيل، والمرتجعات في مكان واحد.</p></div></li>
+          <li class="feat rv"><span class="ic"><svg class="ico"><use href="#i-file-spreadsheet"/></svg></span><div><h3 data-i18n="wf4">كتالوجك من ملف إكسل</h3><p data-i18n="wf4d">ارفع ملفك كما هو، ونحن نرتّبه.</p></div></li>
+        </ul>
+      </div>
+      <div class="panel rv">
+        <div class="panel-head"><b data-i18n="dashT">لوحة المستودع</b><span class="state" data-i18n="svTag">مثال توضيحي</span></div>
+        <div class="dash">
+          <div class="dash-row"><div><b data-i18n="d1">صيدلية الحكمة</b><small data-i18n="d1s">١٢ صنفاً · اللاذقية</small></div><span></span><span class="state new" data-i18n="stNew">جديد</span></div>
+          <div class="dash-row"><div><b data-i18n="d2">صيدلية البلسم</b><small data-i18n="d2s">٧ أصناف · جبلة</small></div><span></span><span class="state" data-i18n="stPrep">قيد التجهيز</span></div>
+          <div class="dash-row"><div><b data-i18n="d3">صيدلية الأمل</b><small data-i18n="d3s">٢٠ صنفاً · اللاذقية</small></div><span></span><span class="state" data-i18n="stWay">في الطريق</span></div>
+        </div>
+        <div class="xl">
+          <span class="ic"><svg class="ico"><use href="#i-file-spreadsheet"/></svg></span>
+          <div style="flex:1;min-width:0"><b data-i18n="xlT">استيراد الكتالوج</b><div class="hint" dir="ltr" style="text-align:start">catalog.xlsx</div><div class="xl-bar"><i></i></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST -->
+  <section class="sec sec-alt trust" id="trust">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <span class="pill"><svg class="ico"><use href="#i-shield-check"/></svg><span data-i18n="trPill">الثقة والخصوصية</span></span>
+        <h2 data-i18n="trH">أسعارك وموادك لك وحدك.</h2>
+        <p data-i18n="trP">نعرف أن ثقة المستودع هي أساس كل شيء. لذلك بنينا فينيق على ثلاثة التزامات واضحة.</p>
+      </div>
+      <div class="vault">
+        <article class="rv"><span class="ic"><svg class="ico"><use href="#i-eye-off"/></svg></span><h3 data-i18n="t1">بياناتك معزولة</h3><p data-i18n="t1d">بيانات كل مستودع منفصلة تماماً. لا يرى أي مستودع آخر أسعارك أو أصنافك أو طلباتك.</p></article>
+        <article class="rv"><span class="ic"><svg class="ico"><use href="#i-monitor-x"/></svg></span><h3 data-i18n="t2">لا برامج على أجهزتك</h3><p data-i18n="t2d">لا نثبّت أي برنامج على أجهزة المستودع. تعمل من المتصفح أو الهاتف فقط.</p></article>
+        <article class="rv"><span class="ic"><svg class="ico"><use href="#i-sliders-horizontal"/></svg></span><h3 data-i18n="t3">القرار بيدك</h3><p data-i18n="t3d">أنت تحدد الأسعار والأصناف المعروضة، وتعدّلها أو توقفها متى شئت.</p></article>
+      </div>
+      <div class="iso rv" aria-label="رسم يوضح عزل بيانات المستودعات" data-i18n-aria="isoAria">
+        <b data-i18n="isoT">ما يراه كل مستودع</b>
+        <div class="iso-grid">
+          <div class="cell me"><svg class="ico"><use href="#i-warehouse"/></svg><b data-i18n="isoMe">مستودعك</b><span data-i18n="isoMeD">أسعارك وأصنافك</span></div>
+          <div class="cell"><svg class="ico"><use href="#i-lock"/></svg><b data-i18n="isoA">مستودع آخر</b><span class="blur" aria-hidden="true">••••••••</span></div>
+          <div class="cell"><svg class="ico"><use href="#i-lock"/></svg><b data-i18n="isoB">مستودع آخر</b><span class="blur" aria-hidden="true">••••••••</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NETWORK -->
+  <section class="sec" id="network">
+    <div class="wrap net">
+      <div class="sec-head rv" style="margin-bottom:0">
+        <h2 data-i18n="netH">بدأنا من اللاذقية، ونكبر مدينة بعد مدينة.</h2>
+        <p data-i18n="netP">نربط صيدليات اللاذقية بمستودعاتها اليوم، ونتوسّع إلى باقي المحافظات السورية على مراحل.</p>
+        <ul class="keys">
+          <li><i></i><span data-i18n="k1">شبكة فعّالة</span></li>
+          <li><i class="d"></i><span data-i18n="k2">التوسّع القادم</span></li>
+          <li><i class="dot"></i><span data-i18n="k3">صيدلية</span></li>
+        </ul>
+      </div>
+      <div class="map rv">
+        <svg id="syria" viewBox="0 0 790 530" role="img" aria-label="خريطة سوريا تظهر شبكة فينيق تبدأ من اللاذقية" data-i18n-aria="mapAria"></svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- VISION -->
+  <section class="sec sec-alt" id="vision">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <h2 data-i18n="viH">منظومة فينيق: المنصة الرقمية الأولى لقطاع الدواء.</h2>
+        <p data-i18n="viP">نبدأ بربط الصيدليات بالمستودعات. والخطوة التالية منظومة تربط كل أطراف القطاع، وصولاً إلى المريض.</p>
+      </div>
+      <div class="eco">
+        <article class="rv eco-now"><span class="soon" data-i18n="now">متاح الآن</span><span class="ic"><svg class="ico"><use href="#i-smartphone"/></svg></span><h3>فينيق</h3><p data-i18n="e0">تطبيق الطلب بين الصيدليات والمستودعات.</p></article>
+        <article class="rv"><span class="soon" data-i18n="soon">قريباً</span><span class="ic"><svg class="ico"><use href="#i-brain-circuit"/></svg></span><h3>فينيق AI</h3><p data-i18n="e1">تحليل ذكي للطلب والمخزون، يساعدك تعرف ماذا تطلب ومتى.</p></article>
+        <article class="rv"><span class="soon" data-i18n="soon">قريباً</span><span class="ic"><svg class="ico"><use href="#i-house"/></svg></span><h3>فينيق Home</h3><p data-i18n="e2">توصيل الدواء من الصيدلية إلى بيت المريض.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="sec" id="faq">
+    <div class="wrap">
+      <div class="sec-head rv"><h2 data-i18n="faqH">أسئلة شائعة</h2></div>
+      <div class="faq">
+        <details class="rv"><summary><span data-i18n="q1">كيف يصلني الحسم؟</span><svg class="ico"><use href="#i-chevron-down"/></svg></summary><p class="a" data-i18n="a1">يظهر الحسم على طلبك داخل التطبيق قبل الإرسال، ويُحسب تلقائياً. قيمته تختلف حسب الشركة المصنّعة والصنف.</p></details>
+        <details class="rv"><summary><span data-i18n="q2">كيف أدفع ثمن الطلب؟</span><svg class="ico"><use href="#i-chevron-down"/></svg></summary><p class="a" data-i18n="a2">الدفع حالياً عند الاستلام، مباشرة للمستودع.</p></details>
+        <details class="rv"><summary><span data-i18n="q3">هل يرى المستودع المنافس أسعاري؟</span><svg class="ico"><use href="#i-chevron-down"/></svg></summary><p class="a" data-i18n="a3">لا. بيانات كل مستودع معزولة تماماً، ولا يطّلع عليها أي مستودع آخر.</p></details>
+        <details class="rv"><summary><span data-i18n="q4">هل أحتاج إلى تثبيت برنامج في المستودع؟</span><svg class="ico"><use href="#i-chevron-down"/></svg></summary><p class="a" data-i18n="a4">لا. تدير مستودعك من المتصفح أو من الهاتف، دون تثبيت أي برنامج على أجهزتك.</p></details>
+        <details class="rv"><summary><span data-i18n="q5">كيف أضيف أصناف مستودعي؟</span><svg class="ico"><use href="#i-chevron-down"/></svg></summary><p class="a" data-i18n="a5">ارفع ملف إكسل بأصنافك وأسعارك، ونساعدك في ترتيبه. ويمكنك التعديل في أي وقت.</p></details>
+        <details class="rv"><summary><span data-i18n="q6">كيف أرجع صنفاً؟</span><svg class="ico"><use href="#i-chevron-down"/></svg></summary><p class="a" data-i18n="a6">من صفحة الطلب، اختر الصنف، وأرفق صورة وملاحظة، ثم أرسل طلب الإرجاع للمستودع.</p></details>
+        <details class="rv"><summary><span data-i18n="q7">في أي المدن تعمل فينيق؟</span><svg class="ico"><use href="#i-chevron-down"/></svg></summary><p class="a" data-i18n="a7">بدأنا من اللاذقية، ونتوسّع تدريجياً إلى باقي المحافظات. تواصل معنا لتعرف موعد وصولنا إلى مدينتك.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="sec sec-alt" id="contact">
+    <div class="wrap contact">
+      <div class="sec-head rv" style="margin-bottom:0">
+        <h2 data-i18n="ctH">لنبدأ معاً.</h2>
+        <p data-i18n="ctP">أخبرنا من أنت، ونرجع إليك بالخطوة التالية: رابط التطبيق للصيدلاني، أو موعد تعريفي للمستودع.</p>
+        <div class="channels">
+          <a class="channel" id="chWa" href="#contact" target="_blank" rel="noopener"><span class="ic"><svg class="ico"><use href="#i-message-circle"/></svg></span><span><b data-i18n="wa">واتساب</b><small data-i18n="waD">أسرع طريقة للتواصل</small></span></a>
+          <a class="channel" id="chIg" href="#contact" target="_blank" rel="noopener"><span class="ic"><svg class="ico"><use href="#i-instagram"/></svg></span><span><b data-i18n="ig">إنستغرام</b><small>@feniq</small></span></a>
+          <a class="channel" id="chFb" href="#contact" target="_blank" rel="noopener"><span class="ic"><svg class="ico"><use href="#i-facebook"/></svg></span><span><b data-i18n="fb">فيسبوك</b><small>FENIQ</small></span></a>
+        </div>
+      </div>
+      <div class="panel rv">
+        <form class="form" id="form" novalidate>
+          <fieldset class="seg" style="border:0;margin:0">
+            <legend class="sr" data-i18n="roleL">من أنت؟</legend>
+            <input type="radio" name="role" id="rolePh" value="pharmacy" checked>
+            <label for="rolePh"><svg class="ico"><use href="#i-pill"/></svg><span data-i18n="rolePh">أنا صيدلاني</span></label>
+            <input type="radio" name="role" id="roleWh" value="warehouse">
+            <label for="roleWh"><svg class="ico"><use href="#i-warehouse"/></svg><span data-i18n="roleWh">أنا مستودع</span></label>
+          </fieldset>
+          <div class="row2">
+            <div class="field"><label for="fName" data-i18n="fName">الاسم</label><input id="fName" name="name" autocomplete="name" required><span class="err" id="eName" hidden data-i18n="eName">اكتب اسمك.</span></div>
+            <div class="field"><label for="fOrg" id="lOrg" data-i18n="fOrgPh">اسم الصيدلية</label><input id="fOrg" name="org" autocomplete="organization"></div>
+          </div>
+          <div class="row2">
+            <div class="field"><label for="fPhone" data-i18n="fPhone">رقم الهاتف</label><input id="fPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" dir="ltr" required placeholder="09xx xxx xxx"><span class="err" id="ePhone" hidden data-i18n="ePhone">اكتب رقماً صحيحاً، مثل 0933123456.</span></div>
+            <div class="field"><label for="fCity" data-i18n="fCity">المدينة</label>
+              <select id="fCity" name="city">
+                <option data-i18n="cLat">اللاذقية</option><option data-i18n="cJab">جبلة</option><option data-i18n="cTar">طرطوس</option><option data-i18n="cOther">مدينة أخرى</option>
+              </select></div>
+          </div>
+          <div class="field"><label for="fMsg" data-i18n="fMsg">رسالتك (اختياري)</label><textarea id="fMsg" name="msg"></textarea></div>
+          <button class="btn btn-primary" type="submit"><span data-i18n="send">أرسل عبر واتساب</span></button>
+          <p class="hint" data-i18n="sendHint">نفتح لك واتساب برسالة جاهزة، وترسلها أنت.</p>
+          <div class="form-done" id="done" hidden role="status"><svg class="ico"><use href="#i-check"/></svg><span data-i18n="done">جهّزنا رسالتك. إن لم يفتح واتساب، راسلنا على الرقم الظاهر في قسم واتساب.</span></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="final">
+    <div class="wrap">
+      <img class="logo-silver" src="assets/mark-silver.webp" alt="" width="392" height="483" loading="lazy">
+      <img class="logo-navy" src="assets/mark-navy.webp" alt="" width="392" height="483" loading="lazy">
+      <h2 data-i18n="finH">طلبك القادم يمكن أن يكون أوفر.</h2>
+      <p data-i18n="finP">حمّل فينيق، واطلب من مستودعك بلمسة.</p>
+      <div class="ctas" style="justify-content:center">
+        <a class="btn btn-primary" href="#contact" data-role="pharmacy"><svg class="ico"><use href="#i-download"/></svg><span data-i18n="cta1">حمّل التطبيق</span></a>
+        <a class="btn" href="#contact" data-role="warehouse"><svg class="ico"><use href="#i-warehouse"/></svg><span data-i18n="cta2">انضم كمستودع</span></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <img class="word logo-silver" src="assets/word-silver.webp" alt="فينيق FENIQ" width="436" height="245" loading="lazy">
+        <img class="word logo-navy" src="assets/word-navy.webp" alt="فينيق FENIQ" width="436" height="245" loading="lazy">
+        <p class="muted" style="font-size:var(--t-sm);max-width:36ch" data-i18n="footP">منصة رقمية تربط الصيدليات بمستودعات الأدوية في سوريا. انطلاقتنا من اللاذقية.</p>
+      </div>
+      <div><h4 data-i18n="fh1">المنصة</h4><ul><li><a href="#how" data-i18n="howShort">كيف يعمل</a></li><li><a href="#pharmacies" data-i18n="nav1">للصيادلة</a></li><li><a href="#warehouses" data-i18n="nav2">للمستودعات</a></li><li><a href="#vision" data-i18n="viShort">الرؤية</a></li></ul></div>
+      <div><h4 data-i18n="fh2">الدعم</h4><ul><li><a href="#faq" data-i18n="nav4">الأسئلة</a></li><li><a href="#contact" data-i18n="ctShort">تواصل معنا</a></li><li><a href="#trust" data-i18n="nav3">الخصوصية</a></li></ul></div>
+      <div><h4 data-i18n="fh3">قانوني</h4><ul><li><a href="#privacy" data-i18n="privacy">سياسة الخصوصية</a></li><li><a href="#terms" data-i18n="terms">شروط الاستخدام</a></li></ul></div>
+    </div>
+    <div class="legal"><span data-i18n="copy">© ٢٠٢٦ فينيق. جميع الحقوق محفوظة.</span><span data-i18n="made">صُنع في اللاذقية</span></div>
+  </div>
+</footer>
+
+<script>
+/* ===== Site config: replace with the real accounts before launch ===== */
+const CONFIG = {
+  whatsapp: "",          // e.g. "963933000000" (international format, digits only)
+  instagram: "",         // e.g. "https://instagram.com/feniq"
+  facebook: ""           // e.g. "https://facebook.com/feniq"
+};
+
+(() => {
+  const root = document.documentElement;
+  root.lang = "ar"; root.dir = "rtl";
+  const store = { get(k){ try { return localStorage.getItem(k); } catch(e){ return null; } }, set(k,v){ try { localStorage.setItem(k,v); } catch(e){} } };
+
+  /* ---------- theme (dark by default) ---------- */
+  const savedTheme = store.get("feniq-theme");
+  if (savedTheme === "light" || savedTheme === "dark") root.dataset.theme = savedTheme;
+  document.getElementById("themeBtn").addEventListener("click", () => {
+    const next = root.dataset.theme === "light" ? "dark" : "light";
+    root.dataset.theme = next; store.set("feniq-theme", next);
+  });
+
+  /* ---------- language ---------- */
+  const EN = {
+    skip:"Skip to content", nav1:"Pharmacies", nav2:"Warehouses", nav3:"Privacy", nav4:"FAQ", navCta:"Get the app",
+    navLabel:"Sections", themeLabel:"Toggle light and dark mode", phoneLabel:"FENIQ app screens",
+    h1:"Order your pharmacy's medicines in one tap, and keep what you used to pay the middleman.",
+    lead:"FENIQ is an app that connects pharmacies with drug warehouses in Syria. Pick a warehouse, send your order, and follow the delivery live. The sales rep's commission reaches you as a real discount on every order.",
+    cta1:"Get the app", cta2:"Join as a warehouse", fact1:"Launched in Latakia", fact2:"Cash on delivery", fact3:"Each warehouse's data is isolated",
+    whyH:"Traditional ordering costs you time and margin.", whyP:"Endless calls, waiting, wrong orders, and a commission to the sales rep every time. FENIQ puts all of it in one app.",
+    oldH:"The old way", o1:"Endless calls", o1d:"You call several warehouses to find what's in stock.", o2:"Waiting with no ETA", o2d:"You never know when your order will arrive.", o3:"Order mistakes", o3d:"Verbal orders mean missing or wrong items.", o4:"A rep's commission", o4d:"Part of your margin goes to the middleman.",
+    newH:"With FENIQ", n1:"Speed", n1d:"Browse items and send your order in minutes.", n2:"Clarity", n2d:"See stock and price before you order.", n3:"Tracking", n3d:"Know where your order is, from packing to your door.", n4:"A real discount", n4d:"The rep's commission becomes a discount for your pharmacy.",
+    howH:"Three steps, and your order is on its way.", howP:"Built for busy pharmacists: no training, no complicated setup.",
+    s1:"Choose a warehouse", s1d:"See the warehouses in your city and what each one has in stock.", s2:"Send the order", s2d:"Add items and quantities, and see your discount before sending.", s3:"Track the delivery", s3d:"A notification at every stage: received, packing, on the way, delivered.",
+    phPill:"For pharmacies", phH:"Your time is for patients. The ordering is on us.", phP:"Everything you need to order confidently from your phone, and see what you saved on each order.",
+    pf1:"A real discount on every order", pf1d:"The commission that went to the rep now reaches you.", pf2:"Order in minutes", pf2d:"Search, set the quantity, send.", pf3:"Delivery tracking", pf3d:"Know where your order is at every moment.", pf4:"Photo-based returns", pf4d:"Snap the item, add a note, and send the return request.",
+    svT:"Your cumulative savings", svTag:"Illustration", svA:"First order", svB:"This month", svAria:"A curve showing savings growing with every order", svNote:"The app shows the total you saved across all your orders. The discount varies by manufacturer and item.",
+    whPill:"For warehouses", whH:"More orders, better organization, no extra cost.", whP:"Clear written orders from new pharmacies, managed from one dashboard.",
+    wf1:"More orders, faster", wf1d:"Pharmacies reach you directly, without a rep.", wf2:"Error-free orders", wf2d:"Every order is written, with item and quantity.", wf3:"A clear dashboard", wf3d:"Orders, deliveries and returns in one place.", wf4:"Your catalog from Excel", wf4d:"Upload your file as it is, and we organize it.",
+    dashT:"Warehouse dashboard", d1:"Al-Hikma Pharmacy", d1s:"12 items · Latakia", d2:"Al-Balsam Pharmacy", d2s:"7 items · Jableh", d3:"Al-Amal Pharmacy", d3s:"20 items · Latakia", stNew:"New", stPrep:"Packing", stWay:"On the way", xlT:"Importing catalog",
+    trPill:"Trust & privacy", trH:"Your prices and items are yours alone.", trP:"A warehouse's trust is the foundation of everything. So we built FENIQ on three clear commitments.",
+    t1:"Your data is isolated", t1d:"Each warehouse's data is fully separate. No other warehouse can see your prices, items or orders.", t2:"No software on your machines", t2d:"We install nothing on the warehouse's devices. You work from a browser or phone.", t3:"You stay in control", t3d:"You set the prices and the items on display, and change or pause them any time.",
+    isoT:"What each warehouse sees", isoMe:"Your warehouse", isoMeD:"Your prices and items", isoA:"Another warehouse", isoB:"Another warehouse", isoAria:"Diagram showing each warehouse's data is isolated",
+    netH:"We started in Latakia, and we grow city by city.", netP:"Today we connect Latakia's pharmacies with their warehouses, and we expand to the other Syrian governorates in phases.", k1:"Active network", k2:"Next expansion", k3:"Pharmacy", mapAria:"Map of Syria showing the FENIQ network starting from Latakia",
+    viH:"The FENIQ ecosystem: the leading digital platform for the pharma sector.", viP:"We start by connecting pharmacies with warehouses. Next comes an ecosystem that connects the whole sector, all the way to the patient.",
+    now:"Available now", soon:"Coming soon", e0:"The ordering app between pharmacies and warehouses.", e1:"Smart demand and stock analysis that helps you know what to order and when.", e2:"Medicine delivery from the pharmacy to the patient's home.",
+    faqH:"Frequently asked questions",
+    q1:"How do I get the discount?", a1:"The discount shows on your order in the app before you send it, and it is applied automatically. Its value varies by manufacturer and item.",
+    q2:"How do I pay for an order?", a2:"Payment is currently cash on delivery, directly to the warehouse.",
+    q3:"Can a competing warehouse see my prices?", a3:"No. Each warehouse's data is fully isolated, and no other warehouse can access it.",
+    q4:"Do I need to install software at the warehouse?", a4:"No. You manage your warehouse from a browser or phone, without installing anything on your devices.",
+    q5:"How do I add my warehouse's items?", a5:"Upload an Excel file with your items and prices, and we help you organize it. You can edit it any time.",
+    q6:"How do I return an item?", a6:"From the order page, pick the item, attach a photo and a note, and send the return request to the warehouse.",
+    q7:"Which cities does FENIQ serve?", a7:"We started in Latakia and are expanding to other governorates gradually. Contact us to find out when we reach your city.",
+    ctH:"Let's get started.", ctP:"Tell us who you are, and we'll get back with the next step: the app link for pharmacists, or an intro meeting for warehouses.",
+    wa:"WhatsApp", waD:"The fastest way to reach us", ig:"Instagram", fb:"Facebook",
+    roleL:"Who are you?", rolePh:"I'm a pharmacist", roleWh:"I'm a warehouse", fName:"Name", fOrgPh:"Pharmacy name", fOrgWh:"Warehouse name", fPhone:"Phone number", fCity:"City", fMsg:"Your message (optional)",
+    cLat:"Latakia", cJab:"Jableh", cTar:"Tartus", cOther:"Another city",
+    eName:"Enter your name.", ePhone:"Enter a valid number, like 0933123456.", send:"Send via WhatsApp", sendHint:"We open WhatsApp with a ready message, and you send it.", done:"Your message is ready. If WhatsApp didn't open, message us on the number in the WhatsApp card.",
+    finH:"Your next order can cost you less.", finP:"Get FENIQ, and order from your warehouse in one tap.",
+    footP:"A digital platform connecting pharmacies with drug warehouses in Syria. Launched in Latakia.", fh1:"Platform", fh2:"Support", fh3:"Legal", howShort:"How it works", viShort:"Vision", ctShort:"Contact us", privacy:"Privacy policy", terms:"Terms of use",
+    copy:"© 2026 FENIQ. All rights reserved.", made:"Made in Latakia"
+  };
+  const AR = {};
+  const textEls = document.querySelectorAll("[data-i18n]");
+  const ariaEls = document.querySelectorAll("[data-i18n-aria]");
+  textEls.forEach(el => AR[el.dataset.i18n] ??= el.textContent);
+  ariaEls.forEach(el => AR[el.dataset.i18nAria] ??= el.getAttribute("aria-label"));
+  AR.fOrgWh = "اسم المستودع";
+  let lang = "ar";
+  const t = k => (lang === "en" ? EN : AR)[k] ?? AR[k] ?? "";
+  function applyLang(l){
+    lang = l;
+    root.lang = l; root.dir = l === "ar" ? "rtl" : "ltr";
+    textEls.forEach(el => { const v = t(el.dataset.i18n); if (v) el.textContent = v; });
+    ariaEls.forEach(el => el.setAttribute("aria-label", t(el.dataset.i18nAria)));
+    const btn = document.getElementById("langBtn");
+    btn.textContent = l === "ar" ? "EN" : "ع";
+    btn.setAttribute("aria-label", l === "ar" ? "Switch to English" : "التبديل إلى العربية");
+    syncRole(); drawMap(); store.set("feniq-lang", l);
+  }
+  document.getElementById("langBtn").addEventListener("click", () => applyLang(lang === "ar" ? "en" : "ar"));
+
+  /* ---------- contact: role + links + form ---------- */
+  const rolePh = document.getElementById("rolePh"), roleWh = document.getElementById("roleWh");
+  function syncRole(){ const lbl = document.getElementById("lOrg"); lbl.textContent = t(roleWh.checked ? "fOrgWh" : "fOrgPh"); }
+  [rolePh, roleWh].forEach(r => r.addEventListener("change", syncRole));
+  document.querySelectorAll("[data-role]").forEach(a => a.addEventListener("click", () => {
+    (a.dataset.role === "warehouse" ? roleWh : rolePh).checked = true; syncRole();
+  }));
+  if (CONFIG.whatsapp) document.getElementById("chWa").href = "https://wa.me/" + CONFIG.whatsapp;
+  if (CONFIG.instagram) document.getElementById("chIg").href = CONFIG.instagram;
+  if (CONFIG.facebook) document.getElementById("chFb").href = CONFIG.facebook;
+
+  const form = document.getElementById("form");
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+    const F = form.elements;
+    const name = F["name"].value.trim(), phone = F["phone"].value.replace(/[\s-]/g, "");
+    const okName = name.length > 1, okPhone = /^(\+?963|0)?9\d{8}$/.test(phone);
+    F["name"].setAttribute("aria-invalid", !okName); document.getElementById("eName").hidden = okName;
+    F["phone"].setAttribute("aria-invalid", !okPhone); document.getElementById("ePhone").hidden = okPhone;
+    if (!okName) return F["name"].focus();
+    if (!okPhone) return F["phone"].focus();
+    const role = roleWh.checked ? t("roleWh") : t("rolePh");
+    const text = [role, `${t("fName")}: ${name}`, F["org"].value && `${document.getElementById("lOrg").textContent}: ${F["org"].value}`, `${t("fPhone")}: ${phone}`, `${t("fCity")}: ${F["city"].value}`, F["msg"].value].filter(Boolean).join("\n");
+    if (CONFIG.whatsapp) {
+      const a = document.createElement("a");
+      a.href = "https://wa.me/" + CONFIG.whatsapp + "?text=" + encodeURIComponent(text); a.target = "_blank"; a.rel = "noopener";
+      document.body.appendChild(a); a.click(); a.remove();
+    }
+    document.getElementById("done").hidden = false;
+  });
+
+  /* ---------- how it works: steps drive the phone ---------- */
+  const steps = [...document.querySelectorAll(".step")], apps = [...document.querySelectorAll(".app")];
+  let current = 0, userPicked = false;
+  function show(i){
+    current = i;
+    steps.forEach((s, k) => s.setAttribute("aria-current", k === i));
+    apps.forEach((a, k) => a.classList.toggle("on", k === i));
+  }
+  steps.forEach((s, i) => s.addEventListener("click", () => { userPicked = true; show(i); }));
+  const wide = matchMedia("(min-width:960px)");
+  const stepIO = new IntersectionObserver(es => {
+    if (!wide.matches) return;
+    es.forEach(e => { if (e.isIntersecting) show(steps.indexOf(e.target)); });
+  }, { rootMargin: "-45% 0px -45% 0px" });
+  steps.forEach(s => stepIO.observe(s));
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!reduce) setInterval(() => { if (!wide.matches && !userPicked && !document.hidden) show((current + 1) % apps.length); }, 3800);
+
+  // phone tilt follows the pointer
+  const phone = document.getElementById("phone");
+  if (!reduce && matchMedia("(pointer:fine)").matches) {
+    phone.parentElement.addEventListener("pointermove", e => {
+      const r = phone.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+      phone.style.setProperty("--ry", (root.dir === "rtl" ? -16 : 16) + x * 14 + "deg");
+      phone.style.setProperty("--rx", 8 - y * 10 + "deg");
+    });
+    phone.parentElement.addEventListener("pointerleave", () => { phone.style.removeProperty("--ry"); phone.style.removeProperty("--rx"); });
+  }
+
+  /* ---------- savings curve (illustrative shape, no figures) ---------- */
+  (() => {
+    const pts = []; let v = 0;
+    for (let i = 0; i <= 12; i++) { v += 6 + Math.sin(i * 1.7) * 3 + i * .9; pts.push([i / 12 * 380 + 10, 160 - v * .95]); }
+    const d = pts.map((p, i) => (i ? "L" : "M") + p[0].toFixed(1) + " " + p[1].toFixed(1)).join(" ");
+    document.getElementById("svLine").setAttribute("d", d);
+    document.getElementById("svArea").setAttribute("d", d + ` L${pts.at(-1)[0]} 170 L${pts[0][0]} 170 Z`);
+    const end = pts.at(-1); const c = document.getElementById("svEnd"); c.setAttribute("cx", end[0]); c.setAttribute("cy", end[1]);
+    // labels sit at the chart's own start (left) and end (right)
+    const a = document.getElementById("svLabelA"), b = document.getElementById("svLabelB");
+    a.setAttribute("x", 10); a.setAttribute("text-anchor", "start"); a.setAttribute("direction", "ltr");
+    b.setAttribute("x", 390); b.setAttribute("text-anchor", "end"); b.setAttribute("direction", "ltr");
+  })();
+
+  /* ---------- Syria network map ---------- */
+  const border = [[35.95,35.92],[36.15,35.82],[36.37,36.03],[36.6,36.22],[36.68,36.83],[37.07,36.62],[38.2,36.9],[39.2,36.66],[40.8,37.1],[42.35,37.23],[41.84,36.6],[41.29,36.36],[41.38,35.63],[41.0,34.42],[38.79,33.38],[36.84,32.31],[35.72,32.71],[35.83,33.28],[36.07,33.82],[36.61,34.2],[36.45,34.59],[35.99,34.64],[35.9,35.41]];
+  const P = ([lon, lat]) => [(lon - 35.4) * 96 + 90, (37.5 - lat) * 96 + 10];
+  const cities = [
+    {k:"lat", ar:"اللاذقية", en:"Latakia", ll:[35.78,35.52], home:true},
+    {k:"jab", ar:"جبلة", en:"Jableh", ll:[35.93,35.36], active:true},
+    {k:"tar", ar:"طرطوس", en:"Tartus", ll:[35.89,34.89]},
+    {k:"hom", ar:"حمص", en:"Homs", ll:[36.72,34.73]},
+    {k:"ham", ar:"حماة", en:"Hama", ll:[36.75,35.13]},
+    {k:"alp", ar:"حلب", en:"Aleppo", ll:[37.16,36.2]},
+    {k:"idl", ar:"إدلب", en:"Idlib", ll:[36.63,35.93]},
+    {k:"dam", ar:"دمشق", en:"Damascus", ll:[36.29,33.51]},
+    {k:"dar", ar:"درعا", en:"Daraa", ll:[36.1,32.62]},
+    {k:"raq", ar:"الرقة", en:"Raqqa", ll:[39.01,35.95]},
+    {k:"dez", ar:"دير الزور", en:"Deir ez-Zor", ll:[40.14,35.33]},
+    {k:"has", ar:"الحسكة", en:"Hasakah", ll:[40.75,36.5]}
+  ];
+  const labelled = new Set(["lat","tar","hom","alp","dam","dez"]);
+  // pharmacies clustered around Latakia & Jableh (seeded, stable)
+  let seed = 11; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const pharm = Array.from({length:22}, (_, i) => { const c = i < 16 ? [35.84,35.53] : [35.97,35.37]; const a = rnd() * 6.283, r = .06 + rnd() * .2; return [c[0] + Math.cos(a) * r * .9, c[1] + Math.sin(a) * r * .8]; });
+  function drawMap(){
+    const svg = document.getElementById("syria"); if (!svg) return;
+    const home = P(cities[0].ll);
+    const curve = (a, b) => { const mx = (a[0] + b[0]) / 2, my = (a[1] + b[1]) / 2 - Math.hypot(b[0]-a[0], b[1]-a[1]) * .22; return `M${a[0].toFixed(1)} ${a[1].toFixed(1)} Q${mx.toFixed(1)} ${my.toFixed(1)} ${b[0].toFixed(1)} ${b[1].toFixed(1)}`; };
+    let h = `<path class="land" d="M${border.map(p => P(p).map(n => n.toFixed(1)).join(" ")).join(" L")} Z"/>`;
+    cities.slice(1).forEach(c => { const d = curve(home, P(c.ll)); h += `<path class="link${c.active ? "" : " later"}" d="${d}"/>`; });
+    pharm.forEach(p => { const q = P(p); h += `<path class="link" style="opacity:.35" d="M${home[0]} ${home[1]} L${q[0].toFixed(1)} ${q[1].toFixed(1)}"/>`; });
+    h += `<path class="pulse" d="${curve(home, P(cities[1].ll))}"/>`;
+    pharm.slice(0, 5).forEach((p, i) => { const q = P(p); h += `<path class="pulse" style="animation-delay:${i * .6}s" d="M${home[0]} ${home[1]} L${q[0].toFixed(1)} ${q[1].toFixed(1)}"/>`; });
+    pharm.forEach(p => { const q = P(p); h += `<circle class="ph" r="2.6" cx="${q[0].toFixed(1)}" cy="${q[1].toFixed(1)}"/>`; });
+    const en = lang === "en";
+    cities.forEach(c => {
+      const [x, y] = P(c.ll);
+      if (c.home) h += `<circle class="ring" r="7" cx="${x}" cy="${y}"/><circle class="home" r="7" cx="${x}" cy="${y}"/>`;
+      else h += `<circle class="city" r="4" cx="${x}" cy="${y}"/>`;
+      if (labelled.has(c.k)) {
+        // coastal labels sit over the sea (west), inland ones to the east, so none cover the network
+        const west = c.ll[0] < 36.2;
+        h += `<text class="${c.home ? "home-t" : ""}" x="${west ? x - 12 : x + 12}" y="${y + 5}" text-anchor="${west ? "end" : "start"}" direction="ltr">${en ? c.en : c.ar}</text>`;
+      }
+    });
+    svg.innerHTML = h;
+  }
+  drawMap();
+
+  const savedLang = store.get("feniq-lang");
+  if (savedLang === "en") applyLang("en");
+
+  /* ---------- scroll reveal (content is visible without it) ---------- */
+  if (!reduce && "IntersectionObserver" in window) {
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { rootMargin: "0px 0px -8% 0px" });
+    document.querySelectorAll(".rv").forEach(el => { const r = el.getBoundingClientRect(); if (r.top > innerHeight) io.observe(el); });
+  }
+
+  /* ---------- 3D phoenix (progressive: only on capable devices) ---------- */
+  const stage = document.getElementById("stage"), canvas = document.getElementById("phoenix");
+  const conn = navigator.connection || {};
+  const weak = reduce || conn.saveData || /(^|-)2g$/.test(conn.effectiveType || "") ||
+               (navigator.deviceMemory && navigator.deviceMemory < 3) ||
+               (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4);
+  const hasGL = (() => { try { const c = document.createElement("canvas"); return !!(c.getContext("webgl") || c.getContext("experimental-webgl")); } catch(e){ return false; } })();
+  if (weak || !hasGL) return; // the static logo stays as the elegant fallback
+
+  const load = src => new Promise((res, rej) => { const s = document.createElement("script"); s.src = src; s.onload = res; s.onerror = rej; document.head.appendChild(s); });
+  const start = () => Promise.all([
+    load("https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"),
+    load("assets/phoenix-points.js")
+  ]).then(initPhoenix).catch(() => {});
+  ("requestIdleCallback" in window) ? requestIdleCallback(start, { timeout: 1500 }) : setTimeout(start, 600);
+
+  function initPhoenix(){
+    const THREE = window.THREE, raw = window.FENIQ_PTS; if (!THREE || !raw) return;
+    const mobile = matchMedia("(max-width:959px)").matches;
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: true, powerPreference: "low-power" });
+    renderer.setPixelRatio(Math.min(devicePixelRatio || 1, mobile ? 1.5 : 2));
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(35, 1, .1, 50); camera.position.set(0, 0, 4.2);
+
+    const step = mobile ? 2 : 1;
+    const n = Math.floor(raw.length / 3 / step);
+    const pos = new Float32Array(n * 3), col = new Float32Array(n * 3), seedA = new Float32Array(n), size = new Float32Array(n);
+    const cOr = new THREE.Color(), cWing = new THREE.Color(), cGold = new THREE.Color("#FFB547");
+    function palette(){
+      const light = root.dataset.theme === "light";
+      cOr.set("#F26A1B"); cWing.set(light ? "#0B1F3A" : "#E8E9EC");
+      for (let i = 0; i < n; i++) {
+        const o = raw[(i * step) * 3 + 2] === 1;
+        const c = o ? cOr.clone().lerp(cGold, Math.random() * .45) : cWing.clone().lerp(cOr, light ? 0 : Math.random() * .08);
+        col[i*3] = c.r; col[i*3+1] = c.g; col[i*3+2] = c.b;
+      }
+      geo.attributes.color && (geo.attributes.color.needsUpdate = true);
+      mat.blending = light ? THREE.NormalBlending : THREE.AdditiveBlending; mat.needsUpdate = true;
+      lineMat.color.set(light ? "#0B1F3A" : "#F26A1B"); lineMat.opacity = light ? .12 : .22;
+    }
+    for (let i = 0; i < n; i++) {
+      const j = i * step * 3, x = raw[j] / 1000 * 2.1, y = raw[j+1] / 1000 * 2.1, o = raw[j+2] === 1;
+      // depth: the wing sweeps back, the body sits forward
+      const z = o ? .18 + (Math.random() - .5) * .12 : Math.min(0, x) * .55 + (Math.random() - .5) * .18;
+      pos[i*3] = x; pos[i*3+1] = y; pos[i*3+2] = z;
+      seedA[i] = Math.random() * 6.283; size[i] = o ? 1.25 + Math.random() : .8 + Math.random() * .9;
+    }
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+    geo.setAttribute("color", new THREE.BufferAttribute(col, 3));
+    geo.setAttribute("seed", new THREE.BufferAttribute(seedA, 1));
+    geo.setAttribute("size", new THREE.BufferAttribute(size, 1));
+    const mat = new THREE.ShaderMaterial({
+      transparent: true, depthWrite: false, vertexColors: true, blending: THREE.AdditiveBlending,
+      uniforms: { uTime: { value: 0 }, uScatter: { value: 0 }, uPx: { value: renderer.getPixelRatio() } },
+      vertexShader: `
+        attribute float seed; attribute float size; varying vec3 vC; varying float vA;
+        uniform float uTime; uniform float uScatter; uniform float uPx;
+        void main(){
+          vC = color;
+          vec3 p = position;
+          p += vec3(sin(uTime*.6+seed)*.012, cos(uTime*.5+seed*1.3)*.014, sin(uTime*.4+seed)*.02);
+          p += normalize(p + vec3(.001)) * uScatter * (.4 + fract(seed) * .8);
+          vec4 mv = modelViewMatrix * vec4(p, 1.);
+          gl_Position = projectionMatrix * mv;
+          gl_PointSize = size * uPx * (7.5 / -mv.z);
+          vA = .55 + .45 * sin(uTime * 1.4 + seed * 3.);
+        }`,
+      fragmentShader: `
+        varying vec3 vC; varying float vA;
+        void main(){
+          float d = length(gl_PointCoord - .5);
+          float a = smoothstep(.5, .0, d);
+          gl_FragColor = vec4(vC, a * vA);
+        }`
+    });
+    const points = new THREE.Points(geo, mat);
+
+    // light lines: join each edge-ish point to its nearest neighbour
+    const lpos = [];
+    const edgeStart = Math.floor(1500 / step);
+    for (let i = edgeStart; i < n; i += 1) {
+      let best = -1, bd = 1e9;
+      for (let k = edgeStart; k < n; k++) { if (k === i) continue;
+        const dx = pos[i*3]-pos[k*3], dy = pos[i*3+1]-pos[k*3+1], dz = pos[i*3+2]-pos[k*3+2], d = dx*dx+dy*dy+dz*dz;
+        if (d < bd) { bd = d; best = k; } }
+      if (best >= 0 && bd < .012) lpos.push(pos[i*3],pos[i*3+1],pos[i*3+2],pos[best*3],pos[best*3+1],pos[best*3+2]);
+    }
+    const lgeo = new THREE.BufferGeometry(); lgeo.setAttribute("position", new THREE.Float32BufferAttribute(lpos, 3));
+    const lineMat = new THREE.LineBasicMaterial({ color: "#F26A1B", transparent: true, opacity: .22, blending: THREE.AdditiveBlending, depthWrite: false });
+    const lines = new THREE.LineSegments(lgeo, lineMat);
+
+    // embers rising around the bird
+    const EN_N = mobile ? 60 : 140, epos = new Float32Array(EN_N * 3), espd = new Float32Array(EN_N);
+    for (let i = 0; i < EN_N; i++) { epos[i*3] = (Math.random() - .5) * 3; epos[i*3+1] = (Math.random() - .5) * 3; epos[i*3+2] = (Math.random() - .5) * 1.5; espd[i] = .002 + Math.random() * .006; }
+    const egeo = new THREE.BufferGeometry(); egeo.setAttribute("position", new THREE.BufferAttribute(epos, 3));
+    const emat = new THREE.PointsMaterial({ color: "#FB7C15", size: .025, transparent: true, opacity: .7, blending: THREE.AdditiveBlending, depthWrite: false });
+    const embers = new THREE.Points(egeo, emat);
+
+    const bird = new THREE.Group(); bird.add(points, lines);
+    scene.add(bird, embers);
+    palette();
+    new MutationObserver(palette).observe(root, { attributes: true, attributeFilter: ["data-theme"] });
+
+    function resize(){ const r = canvas.getBoundingClientRect(); renderer.setSize(r.width, r.height, false); camera.aspect = r.width / r.height; camera.updateProjectionMatrix(); }
+    resize(); addEventListener("resize", resize);
+
+    let mx = 0, my = 0, tx = 0, ty = 0, scroll = 0, visible = true, t0 = performance.now(), intro = 0;
+    addEventListener("pointermove", e => { tx = (e.clientX / innerWidth - .5); ty = (e.clientY / innerHeight - .5); }, { passive: true });
+    addEventListener("scroll", () => { scroll = Math.min(1, scrollY / Math.max(1, stage.offsetHeight)); }, { passive: true });
+    new IntersectionObserver(es => { visible = es[0].isIntersecting; if (visible) loop(); }).observe(stage);
+
+    let frames = 0, slow = 0, last = performance.now();
+    function loop(){
+      if (!visible || document.hidden) return;
+      const now = performance.now(), dt = now - last; last = now;
+      // auto-degrade: if the device can't hold ~30fps, stop and keep the still logo
+      if (++frames > 30 && dt > 45) { if (++slow > 40) { stage.classList.remove("live"); renderer.dispose(); visible = false; return; } } else slow = Math.max(0, slow - 1);
+      const t = (now - t0) / 1000;
+      intro = Math.min(1, intro + .012);
+      mx += (tx - mx) * .05; my += (ty - my) * .05;
+      bird.rotation.y = -.35 + mx * .6 + Math.sin(t * .3) * .06 + scroll * .5;
+      bird.rotation.x = my * .3 + Math.sin(t * .4) * .03;
+      bird.position.y = Math.sin(t * .8) * .03 + scroll * .25;
+      mat.uniforms.uTime.value = t;
+      mat.uniforms.uScatter.value = (1 - easeOut(intro)) * 1.6 + scroll * .35;
+      for (let i = 0; i < EN_N; i++) { epos[i*3+1] += espd[i]; if (epos[i*3+1] > 1.6) epos[i*3+1] = -1.6; }
+      egeo.attributes.position.needsUpdate = true;
+      renderer.render(scene, camera);
+      requestAnimationFrame(loop);
+    }
+    const easeOut = x => 1 - Math.pow(1 - x, 3);
+    stage.classList.add("live");
+    document.addEventListener("visibilitychange", () => { if (!document.hidden) { last = performance.now(); loop(); } });
+    loop();
+  }
+})();
+</script>
+
+</body>
+</html>
