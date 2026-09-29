@@ -1,0 +1,359 @@
+<title>الفينيق</title>
+<meta name="description" content="الفينيق: استوديو عربي للمحتوى والأتمتة بالذكاء الاصطناعي.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@300;400;600&family=Noto+Sans+Phoenician&family=JetBrains+Mono:wght@400&display=swap">
+<style>
+/* Layout: RTL editorial column. Ember-lit hero with rising sparks, then a
+   Phoenician-alphabet band, services, the real 5-step pipeline, work, and a closing call. */
+:root{
+  --ash:#1a1614;        /* page ground: warm charcoal, like cooled ash */
+  --ash-2:#241e1b;      /* raised surface */
+  --bone:#f1e7dc;       /* primary text */
+  --smoke:#a8998c;      /* secondary text */
+  --ember:#ff6a2b;      /* accent: live ember */
+  --gold:#f4b544;       /* flame tip */
+  --crimson:#c8321f;    /* deep flame */
+  --line:rgba(241,231,220,.12);
+  --glow:rgba(255,106,43,.22);
+  --f-display:"Aref Ruqaa","Amiri",serif;
+  --f-body:"IBM Plex Sans Arabic",system-ui,"Segoe UI",Tahoma,sans-serif;
+  --f-phoen:"Noto Sans Phoenician",serif;
+  --f-mono:"JetBrains Mono",ui-monospace,monospace;
+  --step-0:1rem; --step-1:1.25rem; --step-2:1.6rem; --step-3:2.2rem; --step-4:clamp(2.6rem,7vw,5.2rem);
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]){
+    --ash:#efe8e1; --ash-2:#e6ddd4; --bone:#231a16; --smoke:#6b5c52;
+    --ember:#d9480f; --gold:#b7791f; --crimson:#a4281a;
+    --line:rgba(35,26,22,.14); --glow:rgba(217,72,15,.16); color-scheme:light;
+  }
+}
+:root[data-theme="light"]{
+  --ash:#efe8e1; --ash-2:#e6ddd4; --bone:#231a16; --smoke:#6b5c52;
+  --ember:#d9480f; --gold:#b7791f; --crimson:#a4281a;
+  --line:rgba(35,26,22,.14); --glow:rgba(217,72,15,.16); color-scheme:light;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--ash); color:var(--bone);
+  font-family:var(--f-body); font-size:var(--step-0); line-height:1.8;
+  overflow-x:hidden; direction:rtl;
+}
+.wrap{max-width:1120px;margin-inline:auto;padding-inline:clamp(16px,4vw,40px)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+h1,h2,h3{text-wrap:balance;margin:0;font-weight:700}
+h2{font-family:var(--f-display);font-size:var(--step-3);line-height:1.3}
+p{margin:0}
+.eyebrow{font-size:.82rem;letter-spacing:.06em;color:var(--ember);font-weight:600}
+.muted{color:var(--smoke)}
+
+/* nav */
+.nav{
+  position:sticky;top:env(safe-area-inset-top,0px);z-index:10;
+  background:color-mix(in srgb,var(--ash) 82%,transparent);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
+}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:12px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--f-display);font-size:1.5rem}
+.brand svg{width:30px;height:30px}
+.nav ul{display:flex;gap:clamp(12px,2.5vw,28px);list-style:none;margin:0;padding:0;font-size:.95rem}
+.nav ul a{text-decoration:none;color:var(--smoke);transition:color .2s}
+.nav ul a:hover{color:var(--bone)}
+@media (max-width:640px){.nav ul li:not(:last-child){display:none}}
+
+/* hero */
+.hero{position:relative;overflow:hidden;isolation:isolate}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;z-index:-1}
+.hero::after{
+  content:"";position:absolute;inset:auto 0 -40% 0;height:80%;z-index:-2;
+  background:radial-gradient(60% 60% at 50% 100%,var(--glow),transparent 70%);
+}
+.hero .wrap{padding-block:clamp(56px,10vw,120px) clamp(48px,8vw,96px);display:grid;gap:28px;justify-items:start}
+.hero h1{
+  font-family:var(--f-display);font-size:var(--step-4);line-height:1.15;max-width:14ch;
+}
+.hero h1 .fire{
+  background:linear-gradient(0deg,var(--crimson),var(--ember) 45%,var(--gold));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.hero .lead{font-size:var(--step-1);max-width:36ch;color:var(--smoke);font-weight:300}
+.ctas{display:flex;flex-wrap:wrap;gap:12px}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:999px;
+  text-decoration:none;font-weight:600;border:1px solid var(--line);transition:transform .2s,background .2s,border-color .2s;
+}
+.btn:hover{transform:translateY(-2px);border-color:var(--ember)}
+.btn.primary{background:var(--ember);color:#1a0d06;border-color:var(--ember)}
+.btn.primary:hover{background:var(--gold);border-color:var(--gold)}
+
+/* phoenician band */
+.alpha{border-block:1px solid var(--line);background:var(--ash-2)}
+.alpha .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:32px;align-items:center;padding-block:40px}
+.alpha .letters{
+  font-family:var(--f-phoen);font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:.2em;
+  color:var(--gold);direction:rtl;line-height:1.6;word-break:break-all;
+}
+.alpha .note{display:grid;gap:8px}
+.alpha .note b{font-family:var(--f-display);font-size:var(--step-2);font-weight:700}
+@media (max-width:760px){.alpha .wrap{grid-template-columns:1fr}}
+
+section.block{padding-block:clamp(56px,9vw,104px)}
+.head{display:grid;gap:10px;margin-bottom:40px;max-width:60ch}
+
+/* services */
+.services{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.svc{background:var(--ash);padding:28px;display:grid;gap:12px;align-content:start;transition:background .25s}
+.svc:hover{background:var(--ash-2)}
+.svc .glyph{font-family:var(--f-phoen);font-size:2rem;color:var(--ember);line-height:1}
+.svc h3{font-size:var(--step-1)}
+.svc p{color:var(--smoke);font-size:.95rem}
+@media (max-width:860px){.services{grid-template-columns:1fr}}
+
+/* pipeline */
+.pipe{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px;counter-reset:s}
+.pipe li{position:relative;padding-top:28px;display:grid;gap:6px;align-content:start}
+.pipe li::before{
+  counter-increment:s;content:counter(s,arabic-indic);
+  font-family:var(--f-display);font-size:1.6rem;color:var(--ember);line-height:1;
+}
+.pipe li::after{content:"";position:absolute;top:10px;inset-inline:40px 0;height:1px;background:linear-gradient(to left,var(--ember),transparent)}
+.pipe li:last-child::after{display:none}
+.pipe h3{font-size:1.05rem}
+.pipe p{font-size:.9rem;color:var(--smoke)}
+.pipe code{font-family:var(--f-mono);font-size:.78rem;color:var(--gold);direction:ltr;unicode-bidi:isolate}
+@media (max-width:900px){
+  .pipe{grid-template-columns:1fr;gap:0}
+  .pipe li{padding:0 0 22px;padding-inline-start:48px}
+  .pipe li::before{position:absolute;inset-inline-start:0;top:0}
+  .pipe li::after{top:36px;bottom:4px;inset-inline:14px auto;width:1px;height:auto;background:linear-gradient(var(--ember),transparent)}
+}
+
+/* work */
+.work{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.card{
+  border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--ash-2);
+  display:grid;grid-template-rows:auto 1fr;text-decoration:none;transition:border-color .25s,transform .25s;
+}
+.card:hover{border-color:var(--ember);transform:translateY(-3px)}
+.card .art{aspect-ratio:16/9;max-width:100%;position:relative;overflow:hidden}
+.card .art.a{background:
+  radial-gradient(circle at 70% 30%,var(--gold),transparent 35%),
+  radial-gradient(circle at 30% 80%,var(--crimson),transparent 45%),
+  linear-gradient(135deg,#2a130b,#120c0a)}
+.card .art.b{background:
+  radial-gradient(circle at 25% 30%,#ffb6cf,transparent 40%),
+  radial-gradient(circle at 75% 75%,var(--ember),transparent 45%),
+  linear-gradient(135deg,#3a1826,#160e12)}
+.card .art span{
+  position:absolute;inset-inline-start:20px;bottom:14px;font-family:var(--f-display);
+  font-size:clamp(1.6rem,4vw,2.4rem);color:#fff4ea;text-shadow:0 2px 20px rgba(0,0,0,.4)
+}
+.card .body{padding:22px;display:grid;gap:8px;align-content:start}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:.75rem;padding:2px 10px;border-radius:999px;border:1px solid var(--line);color:var(--smoke)}
+@media (max-width:760px){.work{grid-template-columns:1fr}}
+
+/* closing */
+.close{text-align:center}
+.close .wrap{display:grid;gap:20px;justify-items:center;padding-block:clamp(64px,10vw,120px)}
+.close h2{font-size:clamp(2rem,5vw,3.4rem)}
+.close p{max-width:44ch}
+footer{border-top:1px solid var(--line);font-size:.85rem;color:var(--smoke)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding-block:22px}
+
+/* entrance: starts visible, only a gentle rise */
+@media (prefers-reduced-motion:no-preference){
+  .hero .wrap > *{animation:rise .9s cubic-bezier(.2,.7,.2,1) both}
+  .hero .wrap > *:nth-child(2){animation-delay:.08s}
+  .hero .wrap > *:nth-child(3){animation-delay:.16s}
+  .hero .wrap > *:nth-child(4){animation-delay:.24s}
+  @keyframes rise{from{transform:translateY(14px)}to{transform:none}}
+}
+</style>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="الفينيق، الصفحة الرئيسية">
+      <svg viewBox="0 0 32 32" aria-hidden="true">
+        <defs><linearGradient id="fl" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="var(--crimson)"/><stop offset=".5" stop-color="var(--ember)"/><stop offset="1" stop-color="var(--gold)"/></linearGradient></defs>
+        <path fill="url(#fl)" d="M16 2c1 5 6 7 6 13a6 6 0 0 1-3 5c2-3 0-6-3-8 0 3-2 4-3 6-1 1-1 3 0 4-3-1-5-4-5-7 0-6 7-8 8-13Z"/>
+        <path fill="url(#fl)" d="M4 14c3 1 6 4 7 8l-2 1C8 19 6 16 4 14Zm24 0c-3 1-6 4-7 8l2 1c1-4 3-7 5-9ZM12 28h8l-1 2h-6Z"/>
+      </svg>
+      الفينيق
+    </a>
+    <nav aria-label="الأقسام">
+      <ul>
+        <li><a href="#services">شو منعمل</a></li>
+        <li><a href="#process">الطريقة</a></li>
+        <li><a href="#work">أعمالنا</a></li>
+        <li><a href="#contact">تواصل</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <canvas id="embers" aria-hidden="true"></canvas>
+    <div class="wrap">
+      <span class="eyebrow">استوديو محتوى وأتمتة بالذكاء الاصطناعي</span>
+      <h1>من الرماد، <span class="fire">منصنع شي بيضل</span></h1>
+      <p class="lead">الفينيق بياخد فكرتك وبيطلّعها محتوى جاهز للنشر: سكربت وصور وصوت وفيديو، بأتمتة بتشتغل لحالها كل يوم.</p>
+      <div class="ctas">
+        <a class="btn primary" href="#work">شوف أعمالنا</a>
+        <a class="btn" href="#contact">احكي معنا</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="alpha" aria-label="الأبجدية الفينيقية">
+    <div class="wrap">
+      <div class="letters" lang="phn" title="الأبجدية الفينيقية">𐤀𐤁𐤂𐤃𐤄𐤅𐤆𐤇𐤈𐤉𐤊𐤋𐤌𐤍𐤎𐤏𐤐𐤑𐤒𐤓𐤔𐤕</div>
+      <div class="note">
+        <b>٢٢ حرف غيّروا العالم</b>
+        <p class="muted">الأبجدية الفينيقية، من حوالي ١٠٥٠ قبل الميلاد، هي جدّة الأبجدية العربية واليونانية واللاتينية. أخدنا اسمنا من هالأرض ومن الطير يلي بيرجع يولد من ناره.</p>
+      </div>
+    </div>
+  </div>
+
+  <section class="block" id="services">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">شو منعمل</span>
+        <h2>تلات شغلات، منعملها منيح</h2>
+      </div>
+      <div class="services">
+        <article class="svc">
+          <span class="glyph" aria-hidden="true">𐤔</span>
+          <h3>فيديوهات شورتس أوتوماتيك</h3>
+          <p>قناة بتنشر لحالها: موضوع جديد كل يوم، راوي بصوت عربي طبيعي، وكتابة على الشاشة، من غير ما تفتح جهازك.</p>
+        </article>
+        <article class="svc">
+          <span class="glyph" aria-hidden="true">𐤁</span>
+          <h3>صفحات ويب بتنحكى</h3>
+          <p>صفحات عربية من اليمين لليسار، سريعة وبتشتغل عالموبايل، فيها تفاعل وحركة بمكانها الصح.</p>
+        </article>
+        <article class="svc">
+          <span class="glyph" aria-hidden="true">𐤀</span>
+          <h3>هوية بصرية</h3>
+          <p>ألوان وخطوط وشعار بيشبهوك، مع نظام تصميم واضح بتقدر تبني عليه كل شي بعدين.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="process" style="background:var(--ash-2);border-block:1px solid var(--line)">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">الطريقة</span>
+        <h2>من الفكرة للنشر، بخمس خطوات</h2>
+        <p class="muted">هيك بتشتغل أتمتة الفيديو عنّا، كل خطوة سكربت لحاله، وكلهم بيمشوا ورا بعض على جدول ثابت.</p>
+      </div>
+      <ol class="pipe">
+        <li><h3>السكربت</h3><p>نص الفيديو والعنوان والوصف بالذكاء الاصطناعي.</p><code>generate_script.py</code></li>
+        <li><h3>الصور</h3><p>صورة لكل مقطع، متناسقة مع الموضوع.</p><code>generate_images.py</code></li>
+        <li><h3>الصوت</h3><p>راوي عربي بصوت طبيعي.</p><code>generate_audio.py</code></li>
+        <li><h3>التركيب</h3><p>زوم خفيف، كتابة عربية، وصوت، بفيديو عمودي.</p><code>assemble_video.py</code></li>
+        <li><h3>النشر</h3><p>الفيديو بيوصل جاهز على تيليجرام أو يوتيوب.</p><code>send_telegram.py</code></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="block" id="work">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">أعمالنا</span>
+        <h2>شغل حقيقي، شغّال هلق</h2>
+      </div>
+      <div class="work">
+        <a class="card" href="https://github.com/phoenixxx-dev/ai-yt-automation" target="_blank" rel="noopener">
+          <div class="art a"><span>الذكاء الاصطناعي والمستقبل</span></div>
+          <div class="body">
+            <h3>قناة شورتس بتشتغل لحالها</h3>
+            <p class="muted">أتمتة كاملة على GitHub Actions: من توليد السكربت لحد ما يوصل الفيديو، كل يوم وبدون سيرفر.</p>
+            <div class="tags"><span class="tag">Python</span><span class="tag">GitHub Actions</span><span class="tag">ElevenLabs</span></div>
+          </div>
+        </a>
+        <a class="card" href="https://github.com/phoenixxx-dev/ghena" target="_blank" rel="noopener">
+          <div class="art b"><span>غنيتي</span></div>
+          <div class="body">
+            <h3>صفحة تفاعلية شخصية</h3>
+            <p class="muted">تجربة عربية ناعمة على الموبايل، فيها أسئلة ومفاجآت وحركة، معمولة لشخص واحد بالذات.</p>
+            <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">RTL</span></div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="close" id="contact">
+    <div class="wrap">
+      <span class="eyebrow">تواصل</span>
+      <h2>عندك فكرة؟ <span style="color:var(--ember)">خلّينا نولّعها</span></h2>
+      <p class="muted">احكيلنا شو بدك تعمل، ومنرجعلك بخطة واضحة وسعر واضح.</p>
+      <div class="ctas">
+        <a class="btn primary" href="https://github.com/phoenixxx-dev" target="_blank" rel="noopener">github.com/phoenixxx-dev</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© ٢٠٢٦ الفينيق</span>
+    <span>كل نهاية بداية جديدة.</span>
+  </div>
+</footer>
+
+<script>
+document.documentElement.lang = "ar"; document.documentElement.dir = "rtl";
+(() => {
+  const c = document.getElementById('embers');
+  const ctx = c.getContext('2d');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let w, h, dpr, parts = [];
+  const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  let cols = [];
+  function size(){
+    dpr = Math.min(devicePixelRatio || 1, 2);
+    w = c.clientWidth; h = c.clientHeight;
+    c.width = w * dpr; c.height = h * dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
+    cols = [css('--ember'), css('--gold'), css('--crimson')];
+    const n = Math.round(Math.min(90, w / 12));
+    parts = Array.from({length:n}, () => spawn(true));
+  }
+  function spawn(any){
+    return {
+      x: Math.random() * w,
+      y: any ? Math.random() * h : h + 10,
+      r: .6 + Math.random() * 2.2,
+      vy: .25 + Math.random() * .9,
+      sway: Math.random() * Math.PI * 2,
+      life: .4 + Math.random() * .6,
+      col: cols[(Math.random() * cols.length) | 0]
+    };
+  }
+  function draw(){
+    ctx.clearRect(0,0,w,h);
+    for (const p of parts){
+      p.y -= p.vy; p.sway += .02; p.x += Math.sin(p.sway) * .35;
+      const a = Math.max(0, Math.min(1, p.y / h)) * p.life;
+      ctx.globalAlpha = a;
+      ctx.fillStyle = p.col;
+      ctx.shadowColor = p.col; ctx.shadowBlur = 8;
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill();
+      if (p.y < -10) Object.assign(p, spawn(false));
+    }
+    if (!reduce) requestAnimationFrame(draw);
+  }
+  size(); draw();
+  addEventListener('resize', size);
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', size);
+  new MutationObserver(size).observe(document.documentElement, {attributes:true, attributeFilter:['data-theme']});
+})();
+</script>
