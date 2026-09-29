@@ -1,0 +1,92 @@
+<title>{{TITLE}}</title>
+<meta name="description" content="{{DESC}}">
+<meta name="theme-color" content="#001333">
+<meta property="og:title" content="{{TITLE}}">
+<meta property="og:description" content="{{DESC}}">
+<meta property="og:image" content="assets/img/og.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=Readex+Pro:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<!--HEAD-END-->
+{{SPRITE}}
+<a class="skip" href="#main" data-i18n="skip">تخطَّ إلى المحتوى</a>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="فينيق FENIQ">
+      <img class="logo-navy" src="assets/mark-navy.webp" alt="" width="392" height="483">
+      <img class="logo-silver" src="assets/mark-silver.webp" alt="" width="392" height="483">
+      <img class="word logo-navy" src="assets/word-navy.webp" alt="" width="436" height="245">
+      <img class="word logo-silver" src="assets/word-silver.webp" alt="" width="436" height="245">
+    </a>
+    <nav aria-label="الرئيسية" data-i18n-aria="navLabel">
+      <ul class="nav-links">
+        <li><a href="pharmacies.html" data-nav="ph" data-i18n="navPh">للصيادلة</a></li>
+        <li><a href="warehouses.html" data-nav="wh" data-i18n="navWh">للمستودعات</a></li>
+        <li><a href="trust.html" data-nav="trust" data-i18n="navTrust">الثقة والخصوصية</a></li>
+        <li><a href="about.html" data-nav="about" data-i18n="navAbout">من نحن</a></li>
+        <li><a href="faq.html" data-nav="faq" data-i18n="navFaq">الأسئلة الشائعة</a></li>
+      </ul>
+    </nav>
+    <button class="icon-btn lang-btn" id="langBtn" type="button" aria-label="Switch to English">EN</button>
+    <button class="icon-btn" id="themeBtn" type="button" aria-label="تبديل الوضع الداكن" data-i18n-aria="themeLabel">
+      <svg class="ico theme-moon"><use href="#i-moon"/></svg>
+      <svg class="ico theme-sun"><use href="#i-sun"/></svg>
+    </button>
+    <a class="btn btn-primary cta" href="contact.html#pharmacy" data-app data-i18n="navCta">حمّل التطبيق</a>
+    <button class="icon-btn menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="drawer" aria-label="القائمة" data-i18n-aria="menuLabel">
+      <svg class="ico bars"><use href="#i-menu"/></svg>
+      <svg class="ico x"><use href="#i-x"/></svg>
+    </button>
+  </div>
+</header>
+<div class="drawer" id="drawer">
+  <a href="index.html" data-nav="home"><span data-i18n="navHome">الرئيسية</span></a>
+  <a href="pharmacies.html" data-nav="ph"><span data-i18n="navPh">للصيادلة</span></a>
+  <a href="warehouses.html" data-nav="wh"><span data-i18n="navWh">للمستودعات</span></a>
+  <a href="trust.html" data-nav="trust"><span data-i18n="navTrust">الثقة والخصوصية</span></a>
+  <a href="about.html" data-nav="about"><span data-i18n="navAbout">من نحن</span></a>
+  <a href="faq.html" data-nav="faq"><span data-i18n="navFaq">الأسئلة الشائعة</span></a>
+  <a href="contact.html" data-nav="contact"><span data-i18n="navContact">تواصل معنا</span></a>
+  <a class="btn btn-primary" href="contact.html#pharmacy" data-app data-i18n="navCta">حمّل التطبيق</a>
+</div>
+
+<main id="main">
+{{BODY}}
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <img class="word logo-navy" src="assets/word-navy.webp" alt="فينيق FENIQ" width="436" height="245" loading="lazy">
+        <img class="word logo-silver" src="assets/word-silver.webp" alt="فينيق FENIQ" width="436" height="245" loading="lazy">
+        <p class="muted" style="font-size:var(--t-sm);max-width:36ch" data-i18n="footP">منصة رقمية تربط الصيدليات بمستودعات الأدوية في سوريا. انطلاقتنا من اللاذقية.</p>
+        <div class="socials">
+          <a class="icon-btn" href="contact.html" data-wa aria-label="واتساب" data-i18n-aria="wa"><svg class="ico"><use href="#i-message-circle"/></svg></a>
+          <a class="icon-btn" href="contact.html" data-ig aria-label="إنستغرام" data-i18n-aria="ig"><svg class="ico"><use href="#i-instagram"/></svg></a>
+          <a class="icon-btn" href="contact.html" data-fb aria-label="فيسبوك" data-i18n-aria="fb"><svg class="ico"><use href="#i-facebook"/></svg></a>
+        </div>
+      </div>
+      <div><h4 data-i18n="fh1">المنصة</h4><ul>
+        <li><a href="pharmacies.html" data-i18n="navPh">للصيادلة</a></li>
+        <li><a href="warehouses.html" data-i18n="navWh">للمستودعات</a></li>
+        <li><a href="trust.html" data-i18n="navTrust">الثقة والخصوصية</a></li>
+      </ul></div>
+      <div><h4 data-i18n="fh2">الشركة</h4><ul>
+        <li><a href="about.html" data-i18n="navAbout">من نحن</a></li>
+        <li><a href="faq.html" data-i18n="navFaq">الأسئلة الشائعة</a></li>
+        <li><a href="contact.html" data-i18n="navContact">تواصل معنا</a></li>
+      </ul></div>
+      <div><h4 data-i18n="fh3">قانوني</h4><ul>
+        <li><a href="privacy.html" data-i18n="privacy">سياسة الخصوصية</a></li>
+        <li><a href="terms.html" data-i18n="terms">شروط الاستخدام</a></li>
+      </ul></div>
+    </div>
+    <div class="legal"><span data-i18n="copy">© ٢٠٢٦ فينيق. جميع الحقوق محفوظة.</span><span data-i18n="made">صُنع في اللاذقية</span></div>
+  </div>
+</footer>
+{{EN}}
+<script src="assets/site.js"></script>
+{{SCRIPTS}}

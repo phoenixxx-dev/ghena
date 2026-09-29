@@ -1,0 +1,49 @@
+<!--meta {"title":"تواصل معنا | فينيق","desc":"تواصل مع فريق فينيق: صيدلاني يريد رابط التطبيق، أو مستودع يريد عرضاً تعريفياً.","nav":"contact"} -->
+<section class="sec">
+  <div class="wrap contact">
+    <div class="sec-head" style="margin-bottom:0">
+      <nav class="crumb" aria-label="مسار الصفحة" data-i18n-aria="crumbL"><a href="index.html" data-i18n="navHome">الرئيسية</a><span aria-hidden="true">/</span><span data-i18n="navContact">تواصل معنا</span></nav>
+      <h1 style="font-size:var(--t-2xl)" data-i18n="h1">لنبدأ معاً.</h1>
+      <p data-i18n="lead">أخبرنا من أنت، ونرجع إليك بالخطوة التالية: رابط التطبيق للصيدلاني، أو موعد تعريفي للمستودع.</p>
+      <div class="channels">
+        <a class="channel" href="#form" data-wa><span class="ic"><svg class="ico"><use href="#i-message-circle"/></svg></span><span><b data-i18n="wa">واتساب</b><small data-i18n="waD">أسرع طريقة للتواصل</small></span></a>
+        <a class="channel" href="#form" data-ig><span class="ic"><svg class="ico"><use href="#i-instagram"/></svg></span><span><b data-i18n="ig">إنستغرام</b><small>@feniq</small></span></a>
+        <a class="channel" href="#form" data-fb><span class="ic"><svg class="ico"><use href="#i-facebook"/></svg></span><span><b data-i18n="fb">فيسبوك</b><small>FENIQ</small></span></a>
+      </div>
+    </div>
+    <div class="panel">
+      <form class="form" id="form" novalidate>
+        <fieldset class="seg">
+          <legend class="sr" data-i18n="roleL">من أنت؟</legend>
+          <input type="radio" name="role" id="rolePh" value="pharmacy" checked>
+          <label for="rolePh"><svg class="ico"><use href="#i-pill"/></svg><span data-i18n="rolePh">أنا صيدلاني</span></label>
+          <input type="radio" name="role" id="roleWh" value="warehouse">
+          <label for="roleWh"><svg class="ico"><use href="#i-warehouse"/></svg><span data-i18n="roleWh">أنا مستودع</span></label>
+        </fieldset>
+        <div class="row2">
+          <div class="field"><label for="fName" data-i18n="fName">الاسم</label><input id="fName" name="name" autocomplete="name" required><span class="err" id="eName" hidden data-i18n="eName">اكتب اسمك.</span></div>
+          <div class="field"><label for="fOrg" id="lOrg">اسم الصيدلية</label><input id="fOrg" name="org" autocomplete="organization"></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label for="fPhone" data-i18n="fPhone">رقم الهاتف</label><input id="fPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" dir="ltr" required placeholder="09xx xxx xxx"><span class="err" id="ePhone" hidden data-i18n="ePhone">اكتب رقماً صحيحاً، مثل 0933123456.</span></div>
+          <div class="field"><label for="fCity" data-i18n="fCity">المدينة</label>
+            <select id="fCity" name="city"><option data-i18n="cLat">اللاذقية</option><option data-i18n="cJab">جبلة</option><option data-i18n="cTar">طرطوس</option><option data-i18n="cOther">مدينة أخرى</option></select></div>
+        </div>
+        <div class="field"><label for="fMsg" data-i18n="fMsg">رسالتك (اختياري)</label><textarea id="fMsg" name="msg"></textarea></div>
+        <button class="btn btn-primary" type="submit"><span data-i18n="send">أرسل عبر واتساب</span></button>
+        <p class="hint" data-i18n="sendHint">نفتح لك واتساب برسالة جاهزة، وترسلها أنت.</p>
+        <div class="form-done" id="done" hidden role="status"><svg class="ico"><use href="#i-check"/></svg><span data-i18n="done">جهّزنا رسالتك. إن لم يفتح واتساب، راسلنا مباشرة من بطاقة واتساب.</span></div>
+      </form>
+    </div>
+  </div>
+</section>
+<span hidden data-ar="fOrgPh" data-ar-text="اسم الصيدلية"></span><span hidden data-ar="fOrgWh" data-ar-text="اسم المستودع"></span>
+<script type="application/json" id="i18n-en">{
+  "docTitle":"Contact | FENIQ","crumbL":"Breadcrumb",
+  "h1":"Let's get started.","lead":"Tell us who you are, and we'll get back with the next step: the app link for pharmacists, or an intro meeting for warehouses.",
+  "waD":"The fastest way to reach us","roleL":"Who are you?","rolePh":"I'm a pharmacist","roleWh":"I'm a warehouse",
+  "fName":"Name","fOrgPh":"Pharmacy name","fOrgWh":"Warehouse name","fPhone":"Phone number","fCity":"City","fMsg":"Your message (optional)",
+  "cLat":"Latakia","cJab":"Jableh","cTar":"Tartus","cOther":"Another city",
+  "eName":"Enter your name.","ePhone":"Enter a valid number, like 0933123456.","send":"Send via WhatsApp","sendHint":"We open WhatsApp with a ready message, and you send it.",
+  "done":"Your message is ready. If WhatsApp didn't open, message us directly from the WhatsApp card."
+}</script>
