@@ -18,7 +18,7 @@ SRC = HERE / "src"
 def sprite():
     out = ['<svg width="0" height="0" style="position:absolute" aria-hidden="true">']
     for f in sorted((SRC / "icons").glob("*.svg")):
-        inner = re.search(r">\s*(.*)</svg>", f.read_text(encoding="utf-8"), re.S).group(1)
+        inner = re.search(r"<svg[^>]*>(.*)</svg>", f.read_text(encoding="utf-8"), re.S).group(1)  # paths only
         inner = re.sub(r"\s+", " ", inner).strip()
         out.append(f'<symbol id="i-{f.stem}" viewBox="0 0 24 24">{inner}</symbol>')
     return "".join(out) + "</svg>"
@@ -36,12 +36,34 @@ def render(page: pathlib.Path, layout: str, icons: str):
     for name in re.findall(r"<!--([A-Z]+)-->", body):
         body = body.replace(f"<!--{name}-->", (SRC / "partials" / f"{name.lower()}.html").read_text(encoding="utf-8"))
     html = (layout.replace("{{TITLE}}", meta["title"]).replace("{{DESC}}", meta["desc"])
+            .replace("{{TONE}}", meta.get("tone", "light")).replace("{{HEAD}}", meta.get("head", ""))
             .replace("{{SPRITE}}", icons).replace("{{BODY}}", body.strip()).replace("{{EN}}", en)
-            .replace("{{SCRIPTS}}", "".join(f'<script src="{s}"></script>' for s in meta.get("scripts", []))))
+            .replace("{{SCRIPTS}}", "".join(f'<script src="{s}" defer></script>' for s in meta.get("scripts", []))))
+    html = html.replace('href="#i-', 'href="assets/icons.svg#i-')
+    html = split_words(html)
     nav = f'data-nav="{meta["nav"]}"'
     html = html.replace(nav, f'{nav} aria-current="page"')
+    html = inline_css(html)
     head, rest = html.split("<!--HEAD-END-->")
     return head.strip(), rest.strip()
+
+
+def split_words(html):
+    """Wrap each word of a .reveal-words headline in its own span at build time, so the
+    headline paints in its final layout and animates without waiting for a script."""
+    def wrap(m):
+        words = m.group(2).split()
+        spans = " ".join(f'<span class="w" style="--i:{i}">{w}</span>' for i, w in enumerate(words))
+        return m.group(1) + spans + m.group(3)
+    return re.sub(r'(<[^>]*class="[^"]*\breveal-words\b[^"]*"[^>]*>)([^<]*)(</)', wrap, html)
+
+
+def inline_css(html):
+    """Inline the stylesheet: on slow networks one round trip less before first paint."""
+    css = (HERE / "assets" / "site.css").read_text(encoding="utf-8").replace("url(fonts/", "url(assets/fonts/")
+    css = re.sub(r"/\*.*?\*/", "", css, flags=re.S)
+    css = re.sub(r"\s*\n\s*", "\n", css).strip()
+    return html.replace('<link rel="stylesheet" href="assets/site.css">', "<style>" + css + "</style>")
 
 
 def standalone(head, rest):
@@ -53,7 +75,10 @@ def standalone(head, rest):
 
 def main():
     layout = (SRC / "layout.html").read_text(encoding="utf-8")
-    icons = sprite()
+    # icons live in one cached file; pages reference it by fragment
+    sp = sprite().replace('<svg width="0" height="0" style="position:absolute" aria-hidden="true">', '<svg xmlns="http://www.w3.org/2000/svg">')
+    (HERE / "assets" / "icons.svg").write_text(sp, encoding="utf-8")
+    icons = ""
     art = pathlib.Path(sys.argv[sys.argv.index("--artifact") + 1]) if "--artifact" in sys.argv else None
     if art:
         if art.exists():

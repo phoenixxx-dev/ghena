@@ -1,24 +1,28 @@
 <title>{{TITLE}}</title>
 <meta name="description" content="{{DESC}}">
 <meta name="theme-color" content="#001333">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FENIQ فينيق">
 <meta property="og:title" content="{{TITLE}}">
 <meta property="og:description" content="{{DESC}}">
 <meta property="og:image" content="assets/img/og.webp">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=Readex+Pro:wght@500;600;700&display=swap">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="assets/fonts/readex-ar.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/plex-ar-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/plex-ar-600.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/site.css">
+{{HEAD}}
 <!--HEAD-END-->
 {{SPRITE}}
 <a class="skip" href="#main" data-i18n="skip">تخطَّ إلى المحتوى</a>
 
-<header class="nav">
-  <div class="wrap">
+<header class="nav" data-tone="{{TONE}}">
+  <div class="nav-bar">
     <a class="brand" href="index.html" aria-label="فينيق FENIQ">
-      <img class="logo-navy" src="assets/mark-navy.webp" alt="" width="392" height="483">
-      <img class="logo-silver" src="assets/mark-silver.webp" alt="" width="392" height="483">
-      <img class="word logo-navy" src="assets/word-navy.webp" alt="" width="436" height="245">
-      <img class="word logo-silver" src="assets/word-silver.webp" alt="" width="436" height="245">
+      <img class="logo-navy" src="assets/mark-navy-sm.webp" alt="" width="83" height="102" loading="lazy" decoding="async">
+      <img class="logo-silver" src="assets/mark-silver-sm.webp" alt="" width="83" height="102" loading="lazy" decoding="async">
+      <img class="word logo-navy" src="assets/word-navy-sm.webp" alt="" width="149" height="84" loading="lazy" decoding="async">
+      <img class="word logo-silver" src="assets/word-silver-sm.webp" alt="" width="149" height="84" loading="lazy" decoding="async">
     </a>
     <nav aria-label="الرئيسية" data-i18n-aria="navLabel">
       <ul class="nav-links">
@@ -26,30 +30,30 @@
         <li><a href="warehouses.html" data-nav="wh" data-i18n="navWh">للمستودعات</a></li>
         <li><a href="trust.html" data-nav="trust" data-i18n="navTrust">الثقة والخصوصية</a></li>
         <li><a href="about.html" data-nav="about" data-i18n="navAbout">من نحن</a></li>
-        <li><a href="faq.html" data-nav="faq" data-i18n="navFaq">الأسئلة الشائعة</a></li>
+        <li><a href="faq.html" data-nav="faq" data-i18n="navFaq">الأسئلة</a></li>
       </ul>
     </nav>
     <button class="icon-btn lang-btn" id="langBtn" type="button" aria-label="Switch to English">EN</button>
     <button class="icon-btn" id="themeBtn" type="button" aria-label="تبديل الوضع الداكن" data-i18n-aria="themeLabel">
-      <svg class="ico theme-moon"><use href="#i-moon"/></svg>
-      <svg class="ico theme-sun"><use href="#i-sun"/></svg>
+      <svg class="ico theme-moon" aria-hidden="true"><use href="#i-moon"/></svg>
+      <svg class="ico theme-sun" aria-hidden="true"><use href="#i-sun"/></svg>
     </button>
-    <a class="btn btn-primary cta" href="contact.html#pharmacy" data-app data-i18n="navCta">حمّل التطبيق</a>
+    <a class="btn btn-primary btn-sm cta" href="contact.html#pharmacy" data-app><span data-i18n="navCta">حمّل التطبيق</span></a>
     <button class="icon-btn menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="drawer" aria-label="القائمة" data-i18n-aria="menuLabel">
-      <svg class="ico bars"><use href="#i-menu"/></svg>
-      <svg class="ico x"><use href="#i-x"/></svg>
+      <svg class="ico bars" aria-hidden="true"><use href="#i-menu"/></svg>
+      <svg class="ico x" aria-hidden="true"><use href="#i-x"/></svg>
     </button>
   </div>
 </header>
 <div class="drawer" id="drawer">
-  <a href="index.html" data-nav="home"><span data-i18n="navHome">الرئيسية</span></a>
-  <a href="pharmacies.html" data-nav="ph"><span data-i18n="navPh">للصيادلة</span></a>
-  <a href="warehouses.html" data-nav="wh"><span data-i18n="navWh">للمستودعات</span></a>
-  <a href="trust.html" data-nav="trust"><span data-i18n="navTrust">الثقة والخصوصية</span></a>
-  <a href="about.html" data-nav="about"><span data-i18n="navAbout">من نحن</span></a>
-  <a href="faq.html" data-nav="faq"><span data-i18n="navFaq">الأسئلة الشائعة</span></a>
-  <a href="contact.html" data-nav="contact"><span data-i18n="navContact">تواصل معنا</span></a>
-  <a class="btn btn-primary" href="contact.html#pharmacy" data-app data-i18n="navCta">حمّل التطبيق</a>
+  <a href="index.html" data-nav="home"><span data-i18n="navHome">الرئيسية</span><svg class="ico" aria-hidden="true"><use href="#i-arrow-left"/></svg></a>
+  <a href="pharmacies.html" data-nav="ph"><span data-i18n="navPh">للصيادلة</span><svg class="ico" aria-hidden="true"><use href="#i-arrow-left"/></svg></a>
+  <a href="warehouses.html" data-nav="wh"><span data-i18n="navWh">للمستودعات</span><svg class="ico" aria-hidden="true"><use href="#i-arrow-left"/></svg></a>
+  <a href="trust.html" data-nav="trust"><span data-i18n="navTrust">الثقة والخصوصية</span><svg class="ico" aria-hidden="true"><use href="#i-arrow-left"/></svg></a>
+  <a href="about.html" data-nav="about"><span data-i18n="navAbout">من نحن</span><svg class="ico" aria-hidden="true"><use href="#i-arrow-left"/></svg></a>
+  <a href="faq.html" data-nav="faq"><span data-i18n="navFaq">الأسئلة</span><svg class="ico" aria-hidden="true"><use href="#i-arrow-left"/></svg></a>
+  <a href="contact.html" data-nav="contact"><span data-i18n="navContact">تواصل معنا</span><svg class="ico" aria-hidden="true"><use href="#i-arrow-left"/></svg></a>
+  <a class="btn btn-primary" href="contact.html#pharmacy" data-app><span data-i18n="navCta">حمّل التطبيق</span></a>
 </div>
 
 <main id="main">
@@ -60,33 +64,33 @@
   <div class="wrap">
     <div class="foot">
       <div>
-        <img class="word logo-navy" src="assets/word-navy.webp" alt="فينيق FENIQ" width="436" height="245" loading="lazy">
-        <img class="word logo-silver" src="assets/word-silver.webp" alt="فينيق FENIQ" width="436" height="245" loading="lazy">
-        <p class="muted" style="font-size:var(--t-sm);max-width:36ch" data-i18n="footP">منصة رقمية تربط الصيدليات بمستودعات الأدوية في سوريا. انطلاقتنا من اللاذقية.</p>
+        <img class="word logo-silver" src="assets/word-silver-md.webp" alt="فينيق FENIQ" width="267" height="150" loading="lazy">
+        <p style="font-size:var(--fs-sm);max-width:38ch;color:var(--muted)" data-i18n="footP">منصة رقمية تربط الصيدليات بمستودعات الأدوية في سوريا. انطلاقتنا من اللاذقية.</p>
         <div class="socials">
-          <a class="icon-btn" href="contact.html" data-wa aria-label="واتساب" data-i18n-aria="wa"><svg class="ico"><use href="#i-message-circle"/></svg></a>
-          <a class="icon-btn" href="contact.html" data-ig aria-label="إنستغرام" data-i18n-aria="ig"><svg class="ico"><use href="#i-instagram"/></svg></a>
-          <a class="icon-btn" href="contact.html" data-fb aria-label="فيسبوك" data-i18n-aria="fb"><svg class="ico"><use href="#i-facebook"/></svg></a>
+          <a class="icon-btn" href="contact.html" data-wa aria-label="واتساب" data-i18n-aria="wa"><svg class="ico" aria-hidden="true"><use href="#i-message-circle"/></svg></a>
+          <a class="icon-btn" href="contact.html" data-ig aria-label="إنستغرام" data-i18n-aria="ig"><svg class="ico" aria-hidden="true"><use href="#i-instagram"/></svg></a>
+          <a class="icon-btn" href="contact.html" data-fb aria-label="فيسبوك" data-i18n-aria="fb"><svg class="ico" aria-hidden="true"><use href="#i-facebook"/></svg></a>
         </div>
       </div>
-      <div><h4 data-i18n="fh1">المنصة</h4><ul>
+      <div><h2 data-i18n="fh1">المنصة</h2><ul>
         <li><a href="pharmacies.html" data-i18n="navPh">للصيادلة</a></li>
         <li><a href="warehouses.html" data-i18n="navWh">للمستودعات</a></li>
         <li><a href="trust.html" data-i18n="navTrust">الثقة والخصوصية</a></li>
       </ul></div>
-      <div><h4 data-i18n="fh2">الشركة</h4><ul>
+      <div><h2 data-i18n="fh2">الشركة</h2><ul>
         <li><a href="about.html" data-i18n="navAbout">من نحن</a></li>
-        <li><a href="faq.html" data-i18n="navFaq">الأسئلة الشائعة</a></li>
+        <li><a href="faq.html" data-i18n="navFaq">الأسئلة</a></li>
         <li><a href="contact.html" data-i18n="navContact">تواصل معنا</a></li>
       </ul></div>
-      <div><h4 data-i18n="fh3">قانوني</h4><ul>
+      <div><h2 data-i18n="fh3">قانوني</h2><ul>
         <li><a href="privacy.html" data-i18n="privacy">سياسة الخصوصية</a></li>
         <li><a href="terms.html" data-i18n="terms">شروط الاستخدام</a></li>
       </ul></div>
     </div>
     <div class="legal"><span data-i18n="copy">© ٢٠٢٦ فينيق. جميع الحقوق محفوظة.</span><span data-i18n="made">صُنع في اللاذقية</span></div>
   </div>
+  <div class="giant" aria-hidden="true">FENIQ</div>
 </footer>
 {{EN}}
-<script src="assets/site.js"></script>
+<script src="assets/site.js" defer></script>
 {{SCRIPTS}}

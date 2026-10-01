@@ -1,5 +1,5 @@
-/* FENIQ site behaviour, shared by every page.
-   Each block only runs when its elements are on the page. */
+/* FENIQ core behaviour, shared by every page.
+   Each block runs only when its elements exist on the page. */
 
 /* ===== Site config: replace with the real accounts before launch ===== */
 const CONFIG = {
@@ -14,10 +14,13 @@ const CONFIG = {
   const $ = (s, el = document) => el.querySelector(s), $$ = (s, el = document) => [...el.querySelectorAll(s)];
   const store = { get(k){ try { return localStorage.getItem(k); } catch(e){ return null; } }, set(k,v){ try { localStorage.setItem(k,v); } catch(e){} } };
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const langHooks = [];
-  root.lang = "ar"; root.dir = "rtl";
+  const hooks = [];
+  let lang = "ar";
+  window.FENIQ = { reduce, onLang: fn => hooks.push(fn), get lang(){ return lang; } };
+  if (root.lang !== "ar") root.lang = "ar";
+  if (root.dir !== "rtl") root.dir = "rtl";
 
-  /* ---------- theme (light by default, dark on request) ---------- */
+  /* ---------- theme (light by default; navy bands stay navy) ---------- */
   const savedTheme = store.get("feniq-theme");
   if (savedTheme === "dark" || savedTheme === "light") root.dataset.theme = savedTheme;
   $("#themeBtn")?.addEventListener("click", () => {
@@ -27,48 +30,83 @@ const CONFIG = {
 
   /* ---------- mobile menu ---------- */
   const menuBtn = $("#menuBtn");
-  menuBtn?.addEventListener("click", () => {
-    const open = !document.body.classList.contains("menu-open");
-    document.body.classList.toggle("menu-open", open);
-    menuBtn.setAttribute("aria-expanded", open);
-  });
-  $$(".drawer a").forEach(a => a.addEventListener("click", () => { document.body.classList.remove("menu-open"); menuBtn?.setAttribute("aria-expanded", false); }));
+  const setMenu = open => { document.body.classList.toggle("menu-open", open); menuBtn?.setAttribute("aria-expanded", open); };
+  menuBtn?.addEventListener("click", () => setMenu(!document.body.classList.contains("menu-open")));
+  $$(".drawer a").forEach(a => a.addEventListener("click", () => setMenu(false)));
+  addEventListener("keydown", e => { if (e.key === "Escape") setMenu(false); });
+
+  /* ---------- nav: tone follows the band under it, compacts on scroll ---------- */
+  const nav = $(".nav");
+  if (nav) {
+    const bands = $$("main > section, footer.site");
+    const tone = () => {
+      const y = nav.getBoundingClientRect().bottom - 20;
+      let t = nav.dataset.tone;
+      for (const b of bands) { const r = b.getBoundingClientRect(); if (r.top <= y && r.bottom > y) { t = b.matches(".navy, footer.site") ? "dark" : "light"; break; } }
+      nav.dataset.tone = t;
+      nav.classList.toggle("scrolled", scrollY > 40);
+    };
+    let ticking = false;
+    addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(() => { tone(); ticking = false; }); } }, { passive: true });
+    requestAnimationFrame(tone);
+  }
+
+  /* ---------- word-by-word reveal for headlines ---------- */
+  const splitWords = (el, animate) => {
+    const text = el.textContent.trim();
+    el.textContent = "";
+    text.split(/\s+/).forEach((w, i, all) => {
+      const s = document.createElement("span"); s.className = "w"; s.textContent = w; s.style.setProperty("--i", i);
+      if (!animate) s.style.animation = "none";
+      el.appendChild(s); if (i < all.length - 1) el.appendChild(document.createTextNode(" "));
+    });
+  };
 
   /* ---------- language ---------- */
   const SHARED_EN = {
     skip:"Skip to content", navLabel:"Main", themeLabel:"Toggle dark mode", menuLabel:"Menu",
-    navHome:"Home", navPh:"Pharmacies", navWh:"Warehouses", navTrust:"Trust & privacy", navAbout:"About", navFaq:"FAQ", navContact:"Contact",
+    navHome:"Home", navPh:"Pharmacies", navWh:"Warehouses", navTrust:"Trust & privacy", navAbout:"About", navFaq:"FAQ", navContact:"Contact us",
     navCta:"Get the app", cta1:"Get the app", cta2:"Join as a warehouse", more:"Learn more", demo:"Book an intro", demoData:"Sample data",
     footP:"A digital platform connecting pharmacies with drug warehouses in Syria. Launched in Latakia.",
     fh1:"Platform", fh2:"Company", fh3:"Legal", privacy:"Privacy policy", terms:"Terms of use",
     copy:"© 2026 FENIQ. All rights reserved.", made:"Made in Latakia",
     finH:"Your next order can cost you less.", finP:"Get FENIQ and order from your warehouse in one tap.",
-    wa:"WhatsApp", ig:"Instagram", fb:"Facebook", illus:"Illustration",
-    phoneLabel:"FENIQ app screens", now:"Available now", soon:"Coming soon",
+    wa:"WhatsApp", ig:"Instagram", fb:"Facebook", illus:"Illustration", now:"Available now", soon:"Coming soon",
+    phoneLabel:"FENIQ app screens",
     e0:"The ordering app between pharmacies and warehouses.", e1:"Smart demand and stock analysis that helps you know what to order and when.", e2:"Medicine delivery from the pharmacy to the patient's home."
   };
   let pageEN = {};
   try { pageEN = JSON.parse($("#i18n-en")?.textContent || "{}"); } catch(e){}
   const EN = { ...SHARED_EN, ...pageEN };
   const AR = {};
-  const textEls = $$("[data-i18n]"), ariaEls = $$("[data-i18n-aria]"), phEls = $$("[data-i18n-ph]");
-  textEls.forEach(el => AR[el.dataset.i18n] ??= el.innerHTML);
-  ariaEls.forEach(el => AR[el.dataset.i18nAria] ??= el.getAttribute("aria-label"));
-  phEls.forEach(el => AR[el.dataset.i18nPh] ??= el.getAttribute("placeholder"));
+  let textEls = [], ariaEls = [], altEls = [], phEls = [], captured = false;
+  const capture = () => {
+    if (captured) return; captured = true;
+    textEls = $$("[data-i18n]"); ariaEls = $$("[data-i18n-aria]"); altEls = $$("[data-i18n-alt]"); phEls = $$("[data-i18n-ph]");
+    textEls.forEach(el => AR[el.dataset.i18n] ??= el.classList.contains("reveal-words") ? el.textContent.trim() : el.innerHTML);
+    ariaEls.forEach(el => AR[el.dataset.i18nAria] ??= el.getAttribute("aria-label"));
+    altEls.forEach(el => AR[el.dataset.i18nAlt] ??= el.getAttribute("alt"));
+    phEls.forEach(el => AR[el.dataset.i18nPh] ??= el.getAttribute("placeholder"));
+    $$("[data-ar]").forEach(el => AR[el.dataset.ar] = el.dataset.arText);
+  };
   $$("[data-ar]").forEach(el => AR[el.dataset.ar] = el.dataset.arText);
-  let lang = "ar";
-  const t = k => (lang === "en" ? EN[k] : AR[k]) ?? AR[k] ?? EN[k] ?? "";
+  const t = k => { capture(); return (lang === "en" ? EN[k] : AR[k]) ?? AR[k] ?? EN[k] ?? ""; };
   const titles = { ar: document.title, en: EN.docTitle || document.title };
   function applyLang(l){
+    capture();
     lang = l; root.lang = l; root.dir = l === "ar" ? "rtl" : "ltr";
-    textEls.forEach(el => { const v = t(el.dataset.i18n); if (v) el.innerHTML = v; });
+    textEls.forEach(el => {
+      const v = t(el.dataset.i18n); if (!v) return;
+      if (el.classList.contains("reveal-words")) { el.textContent = v; splitWords(el, false); } else el.innerHTML = v;
+    });
     ariaEls.forEach(el => el.setAttribute("aria-label", t(el.dataset.i18nAria)));
+    altEls.forEach(el => el.setAttribute("alt", t(el.dataset.i18nAlt)));
     phEls.forEach(el => el.setAttribute("placeholder", t(el.dataset.i18nPh)));
     document.title = titles[l];
     const b = $("#langBtn");
     if (b) { b.textContent = l === "ar" ? "EN" : "ع"; b.setAttribute("aria-label", l === "ar" ? "Switch to English" : "التبديل إلى العربية"); }
     $$("[data-en-only]").forEach(el => el.hidden = l !== "en");
-    langHooks.forEach(fn => fn());
+    hooks.forEach(fn => fn(l));
     store.set("feniq-lang", l);
   }
   $("#langBtn")?.addEventListener("click", () => applyLang(lang === "ar" ? "en" : "ar"));
@@ -87,7 +125,7 @@ const CONFIG = {
     if (location.hash === "#warehouse") roleWh.checked = true;
     if (location.hash === "#pharmacy") rolePh.checked = true;
     [rolePh, roleWh].forEach(r => r.addEventListener("change", syncRole));
-    langHooks.push(syncRole); syncRole();
+    hooks.push(syncRole); syncRole();
     form.addEventListener("submit", e => {
       e.preventDefault();
       const F = form.elements;
@@ -109,8 +147,8 @@ const CONFIG = {
     });
   }
 
-  /* ---------- how it works: steps drive the phone ---------- */
-  const steps = $$(".step"), apps = $$(".phone .app");
+  /* ---------- steps drive the phone (inner pages) ---------- */
+  const steps = $$(".step"), apps = $$(".phone-col .phone .app");
   if (steps.length && apps.length) {
     let current = 0, userPicked = false;
     const show = i => { current = i; steps.forEach((s, k) => s.setAttribute("aria-current", k === i)); apps.forEach((a, k) => a.classList.toggle("on", k === i)); };
@@ -120,8 +158,7 @@ const CONFIG = {
     steps.forEach(s => io.observe(s));
     if (!reduce) setInterval(() => { if (!wide.matches && !userPicked && !document.hidden) show((current + 1) % apps.length); }, 3800);
   }
-  // any phone tilts toward the pointer
-  if (!reduce && matchMedia("(pointer:fine)").matches) $$(".phone").forEach(phone => {
+  if (!reduce && matchMedia("(pointer:fine)").matches) $$(".phone-col .phone, .media .phone").forEach(phone => {
     const base = () => (phone.classList.contains("flat") ? 10 : 16) * (root.dir === "rtl" ? -1 : 1);
     phone.parentElement.addEventListener("pointermove", e => {
       const r = phone.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
@@ -148,47 +185,15 @@ const CONFIG = {
     $$(".dash-view").forEach(v => v.classList.toggle("on", v.id === tb.getAttribute("aria-controls")));
   }));
 
-  /* ---------- Syria network map ---------- */
-  const mapSvg = $("#syria");
-  if (mapSvg) {
-    const border = [[35.95,35.92],[36.15,35.82],[36.37,36.03],[36.6,36.22],[36.68,36.83],[37.07,36.62],[38.2,36.9],[39.2,36.66],[40.8,37.1],[42.35,37.23],[41.84,36.6],[41.29,36.36],[41.38,35.63],[41.0,34.42],[38.79,33.38],[36.84,32.31],[35.72,32.71],[35.83,33.28],[36.07,33.82],[36.61,34.2],[36.45,34.59],[35.99,34.64],[35.9,35.41]];
-    const P = ([lon, lat]) => [(lon - 35.4) * 96 + 90, (37.5 - lat) * 96 + 10];
-    const cities = [
-      {k:"lat", ar:"اللاذقية", en:"Latakia", ll:[35.78,35.52], home:true}, {k:"jab", ar:"جبلة", en:"Jableh", ll:[35.93,35.36], active:true},
-      {k:"tar", ar:"طرطوس", en:"Tartus", ll:[35.89,34.89]}, {k:"hom", ar:"حمص", en:"Homs", ll:[36.72,34.73]}, {k:"ham", ar:"حماة", en:"Hama", ll:[36.75,35.13]},
-      {k:"alp", ar:"حلب", en:"Aleppo", ll:[37.16,36.2]}, {k:"idl", ar:"إدلب", en:"Idlib", ll:[36.63,35.93]}, {k:"dam", ar:"دمشق", en:"Damascus", ll:[36.29,33.51]},
-      {k:"dar", ar:"درعا", en:"Daraa", ll:[36.1,32.62]}, {k:"raq", ar:"الرقة", en:"Raqqa", ll:[39.01,35.95]}, {k:"dez", ar:"دير الزور", en:"Deir ez-Zor", ll:[40.14,35.33]},
-      {k:"has", ar:"الحسكة", en:"Hasakah", ll:[40.75,36.5]}
-    ];
-    const labelled = new Set(["lat","tar","hom","alp","dam","dez"]);
-    let seed = 11; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
-    const pharm = Array.from({length:22}, (_, i) => { const c = i < 16 ? [35.84,35.53] : [35.97,35.37]; const a = rnd() * 6.283, r = .06 + rnd() * .2; return [c[0] + Math.cos(a) * r * .9, c[1] + Math.sin(a) * r * .8]; });
-    const f = n => n.toFixed(1);
-    const drawMap = () => {
-      const home = P(cities[0].ll);
-      const curve = (a, b) => { const mx = (a[0] + b[0]) / 2, my = (a[1] + b[1]) / 2 - Math.hypot(b[0]-a[0], b[1]-a[1]) * .22; return `M${f(a[0])} ${f(a[1])} Q${f(mx)} ${f(my)} ${f(b[0])} ${f(b[1])}`; };
-      let h = `<path class="land" d="M${border.map(p => P(p).map(f).join(" ")).join(" L")} Z"/>`;
-      cities.slice(1).forEach(c => { h += `<path class="link${c.active ? "" : " later"}" d="${curve(home, P(c.ll))}"/>`; });
-      pharm.forEach(p => { const q = P(p); h += `<path class="link" style="opacity:.35" d="M${f(home[0])} ${f(home[1])} L${f(q[0])} ${f(q[1])}"/>`; });
-      h += `<path class="pulse" d="${curve(home, P(cities[1].ll))}"/>`;
-      pharm.slice(0, 5).forEach((p, i) => { const q = P(p); h += `<path class="pulse" style="animation-delay:${i * .6}s" d="M${f(home[0])} ${f(home[1])} L${f(q[0])} ${f(q[1])}"/>`; });
-      pharm.forEach(p => { const q = P(p); h += `<circle class="ph" r="2.6" cx="${f(q[0])}" cy="${f(q[1])}"/>`; });
-      cities.forEach(c => {
-        const [x, y] = P(c.ll);
-        h += c.home ? `<circle class="ring" r="7" cx="${f(x)}" cy="${f(y)}"/><circle class="home" r="7" cx="${f(x)}" cy="${f(y)}"/>` : `<circle class="city" r="4" cx="${f(x)}" cy="${f(y)}"/>`;
-        // coastal labels sit over the sea (west), inland ones to the east, so none cover the network
-        if (labelled.has(c.k)) { const west = c.ll[0] < 36.2; h += `<text class="${c.home ? "home-t" : ""}" x="${f(west ? x - 12 : x + 12)}" y="${f(y + 5)}" text-anchor="${west ? "end" : "start"}" direction="ltr">${lang === "en" ? c.en : c.ar}</text>`; }
-      });
-      mapSvg.innerHTML = h;
-    };
-    drawMap(); langHooks.push(drawMap);
-  }
-
   if (store.get("feniq-lang") === "en") applyLang("en");
 
   /* ---------- scroll reveal (content is visible without it) ---------- */
   if (!reduce && "IntersectionObserver" in window) {
-    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { rootMargin: "0px 0px -8% 0px" });
-    $$(".rv").forEach(el => { if (el.getBoundingClientRect().top > innerHeight) io.observe(el); });
+    let first = true; // the first report covers what is already on screen: leave that still
+    const io = new IntersectionObserver(es => {
+      es.forEach(e => { if (!e.isIntersecting) return; if (!first) e.target.classList.add("in"); io.unobserve(e.target); });
+      first = false;
+    });
+    $$(".rv").forEach(el => io.observe(el));
   }
 })();
