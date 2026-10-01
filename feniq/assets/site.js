@@ -3,9 +3,9 @@
 
 /* ===== Site config: replace with the real accounts before launch ===== */
 const CONFIG = {
-  whatsapp: "",   // e.g. "963933000000" (international format, digits only)
-  instagram: "",  // e.g. "https://instagram.com/feniq"
-  facebook: "",   // e.g. "https://facebook.com/feniq"
+  whatsapp: "963938456457",  // international format, digits only
+  instagram: "https://www.instagram.com/feniqalfeniq",
+  facebook: "https://www.facebook.com/share/1EMo7UTS8w/",
   appUrl: ""      // store link for "Get the app"; empty keeps the button on the contact page
 };
 
