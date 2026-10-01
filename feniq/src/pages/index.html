@@ -1,0 +1,439 @@
+<!--meta {"title":"فينيق FENIQ","desc":"فينيق منصة رقمية تربط الصيدليات بمستودعات الأدوية في سوريا. اطلب بلمسة، تابع التوصيل لحظة بلحظة، واحصل على حسم حقيقي على كل طلب.","nav":"home","tone":"dark","scripts":["assets/fx.js","assets/phoenix-gl.js"]} -->
+<!-- ============ HERO ============ -->
+<section class="hero home-hero navy" data-tone="dark" id="top">
+  <div class="fx-bg" aria-hidden="true">
+    <div class="aurora"><i></i><i></i><i></i></div>
+    <div class="beam-top"></div>
+    <div class="fx-grid"></div>
+    <div class="spot" data-spot></div>
+    <div class="noise"></div>
+  </div>
+  <div class="wrap">
+    <div class="hero-copy">
+      <a class="announce rise" href="contact.html#pharmacy"><b><svg class="ico" aria-hidden="true"><use href="#i-map-pin"/></svg><span data-i18n="annB">جديد</span></b><span data-i18n="ann">فينيق متاح الآن في اللاذقية</span><svg class="ico go" aria-hidden="true"><use href="#i-arrow-left"/></svg></a>
+      <h1><span class="metal reveal-words" data-i18n="h1">اطلب أدوية صيدليتك بلمسة، ووفّر ما كنت تدفعه للوسيط.</span></h1>
+      <p class="lead rise" style="--d:.55s" data-i18n="lead">فينيق يربط الصيدليات بمستودعات الأدوية في سوريا. اختر المستودع، وأرسل طلبك، وتابع التوصيل لحظة بلحظة، مع حسم حقيقي على كل طلب.</p>
+      <div class="ctas rise" style="--d:.7s">
+        <a class="btn btn-primary" href="contact.html#pharmacy" data-app><svg class="ico" aria-hidden="true"><use href="#i-download"/></svg><span data-i18n="cta1">حمّل التطبيق</span></a>
+        <a class="btn btn-ghost" href="warehouses.html"><span data-i18n="cta2">انضم كمستودع</span><svg class="ico go" aria-hidden="true"><use href="#i-arrow-left"/></svg></a>
+      </div>
+      <ul class="facts rise" style="--d:.85s">
+        <li><svg class="ico" aria-hidden="true"><use href="#i-tag"/></svg><span data-i18n="fact1">حسم حقيقي على كل طلب</span></li>
+        <li><svg class="ico" aria-hidden="true"><use href="#i-hand-coins"/></svg><span data-i18n="fact2">الدفع عند الاستلام</span></li>
+        <li><svg class="ico" aria-hidden="true"><use href="#i-lock"/></svg><span data-i18n="fact3">بيانات كل مستودع معزولة</span></li>
+      </ul>
+    </div>
+    <div class="stage" id="stage" aria-hidden="true">
+      <div class="halo"></div><div class="ring"></div><div class="ring r2"></div>
+      <img class="still" src="assets/mark-silver.webp" alt="" width="392" height="483" fetchpriority="high">
+      <canvas id="phoenix"></canvas>
+    </div>
+  </div>
+
+  <!-- product showcase: tilts flat as it scrolls into view -->
+  <div class="showcase">
+    <div class="wrap wide">
+      <div class="show-head rv">
+        <h2 data-i18n="shH">صيدلية في يدك، ومستودع على شاشتك.</h2>
+        <p data-i18n="shP">تطبيق للصيدلاني يطلب ويتابع، ولوحة للمستودع يستقبل ويجهّز. الطرفان متصلان لحظة بلحظة.</p>
+      </div>
+      <div class="show-stage" id="showStage">
+        <div class="show-glow" aria-hidden="true"></div>
+        <div class="show-tilt device-row" role="img" aria-label="لوحة تحكم المستودع وتطبيق الصيدلية في فينيق" data-i18n-aria="shAlt">
+          <div class="laptop" aria-hidden="true">
+            <div class="lid"><span class="cam"></span>
+              <div class="dash">
+                <div class="side">
+                  <img src="assets/word-silver-sm.webp" alt="" width="149" height="84">
+                  <span class="tab on"><svg><use href="#i-package"/></svg>الطلبات</span>
+                  <span class="tab"><svg><use href="#i-file-spreadsheet"/></svg>الكتالوج</span>
+                  <span class="tab"><svg><use href="#i-rotate-ccw"/></svg>المرتجعات</span>
+                  <span class="tab"><svg><use href="#i-truck"/></svg>التوصيل</span>
+                </div>
+                <div class="main">
+                  <div class="top"><b>طلبات اليوم</b><span class="search"><svg><use href="#i-search"/></svg>ابحث عن صيدلية أو صنف</span></div>
+                  <div class="tiles">
+                    <div class="tile"><small>طلبات جديدة</small><b>٨</b><i style="--w:70%"></i></div>
+                    <div class="tile"><small>قيد التجهيز</small><b>٥</b><i style="--w:45%"></i></div>
+                    <div class="tile"><small>في الطريق</small><b>٣</b><i style="--w:28%"></i></div>
+                  </div>
+                  <div class="table-scroll"><table>
+                    <thead><tr><th>الصيدلية</th><th>المدينة</th><th>الأصناف</th><th>الوقت</th><th>الحالة</th></tr></thead>
+                    <tbody>
+                      <tr class="new-row"><td>صيدلية الحكمة</td><td>اللاذقية</td><td>١٢</td><td>١٠:١٢</td><td><span class="st o">جديد</span></td></tr>
+                      <tr><td>صيدلية البلسم</td><td>جبلة</td><td>٧</td><td>٩:٤٨</td><td><span class="st n">قيد التجهيز</span></td></tr>
+                      <tr><td>صيدلية الأمل</td><td>اللاذقية</td><td>٢٠</td><td>٩:٣٠</td><td><span class="st">في الطريق</span></td></tr>
+                      <tr><td>صيدلية الرازي</td><td>اللاذقية</td><td>٤</td><td>٩:٠٥</td><td><span class="st">تم التسليم</span></td></tr>
+                    </tbody>
+                  </table></div>
+                </div>
+              </div>
+            </div>
+            <div class="base"></div>
+          </div>
+          <div class="phone-float" aria-hidden="true">
+            <div class="phone">
+              <div class="edge"></div><div class="edge e2"></div><div class="body"></div>
+              <div class="screen"><div class="notch"></div>
+                <div class="app on">
+                  <div class="app-top"><b>طلبك</b><img src="assets/mark-navy-sm.webp" alt="" width="83" height="102"></div>
+                  <div class="app-list">
+                    <div class="app-card"><span class="av o"><svg><use href="#i-pill"/></svg></span><div><b>باراسيتامول ٥٠٠</b><small>متوفر</small></div><span class="qty">٤</span></div>
+                    <div class="app-card"><span class="av o"><svg><use href="#i-pill"/></svg></span><div><b>أموكسيسيلين</b><small>متوفر</small></div><span class="qty">٢</span></div>
+                    <div class="app-card"><span class="av o"><svg><use href="#i-pill"/></svg></span><div><b>أوميبرازول</b><small>كمية محدودة</small></div><span class="qty">٣</span></div>
+                    <div class="app-note"><span>الحسم</span><b>مُطبّق</b></div>
+                    <div class="app-card"><span class="av"><svg><use href="#i-truck"/></svg></span><div><b>طلبك السابق</b><small>في الطريق إليك</small></div><span class="chip">مباشر</span></div>
+                  </div>
+                  <div class="app-cta">إرسال الطلب</div>
+                </div>
+              </div>
+              <div class="glare"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="demo-note" data-i18n="demoData">بيانات توضيحية</p>
+    </div>
+  </div>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span class="mq"><svg class="ico"><use href="#i-zap"/></svg><span data-i18n="m1">طلب بلمسة</span></span>
+      <span class="mq"><svg class="ico"><use href="#i-tag"/></svg><span data-i18n="m2">حسم حقيقي</span></span>
+      <span class="mq"><svg class="ico"><use href="#i-route"/></svg><span data-i18n="m3">تتبّع لحظي</span></span>
+      <span class="mq"><svg class="ico"><use href="#i-camera"/></svg><span data-i18n="m4">مرتجعات بالصورة</span></span>
+      <span class="mq"><svg class="ico"><use href="#i-file-spreadsheet"/></svg><span data-i18n="m5">كتالوج من إكسل</span></span>
+      <span class="mq"><svg class="ico"><use href="#i-eye-off"/></svg><span data-i18n="m6">بيانات معزولة</span></span>
+      <span class="mq"><svg class="ico"><use href="#i-monitor-x"/></svg><span data-i18n="m7">لا برامج تُثبَّت</span></span>
+      <span class="mq"><svg class="ico"><use href="#i-hand-coins"/></svg><span data-i18n="m8">الدفع عند الاستلام</span></span>
+      <span class="mq"><svg class="ico"><use href="#i-zap"/></svg><span data-i18n="m1">طلب بلمسة</span></span>
+      <span class="mq"><svg class="ico"><use href="#i-tag"/></svg><span data-i18n="m2">حسم حقيقي</span></span>
+      <span class="mq"><svg class="ico"><use href="#i-route"/></svg><span data-i18n="m3">تتبّع لحظي</span></span>
+      <span class="mq"><svg class="ico"><use href="#i-camera"/></svg><span data-i18n="m4">مرتجعات بالصورة</span></span>
+      <span class="mq"><svg class="ico"><use href="#i-file-spreadsheet"/></svg><span data-i18n="m5">كتالوج من إكسل</span></span>
+      <span class="mq"><svg class="ico"><use href="#i-eye-off"/></svg><span data-i18n="m6">بيانات معزولة</span></span>
+      <span class="mq"><svg class="ico"><use href="#i-monitor-x"/></svg><span data-i18n="m7">لا برامج تُثبَّت</span></span>
+      <span class="mq"><svg class="ico"><use href="#i-hand-coins"/></svg><span data-i18n="m8">الدفع عند الاستلام</span></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT FLOWS (animated beams) ============ -->
+<section class="sec" id="how" data-tone="light">
+  <div class="fx-bg" aria-hidden="true"><div class="fx-dots"></div></div>
+  <div class="wrap">
+    <div class="sec-head center rv">
+      <h2 data-i18n="flH">من الطلب إلى الباب، عبر فينيق.</h2>
+      <p data-i18n="flP">الصيدلية ترسل طلبها، وفينيق يوصله إلى المستودع الذي اختارته، ثم يعيد إليها حالة التوصيل خطوة بخطوة.</p>
+    </div>
+    <div class="flow-wrap" id="flow">
+      <svg class="beams" aria-hidden="true"></svg>
+      <div class="flow-col" data-side="a">
+        <h3 data-i18n="flA">الصيدليات</h3>
+        <div class="node ph"><span class="nic"><svg class="ico" aria-hidden="true"><use href="#i-pill"/></svg></span><span data-i18n="nPh1">صيدلية في اللاذقية</span></div>
+        <div class="node ph"><span class="nic"><svg class="ico" aria-hidden="true"><use href="#i-pill"/></svg></span><span data-i18n="nPh2">صيدلية في جبلة</span></div>
+        <div class="node ph"><span class="nic"><svg class="ico" aria-hidden="true"><use href="#i-pill"/></svg></span><span data-i18n="nPh3">صيدليتك</span></div>
+      </div>
+      <div class="hub"><span class="pulse-ring" aria-hidden="true"></span><img src="assets/mark-silver-md.webp" alt="فينيق" width="195" height="240"></div>
+      <div class="flow-col" data-side="b">
+        <h3 data-i18n="flB">المستودعات</h3>
+        <div class="node"><span class="nic"><svg class="ico" aria-hidden="true"><use href="#i-warehouse"/></svg></span><span data-i18n="nWh1">مستودع أدوية</span></div>
+        <div class="node"><span class="nic"><svg class="ico" aria-hidden="true"><use href="#i-warehouse"/></svg></span><span data-i18n="nWh2">مستودع مستلزمات</span></div>
+        <div class="node"><span class="nic"><svg class="ico" aria-hidden="true"><use href="#i-warehouse"/></svg></span><span data-i18n="nWh3">مستودعك</span></div>
+      </div>
+    </div>
+    <ol class="flow-steps" id="flowSteps">
+      <li class="on"><h3 data-i18n="s1">اختر المستودع</h3><p data-i18n="s1d">المستودعات المتاحة في مدينتك، مع الأصناف المتوفرة لدى كل منها.</p></li>
+      <li><h3 data-i18n="s2">أرسل الطلب</h3><p data-i18n="s2d">أضف الأصناف والكميات، وشاهد الحسم على طلبك قبل الإرسال.</p></li>
+      <li><h3 data-i18n="s3">تابع التوصيل</h3><p data-i18n="s3d">إشعار عند كل مرحلة: الاستلام، والتجهيز، والطريق، والتسليم.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ BEFORE / AFTER ============ -->
+<section class="sec sec-soft" id="compare" data-tone="light">
+  <div class="wrap">
+    <div class="sec-head center rv">
+      <h2 data-i18n="baH">الفرق تراه من أول طلب.</h2>
+      <p data-i18n="baP">اسحب المؤشر لترى كيف يتحول يوم الطلب التقليدي إلى طلب واحد واضح.</p>
+    </div>
+    <div class="ba rv" id="ba">
+      <div class="ba-pane ba-old">
+        <span class="ba-label" data-i18n="baOld">الطريقة التقليدية</span>
+        <div class="chaos" aria-hidden="true">
+          <span class="bubble b1"><svg class="ico"><use href="#i-phone-missed"/></svg><span data-i18n="c1">٣ مكالمات فائتة من المستودع</span></span>
+          <span class="bubble b2"><svg class="ico"><use href="#i-clock"/></svg><span data-i18n="c2">متى يصل الطلب؟</span></span>
+          <span class="bubble b3"><svg class="ico"><use href="#i-triangle-alert"/></svg><span data-i18n="c3">الصنف غير متوفر</span></span>
+          <span class="bubble b4"><svg class="ico"><use href="#i-mic"/></svg><span data-i18n="c4">أرسلت لك القائمة صوتياً</span></span>
+          <span class="bubble b5"><svg class="ico"><use href="#i-hand-coins"/></svg><span data-i18n="c5">عمولة المندوب</span></span>
+          <span class="note"><b data-i18n="nt0">طلبية الأسبوع</b><s>باراسيتامول × ٤</s><span>أموكسيسيلين × ٢ ؟</span><s>أوميبرازول</s><span>فيتامين د ؟</span></span>
+        </div>
+      </div>
+      <div class="ba-pane ba-new">
+        <span class="ba-label" data-i18n="baNew">مع فينيق</span>
+        <div class="calm">
+          <div class="calm-card">
+            <div class="calm-row"><span data-i18n="k1">طلبك إلى مستودع الساحل</span><b data-i18n="k2">في الطريق</b></div>
+            <div class="calm-bar"><i></i></div>
+          </div>
+          <div class="calm-card">
+            <div class="calm-row"><span data-i18n="k3">١٢ صنفاً</span><span data-i18n="k4">كلها متوفرة</span></div>
+            <div class="calm-row"><span data-i18n="k5">الحسم على الطلب</span><b data-i18n="k6">مُطبّق تلقائياً</b></div>
+            <div class="calm-row"><span data-i18n="k7">الدفع</span><span data-i18n="k8">عند الاستلام</span></div>
+          </div>
+          <div class="calm-card">
+            <ol class="calm-track"><li class="done" data-i18n="tk1">استلام</li><li class="done" data-i18n="tk2">تجهيز</li><li class="now" data-i18n="tk3">في الطريق</li><li data-i18n="tk4">تسليم</li></ol>
+          </div>
+        </div>
+      </div>
+      <input type="range" min="4" max="96" value="50" id="baRange" aria-label="قارن بين الطريقتين" data-i18n-aria="baAria">
+      <div class="ba-handle" aria-hidden="true"><span><svg class="ico"><use href="#i-chevrons-left-right"/></svg></span></div>
+    </div>
+    <div class="ba-caption"><p data-i18n="baC1">اتصالات، وانتظار، وأخطاء، وعمولة في كل مرة.</p><p data-i18n="baC2">طلب مكتوب، وتتبّع واضح، وحسم حقيقي.</p></div>
+  </div>
+</section>
+
+<!-- ============ BENTO ============ -->
+<section class="sec" id="features" data-tone="light">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <h2 data-i18n="bnH">كل ما تحتاجه، في منصة واحدة.</h2>
+      <p data-i18n="bnP">أدوات صُممت لإيقاع العمل اليومي في الصيدلية والمستودع، من البحث عن الصنف حتى المرتجع.</p>
+    </div>
+    <div class="bento" data-play>
+      <article class="cell spot-card b-a rv">
+        <div class="viz" aria-hidden="true">
+          <div class="receipt">
+            <div class="r-head"><b data-i18n="rc1">طلب إلى مستودع الساحل</b><span class="state soft" data-i18n="rc2">قبل الإرسال</span></div>
+            <div class="r-row"><span>باراسيتامول ٥٠٠ ملغ</span><span>× ٤</span></div>
+            <div class="r-row"><span>أموكسيسيلين ٥٠٠ ملغ</span><span>× ٢</span></div>
+            <div class="r-row"><span>أوميبرازول ٢٠ ملغ</span><span>× ٣</span></div>
+            <div class="r-total"><span data-i18n="rc3">الحسم على هذا الطلب</span><b data-i18n="rc4">مُطبّق تلقائياً</b></div>
+            <span class="stamp" data-i18n="rc5">حسم حقيقي</span>
+          </div>
+          <svg class="spark-mini" viewBox="0 0 150 60"><path d="M4 54 C 30 50, 38 40, 58 38 S 90 26, 104 20 S 132 8, 146 4"/></svg>
+        </div>
+        <div class="txt"><h3 data-i18n="bA">حسم حقيقي على كل طلب</h3><p data-i18n="bAd">عمولة المندوب التقليدي تتحول إلى حسم يظهر على طلبك قبل أن ترسله. قيمته تختلف حسب الشركة والصنف.</p></div>
+      </article>
+      <article class="cell spot-card b-b rv" style="--d:.08s">
+        <div class="viz" aria-hidden="true">
+          <div class="route">
+            <svg viewBox="0 0 320 170" preserveAspectRatio="none"><path class="road" d="M24 140 C 90 140, 100 60, 170 70 S 260 110, 296 34"/><path class="done" d="M24 140 C 90 140, 100 60, 170 70 S 260 110, 296 34"/></svg>
+            <span class="van" style="offset-path:path('M24 140 C 90 140, 100 60, 170 70 S 260 110, 296 34');translate:-17px -17px"><svg class="ico"><use href="#i-truck"/></svg></span>
+            <span class="pin-end" style="left:289px;top:27px"></span>
+            <span class="status-chip"><span class="roll"><span data-i18n="st1">استلم المستودع طلبك</span><span data-i18n="st2">قيد التجهيز</span><span data-i18n="st3">في الطريق إليك</span></span></span>
+          </div>
+        </div>
+        <div class="txt"><h3 data-i18n="bB">تتبّع لحظة بلحظة</h3><p data-i18n="bBd">من استلام المستودع للطلب حتى وصوله إلى باب صيدليتك.</p></div>
+      </article>
+      <article class="cell spot-card b-c rv" style="--d:.16s">
+        <div class="viz" aria-hidden="true">
+          <div class="search-demo">
+            <div class="sbox"><svg class="ico"><use href="#i-search"/></svg><span class="typed" data-i18n="sq">باراسيتامول</span></div>
+            <div class="res"><span data-i18n="sr1">باراسيتامول ٥٠٠ ملغ</span><span class="add">+</span></div>
+          </div>
+        </div>
+        <div class="txt"><h3 data-i18n="bC">طلب في دقائق</h3><p data-i18n="bCd">ابحث عن الصنف، حدّد الكمية، وأرسل. بلا مكالمات.</p></div>
+      </article>
+      <article class="cell spot-card b-d rv">
+        <div class="viz" aria-hidden="true">
+          <div class="cam"><span class="bulb"></span><span class="lens"></span><span class="flash"></span></div>
+          <span class="shot"></span>
+        </div>
+        <div class="txt"><h3 data-i18n="bD">مرتجعات بالصورة</h3><p data-i18n="bDd">صوّر الصنف، واكتب السبب، وأرسل طلب الإرجاع للمستودع.</p></div>
+      </article>
+      <article class="cell spot-card b-e rv" style="--d:.08s">
+        <div class="viz" aria-hidden="true">
+          <div class="xl-demo">
+            <div class="xl-sheet"><div><span>الصنف</span><span>الشركة</span><span>الكمية</span></div><div><span>باراسيتامول</span><span>أ</span><span>٢٤٠</span></div><div><span>أموكسيسيلين</span><span>ب</span><span>١٢٠</span></div><div><span>أوميبرازول</span><span>ج</span><span>٨٠</span></div></div>
+            <div class="xl-cards"><div><i></i>باراسيتامول</div><div><i></i>أموكسيسيلين</div><div><i></i>أوميبرازول</div></div>
+          </div>
+        </div>
+        <div class="txt"><h3 data-i18n="bE">كتالوج من ملف إكسل</h3><p data-i18n="bEd">المستودع يرفع ملفه كما هو، ونحن نرتّبه.</p></div>
+      </article>
+      <article class="cell spot-card b-f rv" style="--d:.16s">
+        <div class="viz" aria-hidden="true">
+          <div class="vaults"><div><svg class="ico"><use href="#i-lock"/></svg></div><div class="me"><svg class="ico"><use href="#i-warehouse"/></svg><small data-i18n="vMe">مستودعك</small></div><div><svg class="ico"><use href="#i-lock"/></svg></div></div>
+        </div>
+        <div class="txt"><h3 data-i18n="bF">بياناتك معزولة</h3><p data-i18n="bFd">لا يرى أي مستودع أسعار غيره أو أصنافه أو طلباته.</p></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AUDIENCES ============ -->
+<section class="sec sec-soft" data-tone="light">
+  <div class="wrap">
+    <div class="sec-head center rv">
+      <h2 data-i18n="audH">منصة واحدة، وطرفان يربحان.</h2>
+      <p data-i18n="audP">الصيدلية توفّر على كل طلب، والمستودع يستقبل طلبات أكثر وأوضح.</p>
+    </div>
+    <div class="split">
+      <a class="aud-card rv" href="pharmacies.html" data-tilt>
+        <div class="pic"><img src="assets/img/pharmacy.webp" alt="" width="1196" height="1004" loading="lazy"></div>
+        <div class="txt">
+          <span class="pill"><svg class="ico" aria-hidden="true"><use href="#i-pill"/></svg><span data-i18n="navPh">للصيادلة</span></span>
+          <h3 data-i18n="audPhH">اطلب أسرع، ووفّر على كل طلبية.</h3>
+          <p data-i18n="audPhP">حسم حقيقي، وتتبّع للتوصيل، ومرتجعات بالصورة. كل ذلك من هاتفك.</p>
+          <span class="link"><span data-i18n="more">اعرف المزيد</span><svg class="ico" aria-hidden="true"><use href="#i-arrow-left"/></svg></span>
+        </div>
+        <span class="glare" aria-hidden="true"></span>
+      </a>
+      <a class="aud-card rv" href="warehouses.html" data-tilt style="--d:.1s">
+        <div class="pic"><img src="assets/img/warehouse.webp" alt="" width="1200" height="983" loading="lazy"></div>
+        <div class="txt">
+          <span class="pill"><svg class="ico" aria-hidden="true"><use href="#i-warehouse"/></svg><span data-i18n="navWh">للمستودعات</span></span>
+          <h3 data-i18n="audWhH">طلبات أكثر، وبياناتك تبقى لك.</h3>
+          <p data-i18n="audWhP">لوحة تحكم واضحة، وكتالوج من ملف إكسل، ولا برامج تُثبَّت على أجهزتك.</p>
+          <span class="link"><span data-i18n="more">اعرف المزيد</span><svg class="ico" aria-hidden="true"><use href="#i-arrow-left"/></svg></span>
+        </div>
+        <span class="glare" aria-hidden="true"></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRUST (navy) ============ -->
+<section class="sec navy" data-tone="dark" id="trust">
+  <div class="fx-bg" aria-hidden="true"><div class="fx-dots"></div><div class="aurora" style="opacity:.55"><i></i><i></i><i></i></div></div>
+  <div class="wrap">
+    <div class="row">
+      <div class="copy rv">
+        <span class="kicker"><svg class="ico" aria-hidden="true"><use href="#i-shield-check"/></svg><span data-i18n="navTrust">الثقة والخصوصية</span></span>
+        <h2 class="big-quote" data-i18n="trH">أسعارك وموادك لك وحدك.</h2>
+        <p data-i18n="trP">نعرف أن أكبر ما يقلق المستودع هو وصول أسعاره وأصنافه إلى المنافسين، أو تثبيت برامج مجهولة على أجهزته. لذلك بنينا فينيق على ثلاثة التزامات واضحة.</p>
+        <a class="link" href="trust.html"><span data-i18n="trMore">كيف نحمي بياناتك</span><svg class="ico" aria-hidden="true"><use href="#i-arrow-left"/></svg></a>
+      </div>
+      <div class="media plain rv"><img class="float" src="assets/img/isolation.webp" alt="ثلاث خزائن زجاجية منفصلة، لكل مستودع خزانته" data-i18n-alt="isoAlt" width="1200" height="833" loading="lazy"></div>
+    </div>
+    <div class="vault" style="margin-top:clamp(40px,6vw,72px)">
+      <article class="rv"><span class="ic"><svg class="ico" aria-hidden="true"><use href="#i-eye-off"/></svg></span><h3 data-i18n="t1">بياناتك معزولة</h3><p data-i18n="t1d">بيانات كل مستودع منفصلة تماماً. لا يرى أي مستودع آخر أسعارك أو أصنافك أو طلباتك.</p></article>
+      <article class="rv beam-border" style="--d:.1s"><span class="ic"><svg class="ico" aria-hidden="true"><use href="#i-monitor-x"/></svg></span><h3 data-i18n="t2">لا برامج على أجهزتك</h3><p data-i18n="t2d">لا نثبّت أي برنامج على أجهزة المستودع. تعمل من المتصفح أو الهاتف فقط.</p></article>
+      <article class="rv" style="--d:.2s"><span class="ic"><svg class="ico" aria-hidden="true"><use href="#i-sliders-horizontal"/></svg></span><h3 data-i18n="t3">القرار بيدك</h3><p data-i18n="t3d">أنت تحدد الأسعار والأصناف المعروضة، وتعدّلها أو توقفها متى شئت.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NETWORK (dotted map) ============ -->
+<section class="sec" data-tone="light" id="network">
+  <div class="wrap net">
+    <div class="sec-head rv" style="margin-bottom:0">
+      <h2 data-i18n="netH">بدأنا من اللاذقية، ونكبر مدينة بعد مدينة.</h2>
+      <p data-i18n="netP">نربط صيدليات محافظة اللاذقية بمستودعاتها اليوم، ونتوسّع إلى باقي المحافظات السورية على مراحل.</p>
+      <div class="phase">
+        <div class="now"><svg class="ico" aria-hidden="true"><use href="#i-map-pin"/></svg><b data-i18n="ph1">محافظة اللاذقية</b><span class="tag" data-i18n="now">متاح الآن</span></div>
+        <div><svg class="ico" aria-hidden="true"><use href="#i-map"/></svg><b data-i18n="ph2">باقي المحافظات</b><span class="tag" data-i18n="soon">قريباً</span></div>
+      </div>
+      <ul class="keys">
+        <li><i class="dot"></i><span data-i18n="k9">صيدلية على فينيق</span></li>
+        <li><i></i><span data-i18n="k10">شبكة فعّالة</span></li>
+        <li><i class="d"></i><span data-i18n="k11">التوسّع القادم</span></li>
+      </ul>
+    </div>
+    <div class="map rv"><svg id="syria" viewBox="16 12 650 510" role="img" aria-label="خريطة سوريا تظهر شبكة فينيق تبدأ من اللاذقية" data-i18n-aria="mapAria"></svg></div>
+  </div>
+</section>
+
+<!-- ============ VISION (orbit) ============ -->
+<section class="sec navy" data-tone="dark" id="vision">
+  <div class="fx-bg" aria-hidden="true"><div class="fx-grid"></div></div>
+  <div class="wrap orbit-wrap">
+    <div class="orbit rv" aria-hidden="true">
+      <span class="o-ring o1"></span><span class="o-ring o2"></span>
+      <span class="core"><img src="assets/mark-silver-md.webp" alt="" width="195" height="240"></span>
+      <span class="orbiter" style="--r:25cqw;--dur:36s;--off:0"><span><span><span class="oi"><svg class="ico"><use href="#i-pill"/></svg></span><span data-i18n="oPh">الصيدليات</span></span></span></span>
+      <span class="orbiter" style="--r:25cqw;--dur:36s;--off:.5"><span><span><span class="oi"><svg class="ico"><use href="#i-warehouse"/></svg></span><span data-i18n="oWh">المستودعات</span></span></span></span>
+      <span class="orbiter rev soon" style="--r:40cqw;--dur:60s;--off:.08"><span><span><span class="oi"><svg class="ico"><use href="#i-brain-circuit"/></svg></span><span>فينيق AI</span></span></span></span>
+      <span class="orbiter rev soon" style="--r:40cqw;--dur:60s;--off:.41"><span><span><span class="oi"><svg class="ico"><use href="#i-house"/></svg></span><span>فينيق Home</span></span></span></span>
+      <span class="orbiter rev soon" style="--r:40cqw;--dur:60s;--off:.74"><span><span><span class="oi"><svg class="ico"><use href="#i-heart-pulse"/></svg></span><span data-i18n="oPt">المرضى</span></span></span></span>
+    </div>
+    <div>
+      <div class="sec-head rv" style="margin-bottom:28px">
+        <h2 data-i18n="viH">الرؤية: المنصة الرقمية الأولى لقطاع الدواء.</h2>
+        <p data-i18n="viP">اليوم نربط الصيدليات بالمستودعات. وغداً منظومة تربط كل أطراف القطاع، وصولاً إلى المريض. ما يلي خطط قادمة، وليست خدمات متاحة الآن.</p>
+      </div>
+      <div class="eco-list">
+        <div class="eco-item live rv"><span class="ic"><svg class="ico" aria-hidden="true"><use href="#i-smartphone"/></svg></span><div><h3>فينيق</h3><p data-i18n="e0">تطبيق الطلب بين الصيدليات والمستودعات.</p></div><span class="badge" data-i18n="now">متاح الآن</span></div>
+        <div class="eco-item rv" style="--d:.08s"><span class="ic"><svg class="ico" aria-hidden="true"><use href="#i-brain-circuit"/></svg></span><div><h3>فينيق AI</h3><p data-i18n="e1">تحليل ذكي للطلب والمخزون، يساعدك تعرف ماذا تطلب ومتى.</p></div><span class="badge" data-i18n="soon">قريباً</span></div>
+        <div class="eco-item rv" style="--d:.16s"><span class="ic"><svg class="ico" aria-hidden="true"><use href="#i-house"/></svg></span><div><h3>فينيق Home</h3><p data-i18n="e2">توصيل الدواء من الصيدلية إلى بيت المريض.</p></div><span class="badge" data-i18n="soon">قريباً</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="sec" data-tone="light" id="faq">
+  <div class="wrap faq-wrap">
+    <div class="sec-head rv" style="margin-bottom:0">
+      <h2 data-i18n="faqH">أسئلة شائعة</h2>
+      <p data-i18n="faqP">لم تجد جوابك؟ راسلنا ونرد عليك.</p>
+      <div class="ctas"><a class="btn btn-dark btn-sm" href="contact.html"><span data-i18n="navContact">تواصل معنا</span></a><a class="link" href="faq.html"><span data-i18n="allFaq">كل الأسئلة</span><svg class="ico" aria-hidden="true"><use href="#i-arrow-left"/></svg></a></div>
+    </div>
+    <div class="faq">
+      <details class="rv"><summary><span data-i18n="q1">كيف يصلني الحسم؟</span><span class="pm" aria-hidden="true"></span></summary><p class="a" data-i18n="a1">يظهر الحسم على طلبك داخل التطبيق قبل الإرسال، ويُحسب تلقائياً. قيمته تختلف حسب الشركة المصنّعة والصنف.</p></details>
+      <details class="rv"><summary><span data-i18n="q2">كيف أدفع ثمن الطلب؟</span><span class="pm" aria-hidden="true"></span></summary><p class="a" data-i18n="a2">الدفع حالياً عند الاستلام، مباشرة للمستودع.</p></details>
+      <details class="rv"><summary><span data-i18n="q3">هل يرى المستودع المنافس أسعاري؟</span><span class="pm" aria-hidden="true"></span></summary><p class="a" data-i18n="a3">لا. بيانات كل مستودع معزولة تماماً، ولا يطّلع عليها أي مستودع آخر.</p></details>
+      <details class="rv"><summary><span data-i18n="q4">هل أحتاج إلى تثبيت برنامج في المستودع؟</span><span class="pm" aria-hidden="true"></span></summary><p class="a" data-i18n="a4">لا. تدير مستودعك من المتصفح أو من الهاتف، دون تثبيت أي برنامج على أجهزتك.</p></details>
+      <details class="rv"><summary><span data-i18n="q5">كيف أضيف أصناف مستودعي؟</span><span class="pm" aria-hidden="true"></span></summary><p class="a" data-i18n="a5">ارفع ملف إكسل بأصنافك وأسعارك، ونساعدك في ترتيبه. ويمكنك التعديل في أي وقت.</p></details>
+      <details class="rv"><summary><span data-i18n="q6">في أي المدن تعمل فينيق؟</span><span class="pm" aria-hidden="true"></span></summary><p class="a" data-i18n="a6">بدأنا من اللاذقية، ونتوسّع تدريجياً إلى باقي المحافظات. تواصل معنا لتعرف موعد وصولنا إلى مدينتك.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLOSING ============ -->
+<section class="final navy" data-tone="dark">
+  <canvas class="embers" aria-hidden="true"></canvas>
+  <div class="fx-bg" aria-hidden="true"><div class="fx-grid" style="mask-image:radial-gradient(ellipse 60% 50% at 50% 60%,#000,transparent 75%);-webkit-mask-image:radial-gradient(ellipse 60% 50% at 50% 60%,#000,transparent 75%)"></div></div>
+  <div class="wrap">
+    <img class="mark rv" src="assets/mark-silver.webp" alt="" width="392" height="483" loading="lazy">
+    <h2 class="rv"><span class="metal" data-i18n="finH">طلبك القادم يمكن أن يكون أوفر.</span></h2>
+    <p class="rv" data-i18n="finP">حمّل فينيق، واطلب من مستودعك بلمسة.</p>
+    <div class="ctas rv" style="justify-content:center">
+      <a class="btn btn-primary" href="contact.html#pharmacy" data-app><svg class="ico" aria-hidden="true"><use href="#i-download"/></svg><span data-i18n="cta1">حمّل التطبيق</span></a>
+      <a class="btn btn-ghost" href="contact.html#warehouse"><span data-i18n="cta2">انضم كمستودع</span><svg class="ico go" aria-hidden="true"><use href="#i-arrow-left"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","name":"FENIQ فينيق","description":"منصة رقمية تربط الصيدليات بمستودعات الأدوية في سوريا.","areaServed":"SY","address":{"@type":"PostalAddress","addressLocality":"Latakia","addressCountry":"SY"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"كيف يصلني الحسم؟","acceptedAnswer":{"@type":"Answer","text":"يظهر الحسم على طلبك داخل التطبيق قبل الإرسال، ويُحسب تلقائياً. قيمته تختلف حسب الشركة المصنّعة والصنف."}},{"@type":"Question","name":"كيف أدفع ثمن الطلب؟","acceptedAnswer":{"@type":"Answer","text":"الدفع حالياً عند الاستلام، مباشرة للمستودع."}},{"@type":"Question","name":"هل يرى المستودع المنافس أسعاري؟","acceptedAnswer":{"@type":"Answer","text":"لا. بيانات كل مستودع معزولة تماماً، ولا يطّلع عليها أي مستودع آخر."}},{"@type":"Question","name":"هل أحتاج إلى تثبيت برنامج في المستودع؟","acceptedAnswer":{"@type":"Answer","text":"لا. تدير مستودعك من المتصفح أو من الهاتف، دون تثبيت أي برنامج على أجهزتك."}}]}]}</script>
+
+<script type="application/json" id="i18n-en">{
+  "docTitle":"FENIQ",
+  "annB":"New","ann":"FENIQ is now live in Latakia",
+  "h1":"Order in one tap. Keep what the middleman used to take.",
+  "lead":"FENIQ connects pharmacies with drug warehouses in Syria. Pick a warehouse, send your order and follow the delivery live, with a real discount on every order.",
+  "fact1":"A real discount on every order","fact2":"Cash on delivery","fact3":"Each warehouse's data is isolated",
+  "shH":"A pharmacy in your hand, a warehouse on your screen.","shP":"An app where the pharmacist orders and tracks, and a dashboard where the warehouse receives and packs. Both stay connected, moment by moment.","shAlt":"The FENIQ warehouse dashboard and pharmacy app",
+  "m1":"One-tap ordering","m2":"A real discount","m3":"Live tracking","m4":"Photo-based returns","m5":"Catalog from Excel","m6":"Isolated data","m7":"Nothing to install","m8":"Cash on delivery",
+  "flH":"From order to door, through FENIQ.","flP":"The pharmacy sends its order, FENIQ routes it to the warehouse it chose, then sends the delivery status back, step by step.",
+  "flA":"Pharmacies","flB":"Warehouses","nPh1":"A pharmacy in Latakia","nPh2":"A pharmacy in Jableh","nPh3":"Your pharmacy","nWh1":"Drug warehouse","nWh2":"Supplies warehouse","nWh3":"Your warehouse",
+  "s1":"Choose a warehouse","s1d":"The warehouses in your city, with what each one has in stock.","s2":"Send the order","s2d":"Add items and quantities, and see your discount before sending.","s3":"Track the delivery","s3d":"A notification at every stage: received, packing, on the way, delivered.",
+  "baH":"You see the difference from the first order.","baP":"Drag the handle to see a day of traditional ordering turn into one clear order.","baOld":"The old way","baNew":"With FENIQ","baAria":"Compare the two ways",
+  "c1":"3 missed calls from the warehouse","c2":"When will the order arrive?","c3":"Item out of stock","c4":"I sent you the list as a voice note","c5":"The rep's commission","nt0":"This week's order","tk1":"Received","tk2":"Packing","tk3":"On the way","tk4":"Delivered",
+  "k1":"Your order to Al-Sahel warehouse","k2":"On the way","k3":"12 items","k4":"All in stock","k5":"Discount on the order","k6":"Applied automatically","k7":"Payment","k8":"On delivery",
+  "baC1":"Calls, waiting, mistakes, and a commission every time.","baC2":"A written order, clear tracking, a real discount.",
+  "bnH":"Everything you need, on one platform.","bnP":"Tools designed around the daily rhythm of pharmacies and warehouses, from finding an item to returning it.",
+  "rc1":"Order to Al-Sahel warehouse","rc2":"Before sending","rc3":"Discount on this order","rc4":"Applied automatically","rc5":"Real discount",
+  "bA":"A real discount on every order","bAd":"The traditional rep's commission becomes a discount shown on your order before you send it. Its value varies by manufacturer and item.",
+  "st1":"Warehouse received your order","st2":"Packing","st3":"On the way to you","bB":"Tracking, moment by moment","bBd":"From the warehouse receiving your order to its arrival at your pharmacy's door.",
+  "sq":"Paracetamol","sr1":"Paracetamol 500 mg","bC":"An order in minutes","bCd":"Search for the item, set the quantity, send. No calls.",
+  "bD":"Photo-based returns","bDd":"Snap the item, write the reason, and send the return request to the warehouse.",
+  "bE":"Catalog from an Excel file","bEd":"The warehouse uploads its file as it is, and we organize it.",
+  "vMe":"Yours","bF":"Your data is isolated","bFd":"No warehouse sees another's prices, items or orders.",
+  "audH":"One platform, and both sides win.","audP":"Pharmacies save on every order, and warehouses get more, clearer orders.",
+  "audPhH":"Order faster, and save on every order.","audPhP":"A real discount, delivery tracking and photo-based returns, all from your phone.",
+  "audWhH":"More orders, and your data stays yours.","audWhP":"A clear dashboard, a catalog from an Excel file, and nothing installed on your machines.",
+  "trH":"Your prices and items are yours alone.","trP":"We know a warehouse's biggest worries are its prices and items reaching competitors, or unknown software on its machines. So we built FENIQ on three clear commitments.","trMore":"How we protect your data","isoAlt":"Three separate glass vaults, one for each warehouse",
+  "t1":"Your data is isolated","t1d":"Each warehouse's data is fully separate. No other warehouse can see your prices, items or orders.","t2":"No software on your machines","t2d":"We install nothing on the warehouse's devices. You work from a browser or phone.","t3":"You stay in control","t3d":"You set the prices and the items on display, and change or pause them any time.",
+  "netH":"We started in Latakia, and we grow city by city.","netP":"Today we connect pharmacies in Latakia governorate with their warehouses, and we expand to the other Syrian governorates in phases.",
+  "ph1":"Latakia governorate","ph2":"Other governorates","k9":"A pharmacy on FENIQ","k10":"Active network","k11":"Next expansion","mapAria":"Map of Syria showing the FENIQ network starting from Latakia",
+  "oPh":"Pharmacies","oWh":"Warehouses","oPt":"Patients",
+  "viH":"The vision: the leading digital platform for the pharma sector.","viP":"Today we connect pharmacies with warehouses. Tomorrow, an ecosystem connecting the whole sector, all the way to the patient. What follows are upcoming plans, not services available now.",
+  "faqH":"Frequently asked questions","faqP":"Didn't find your answer? Message us and we'll reply.","allFaq":"All questions",
+  "q1":"How do I get the discount?","a1":"The discount shows on your order in the app before you send it, and it is applied automatically. Its value varies by manufacturer and item.",
+  "q2":"How do I pay for an order?","a2":"Payment is currently cash on delivery, directly to the warehouse.",
+  "q3":"Can a competing warehouse see my prices?","a3":"No. Each warehouse's data is fully isolated, and no other warehouse can access it.",
+  "q4":"Do I need to install software at the warehouse?","a4":"No. You manage your warehouse from a browser or phone, without installing anything on your devices.",
+  "q5":"How do I add my warehouse's items?","a5":"Upload an Excel file with your items and prices, and we help you organize it. You can edit it any time.",
+  "q6":"Which cities does FENIQ serve?","a6":"We started in Latakia and are expanding to other governorates gradually. Contact us to find out when we reach your city."
+}</script>

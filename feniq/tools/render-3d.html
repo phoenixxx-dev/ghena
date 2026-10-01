@@ -1,0 +1,184 @@
+<!doctype html>
+<!-- Renders the site's 3D illustrations. Serve this folder with three@0.160.0 in ./node_modules and mark-*.png beside it, open render-3d.html?s=warehouse|pharmacy|delivery|isolation, and save the transparent canvas. -->
+<html><head><meta charset="utf-8">
+<style>html,body{margin:0;background:transparent}canvas{display:block}</style>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+</head><body>
+<script type="module">
+import * as THREE from "three";
+import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
+import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
+
+const NAVY = 0x0B1F3A, NAVY2 = 0x16305A, SILVER = 0xE8E9EC, WHITE = 0xFFFFFF, ORANGE = 0xF26A1B, GOLD = 0xFFB547, STEEL = 0xC9D1DE;
+const q = new URLSearchParams(location.search);
+const scene_ = q.get("s") || "warehouse";
+const W = +(q.get("w") || 1600), H = +(q.get("h") || 1200);
+
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
+renderer.setSize(W, H); renderer.setPixelRatio(1);
+renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05;
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+document.body.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+const pmrem = new THREE.PMREMGenerator(renderer);
+scene.environment = pmrem.fromScene(new RoomEnvironment(), .04).texture;
+
+const hemi = new THREE.HemisphereLight(0xffffff, 0xb9c6da, .9); scene.add(hemi);
+const sun = new THREE.DirectionalLight(0xffffff, 2.2);
+sun.position.set(-6, 12, 8); sun.castShadow = true;
+sun.shadow.mapSize.set(4096, 4096); sun.shadow.radius = 6; sun.shadow.bias = -.0004;
+Object.assign(sun.shadow.camera, { left: -12, right: 12, top: 12, bottom: -12, near: 1, far: 40 });
+scene.add(sun);
+const rim = new THREE.DirectionalLight(0xffd2b0, .6); rim.position.set(8, 4, -6); scene.add(rim);
+
+const floor = new THREE.Mesh(new THREE.PlaneGeometry(60, 60), new THREE.ShadowMaterial({ opacity: .16 }));
+floor.rotation.x = -Math.PI / 2; floor.receiveShadow = true; scene.add(floor);
+
+const mat = (c, o = {}) => new THREE.MeshStandardMaterial({ color: c, roughness: .55, metalness: .05, ...o });
+const M = { navy: mat(NAVY, { roughness: .45 }), navy2: mat(NAVY2), white: mat(WHITE, { roughness: .6 }), silver: mat(SILVER, { roughness: .35, metalness: .25 }),
+  orange: mat(ORANGE, { roughness: .45 }), gold: mat(GOLD, { roughness: .4 }), steel: mat(STEEL, { roughness: .3, metalness: .5 }), glass: new THREE.MeshStandardMaterial({ color: 0xDDE6F2, roughness: .1, metalness: .1, transparent: true, opacity: .16, depthWrite: false }) };
+
+function box(w, h, d, m, r = .04, x = 0, y = 0, z = 0, g = scene) {
+  const mesh = new THREE.Mesh(new RoundedBoxGeometry(w, h, d, 3, Math.min(r, w / 2 - .001, h / 2 - .001, d / 2 - .001)), m);
+  mesh.position.set(x, y + h / 2, z); mesh.castShadow = mesh.receiveShadow = true; g.add(mesh); return mesh;
+}
+function cyl(r, h, m, x = 0, y = 0, z = 0, g = scene, seg = 32) {
+  const mesh = new THREE.Mesh(new THREE.CylinderGeometry(r, r, h, seg), m); mesh.position.set(x, y + h / 2, z); mesh.castShadow = mesh.receiveShadow = true; g.add(mesh); return mesh;
+}
+// a medicine carton: white body with an orange or navy band on the front and top
+function carton(w, h, d, x, y, z, accent, g = scene, rot = 0) {
+  const grp = new THREE.Group(); grp.position.set(x, y, z); grp.rotation.y = rot; g.add(grp);
+  box(w, h, d, M.white, .03, 0, 0, 0, grp);
+  box(w * 1.002, h * .22, d * 1.002, accent, .02, 0, h * .55, 0, grp);
+  return grp;
+}
+let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+
+function rack(x, z, levels = 4, len = 4.2, depth = 1.1, g = scene, rotY = 0) {
+  const grp = new THREE.Group(); grp.position.set(x, 0, z); grp.rotation.y = rotY; g.add(grp);
+  const hStep = 1.05;
+  for (const px of [-len / 2, len / 2]) for (const pz of [-depth / 2, depth / 2]) box(.09, levels * hStep + .1, .09, M.navy, .02, px, 0, pz, grp);
+  for (let l = 0; l < levels; l++) {
+    const y = .12 + l * hStep;
+    box(len + .12, .07, depth + .08, M.silver, .02, 0, y, 0, grp);
+    // cartons on the shelf
+    let cx = -len / 2 + .15;
+    while (cx < len / 2 - .45) {
+      const w = .38 + rnd() * .35, h = .32 + rnd() * .38, d = .55 + rnd() * .3;
+      if (cx + w > len / 2 - .1) break;
+      const stack = rnd() > .72 && h < .5 ? 2 : 1;
+      for (let s = 0; s < stack; s++) carton(w, h, d, cx + w / 2, y + .07 + s * h, (rnd() - .5) * .12, rnd() > .35 ? M.orange : M.navy, grp);
+      cx += w + .04 + rnd() * .08;
+    }
+  }
+  return grp;
+}
+
+const cam = new THREE.OrthographicCamera(-1, 1, 1, -1, .1, 100);
+function iso(zoom, target = [0, 1, 0], dir = [10, 8.2, 10]) {
+  const a = W / H; cam.left = -zoom * a; cam.right = zoom * a; cam.top = zoom; cam.bottom = -zoom; cam.updateProjectionMatrix();
+  cam.position.set(target[0] + dir[0], target[1] + dir[1], target[2] + dir[2]); cam.lookAt(...target);
+}
+
+const builders = {
+  warehouse() {
+    // two racks, a pallet with a wrapped stack, and a hand truck
+    rack(-1.2, -1.6, 4, 4.6, 1.15);
+    rack(-1.2, 1.2, 3, 4.6, 1.15);
+    // pallet
+    const px = 3.0, pz = .2;
+    for (let i = -1; i <= 1; i++) box(1.7, .1, .16, M.orange, .02, px, .0, pz + i * .6);
+    box(1.8, .08, 1.5, M.orange, .02, px, .1, pz);
+    for (let yy = 0; yy < 3; yy++) for (let ix = 0; ix < 2; ix++) for (let iz = 0; iz < 2; iz++)
+      carton(.8, .45, .66, px - .42 + ix * .84, .18 + yy * .46, pz - .35 + iz * .7, (yy + ix + iz) % 3 ? M.navy : M.orange);
+    // floor marking line
+        // loose cartons
+    carton(.7, .45, .6, 2.6, 0, 2.3, M.orange, scene, .4);
+    carton(.55, .38, .5, 3.4, 0, 2.5, M.navy, scene, -.3);
+    carton(.5, .32, .45, 2.95, .45, 2.35, M.navy, scene, .2);
+    iso(5.0, [.9, 1.5, .4]);
+  },
+  pharmacy() {
+    // back wall shelves with bottles and small cartons, counter in front with tablet
+    box(6.2, 3.9, .25, M.white, .05, 0, 0, -1.6);
+    box(6.2, .35, .3, M.navy, .04, 0, 3.9, -1.58);
+    for (let l = 0; l < 3; l++) {
+      const y = .9 + l * .95;
+      box(5.6, .06, .6, M.silver, .02, 0, y, -1.2);
+      let x = -2.6;
+      while (x < 2.55) {
+        if (rnd() > .45) { const r = .12 + rnd() * .06, h = .35 + rnd() * .25; cyl(r, h, M.white, x + r, y + .06, -1.2); cyl(r * .8, .08, rnd() > .5 ? M.orange : M.navy, x + r, y + .06 + h, -1.2); x += r * 2 + .08; }
+        else { const w = .3 + rnd() * .2, h = .28 + rnd() * .22; carton(w, h, .4, x + w / 2, y + .06, -1.2, rnd() > .4 ? M.orange : M.navy); x += w + .06; }
+      }
+    }
+    // counter
+    box(4.6, 1.05, 1.1, M.navy, .06, .2, 0, .9);
+    box(4.8, .09, 1.25, M.white, .03, .2, 1.05, .9);
+    box(4.62, .12, .02, M.orange, .01, .2, .8, 1.46);
+    // tablet on counter showing an order
+    const tab = new THREE.Group(); tab.position.set(-.9, 1.16, .85); tab.rotation.set(-.45, .35, 0); scene.add(tab);
+    box(1.1, .06, .78, M.navy, .05, 0, 0, 0, tab);
+    box(.98, .01, .66, M.white, .01, 0, .06, 0, tab);
+    for (let i = 0; i < 3; i++) box(.8, .012, .1, i === 0 ? M.orange : M.silver, .01, 0, .07, -.2 + i * .17, tab);
+    // bag and cartons on counter
+    carton(.5, .38, .42, 1.2, 1.14, .8, M.orange);
+    carton(.4, .3, .36, 1.75, 1.14, .95, M.navy, scene, .3);
+    // sign plate with the logo
+    const logo = new THREE.TextureLoader().load("./mark-navy.png", t => { t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; render(); });
+    const sign = new THREE.Mesh(new THREE.PlaneGeometry(.44, .54), new THREE.MeshBasicMaterial({ map: logo, transparent: true }));
+    sign.position.set(0, 3.6, -1.46); scene.add(sign);
+    iso(4.3, [.1, 1.7, .1]);
+  },
+  delivery() {
+    // van body
+    const van = new THREE.Group(); van.position.set(-.6, 0, 0); van.rotation.y = -.1; scene.add(van);
+    box(3.1, 1.75, 1.7, M.white, .18, -.45, .38, 0, van);           // cargo box
+    box(1.25, 1.3, 1.64, M.white, .22, 1.55, .38, 0, van);          // cabin
+    box(1.1, .6, 1.66, M.navy, .12, 1.6, 1.0, 0, van);              // windows band
+    box(4.35, .16, 1.72, M.orange, .06, .15, .72, 0, van);          // stripe
+    box(4.4, .22, 1.6, M.navy, .08, .15, .28, 0, van);              // skirt
+    for (const wx of [-1.25, 1.55]) for (const wz of [-.8, .8]) { const w = cyl(.33, .28, M.navy, wx, .33 - .14, wz, van); w.rotation.x = Math.PI / 2; w.position.y = .33; const hub = cyl(.14, .3, M.silver, wx, 0, wz, van); hub.rotation.x = Math.PI / 2; hub.position.y = .33; }
+    // logo on the van side
+    const logo = new THREE.TextureLoader().load("./mark-navy.png", t => { t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; render(); });
+    const decal = new THREE.Mesh(new THREE.PlaneGeometry(.95, 1.16), new THREE.MeshBasicMaterial({ map: logo, transparent: true }));
+    decal.position.set(-.45, 1.45, .861); van.add(decal);
+    // parcels
+    carton(.7, .5, .6, 1.8, 0, 2.2, M.orange, scene, .5);
+    carton(.55, .4, .5, 2.5, 0, 1.7, M.navy, scene, -.2);
+    carton(.5, .36, .44, 2.0, .5, 2.15, M.navy, scene, .3);
+    // route dots toward the pharmacy block
+    const pts = new THREE.CatmullRomCurve3([new THREE.Vector3(-3.8, .02, 2.6), new THREE.Vector3(-1.6, .02, 2.9), new THREE.Vector3(.4, .02, 3.3), new THREE.Vector3(2.9, .02, 3.6), new THREE.Vector3(4.6, .02, 2.4)]);
+    for (let i = 0; i <= 26; i++) { const p = pts.getPoint(i / 26); cyl(.07, .02, i > 17 ? M.gold : M.orange, p.x, 0, p.z, scene, 16); }
+    const pin = new THREE.Group(); pin.position.set(4.6, 0, 2.4); scene.add(pin);
+    cyl(.28, .06, M.orange, 0, 0, 0, pin); const s = new THREE.Mesh(new THREE.SphereGeometry(.26, 32, 16), M.orange); s.position.y = .9; s.castShadow = true; pin.add(s);
+    const cone = new THREE.Mesh(new THREE.ConeGeometry(.26, .6, 32), M.orange); cone.rotation.x = Math.PI; cone.position.y = .55; cone.castShadow = true; pin.add(cone);
+    const dot = new THREE.Mesh(new THREE.SphereGeometry(.1, 24, 12), M.white); dot.position.set(0, .92, .2); pin.add(dot);
+    iso(4.4, [.3, .9, 1.3]);
+  },
+  isolation() {
+    // three sealed vaults on a navy base; the middle one is "yours"
+    box(8.4, .3, 3.2, M.navy, .12, 0, 0, 0);
+    [-2.7, 0, 2.7].forEach((x, i) => {
+      const me = i === 1;
+      box(2.2, .06, 2.2, me ? M.orange : M.navy2, .03, x, .3, 0);
+      for (let a = 0; a < 3; a++) for (let b = 0; b < 2; b++) carton(.55, .4, .5, x - .35 + b * .7, .36 + a * .41, (a % 2 ? .2 : -.2), me ? (a + b) % 2 ? M.orange : M.navy : M.navy);
+      const glass = box(2.1, 1.85, 2.1, M.glass, .08, x, .36, 0); glass.castShadow = false;
+      const edges = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(2.1, 1.85, 2.1)), new THREE.LineBasicMaterial({ color: me ? ORANGE : STEEL }));
+      edges.position.set(x, .36 + .925, 0); scene.add(edges);
+      if (!me) { // lock plate on the others
+        const lk = new THREE.Group(); lk.position.set(x, .95, 1.12); lk.scale.setScalar(1.7); scene.add(lk);
+        box(.44, .38, .08, M.silver, .06, 0, 0, 0, lk);
+        const sh = new THREE.Mesh(new THREE.TorusGeometry(.14, .045, 12, 32, Math.PI), M.silver); sh.position.set(0, .38, 0); sh.castShadow = true; lk.add(sh);
+      }
+    });
+    iso(3.7, [0, 1.0, 0]);
+  }
+};
+function render() { renderer.render(scene, cam); }
+builders[scene_]();
+render();
+setTimeout(() => { render(); document.title = "ready"; }, 900);
+</script>
+</body></html>

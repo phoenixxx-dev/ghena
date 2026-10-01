@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://phoenixxx-dev.github.io/ghena/sitemap.xml
